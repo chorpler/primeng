@@ -115,7 +115,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() panelStyle: any;
 
     @Input() panelStyleClass: string;
@@ -123,103 +123,109 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() inputId: string;
 
     @Input() disabled: boolean;
-    
+
     @Input() filter: boolean = true;
 
     @Input() filterPlaceHolder: string;
-    
+
     @Input() overlayVisible: boolean;
 
     @Input() tabindex: number;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() dataKey: string;
-    
+
     @Input() name: string;
-    
+
     @Input() displaySelectedLabel: boolean = true;
-    
+
     @Input() maxSelectedLabels: number = 3;
-    
+
     @Input() selectionLimit: number;
-    
+
     @Input() selectedItemsLabel: string = '{0} items selected';
-    
+
     @Input() showToggleAll: boolean = true;
-    
+
     @Input() resetFilterOnHide: boolean = false;
-    
+
     @Input() dropdownIcon: string = 'pi pi-caret-down';
-    
+
     @Input() optionLabel: string;
 
     @Input() showHeader: boolean = true;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
-    
+
+    @Input() filterBy: string = 'label';
+
+    @Input() showClear: boolean;
+
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     @ViewChild('filterInput') filterInputChild: ElementRef;
 
     @ContentChild(Footer) footerFacet;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
-    
+
     public value: any[];
-    
+
     public onModelChange: Function = () => {};
-    
+
     public onModelTouched: Function = () => {};
 
     overlay: HTMLDivElement;
-    
+
     public valuesAsString: string;
-    
+
     public focus: boolean;
 
     filled: boolean;
-    
+
     public documentClickListener: any;
-    
+
     public selfClick: boolean;
-    
+
     public panelClick: boolean;
-    
+
     public filterValue: string;
-    
+
     public visibleOptions: SelectItem[];
-    
+
     public filtered: boolean;
-    
+
     public itemTemplate: TemplateRef<any>;
-    
+
     public selectedItemsTemplate: TemplateRef<any>;
-    
+
     public focusedItemCheckbox: HTMLInputElement | null;
-    
+
     _options: any[];
-    
+
+    optionsToDisplay: any[];
+
     maxSelectionLimitReached: boolean;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
-    
+
     @Input() get options(): any[] {
         return this._options;
     }
@@ -229,35 +235,36 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this._options = opts;
         this.updateLabel();
     }
-    
+
     ngOnInit() {
+        this.optionsToDisplay = this.options;
         this.updateLabel();
     }
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 case 'selectedItems':
                     this.selectedItemsTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
             }
         });
     }
-    
+
     ngAfterViewInit() {
         if (this.overlayVisible) {
             this.show();
         }
     }
-    
+
     ngAfterViewChecked() {
         if (this.filtered) {
             this.alignOverlay();
@@ -265,7 +272,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.filtered = false;
         }
     }
-    
+
     writeValue(value: any) : void {
         this.value = value;
         this.updateLabel();
@@ -276,7 +283,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     updateFilledState() {
         this.filled = (this.valuesAsString != null && this.valuesAsString.length > 0);
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -284,16 +291,16 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
-    
+
     onItemClick(event, option) {
         if (option.disabled) {
             return;
         }
-        
+
         const value = option.value;
         let selectionIndex = this.findSelectionIndex(value);
         if (selectionIndex != -1) {
@@ -318,14 +325,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.updateLabel();
         this.updateFilledState();
     }
-    
+
     isSelected(value) {
         return this.findSelectionIndex(value) != -1;
     }
-    
+
     findSelectionIndex(val: any): number {
         let index = -1;
-        
+
         if (this.value) {
             for (let i = 0; i < this.value.length; i++) {
                 if (this.objectUtils.equals(this.value[i], val, this.dataKey)) {
@@ -334,10 +341,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
             }
         }
-        
+
         return index;
     }
-    
+
     toggleAll(event, checkbox) {
         if (checkbox.checked) {
             this.value = [];
@@ -355,13 +362,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
             }
         }
-        
+
         checkbox.checked = !checkbox.checked;
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
         this.updateLabel();
     }
-    
+
     isAllChecked() {
         if (this.filterValue && this.filterValue.trim().length) {
             return this.value && this.visibleOptions&&this.visibleOptions.length && (this.value.length == this.visibleOptions.length);
@@ -388,13 +395,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             return 0;
         }
     }
-    
+
     show() {
         if(!this.overlayVisible){
             this.overlayVisible = true;
         }
         this.bindDocumentClickListener();
-        
+
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -441,7 +448,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
         }
     }
-    
+
     hide() {
         this.overlayVisible = false;
         this.unbindDocumentClickListener();
@@ -451,18 +458,18 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
         this.onPanelHide.emit();
     }
-    
+
     close(event) {
         this.hide();
         event.preventDefault();
         event.stopPropagation();
     }
-    
+
     onMouseclick(event,input) {
         if (this.disabled) {
             return;
         }
-        
+
         if (!this.panelClick) {
             if (this.overlayVisible) {
                 this.hide();
@@ -472,21 +479,21 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.show();
             }
         }
-        
+
         this.selfClick = true;
     }
-    
+
     onInputFocus(event) {
         this.focus = true;
         this.onFocus.emit({originalEvent: event});
     }
-    
+
     onInputBlur(event) {
         this.focus = false;
         this.onBlur.emit({originalEvent: event});
         this.onModelTouched();
     }
-    
+
     onInputKeydown(event) {
         switch(event.which) {
             //down
@@ -494,10 +501,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 if (!this.overlayVisible && event.altKey) {
                     this.show();
                 }
-                
+
                 event.preventDefault();
             break;
-            
+
             //escape and tab
             case 27:
             case 9:
@@ -505,7 +512,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             break;
         }
     }
-    
+
     updateLabel() {
         if (this.value && this.options && this.value.length && this.displaySelectedLabel) {
             let label = '';
@@ -518,7 +525,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                     label = label + itemLabel;
                 }
             }
-            
+
             if (this.value.length <= this.maxSelectedLabels) {
                 this.valuesAsString = label;
             }
@@ -533,7 +540,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.valuesAsString = this.defaultLabel;
         }
     }
-    
+
     findLabelByValue(val: any): string {
         let label = null;
         for (let i = 0; i < this.options.length; i++) {
@@ -545,8 +552,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
         return label;
     }
-    
-    onFilter(event) {
+
+    onFilter2(event) {
         this.filterValue = event.target.value.trim().toLowerCase();
         this.visibleOptions = [];
         for (let i = 0; i < this.options.length; i++) {
@@ -557,7 +564,29 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
         this.filtered = true;
     }
-    
+
+    onFilter(event): void {
+        let inputValue = event.target.value.toLowerCase();
+        if (inputValue && inputValue.length) {
+            this.filterValue = inputValue;
+            this.activateFilter();
+        }
+        else {
+            this.filterValue = null;
+            this.optionsToDisplay = this.options;
+        }
+
+        this.filtered = true;
+    }
+
+    activateFilter() {
+        let searchFields: string[] = this.filterBy.split(',');
+        if (this.options && this.options.length) {
+            this.visibleOptions = this.objectUtils.filter(this.options, searchFields, this.filterValue);
+            this.filtered = true;
+        }
+    }
+
     isItemVisible(option: SelectItem): boolean {
         if (this.filterValue && this.filterValue.trim().length) {
             for (let i = 0; i < this.visibleOptions.length; i++) {
@@ -570,7 +599,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             return true;
         }
     }
-    
+
     getVisibleOptions(): SelectItem[] {
         if (this.visibleOptions && this.visibleOptions.length) {
             return this.visibleOptions;
@@ -579,21 +608,21 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             return this.options;
         }
     }
-    
+
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if (!this.selfClick && !this.panelClick && this.overlayVisible) {
                     this.hide();
                 }
-                
+
                 this.selfClick = false;
                 this.panelClick = false;
                 this.cd.markForCheck();
             });
         }
     }
-    
+
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
             this.documentClickListener();
