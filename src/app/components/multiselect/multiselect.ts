@@ -100,6 +100,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
     @Input() scrollHeight: string = '200px';
+    @Input() labelSeparator: string = ', ';
 
     _defaultLabel: string = 'Choose';
 
@@ -520,7 +521,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 let itemLabel = this.findLabelByValue(this.value[i]);
                 if (itemLabel) {
                     if (label.length > 0) {
-                        label = label + ', ';
+                        label = label + this.labelSeparator;
                     }
                     label = label + itemLabel;
                 }
