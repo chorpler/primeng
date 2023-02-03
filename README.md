@@ -6,6 +6,22 @@
 
 # PrimeNG
 
+> 
+> ## <u>![IMPORTANT NOTE](./red-alert-icon.16.svg) **NOTE** ![IMPORTANT NOTE](./red-alert-icon.16.svg)</u>
+> 
+> <span style="color: red">**You probably don't want to use this fork. If you do … beware.**</span>
+> 
+> This is the **OnSite** fork of PrimeNG 6.1.3. I forked it for internal enterprise applications that can't update to PrimeNG 7.x or beyond. So far, it's mostly just adding small features to `MultiSelect`.
+>
+> Almost certainly not useful to anybody but me, as I'm willing to tolerate not updating past PrimeNG 6.x because I don't want the true live reload when changing SCSS files to stop, and updating Angular and PrimeNG will break it.
+>
+> Testing is haphazard and rushed.
+>
+>
+> The original **README.md** begins below.
+
+---
+
 UI Components for Angular
 
 See [PrimeNG homepage](http://www.primefaces.org/primeng) for live showcase and documentation.
