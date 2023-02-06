@@ -57,10 +57,10 @@ gulp.task('build-exports', function() {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('build-components', function() {
-    return gulp.src(['components/**/*.js','components/**/*.d.ts', '!components/**/*.spec.d.ts', 'components/**/*.spec.js'])
-        .pipe(flatten()).pipe(gulp.dest('./exports/'));
-});
+// gulp.task('build-components', function() {
+//     return gulp.src(['components/**/*.js','components/**/*.d.ts', '!components/**/*.spec.d.ts', 'components/**/*.spec.js'])
+//         .pipe(flatten()).pipe(gulp.dest('./exports/'));
+// });
 
 //Cleaning previous gulp tasks from project
 gulp.task('clean', function() {
