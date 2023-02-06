@@ -1,1 +1,1 @@
-export * from './components/treetable/treetable';
+export * from '../components/treetable/treetable';

@@ -1,1 +1,1 @@
-export * from './components/dragdrop/dragdrop';
+export * from '../components/dragdrop/dragdrop';

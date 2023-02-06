@@ -1,1 +1,1 @@
-export * from './components/progressspinner/progressspinner';
+export * from '../components/progressspinner/progressspinner';

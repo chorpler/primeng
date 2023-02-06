@@ -1,1 +1,1 @@
-export * from './components/galleria/galleria';
+export * from '../components/galleria/galleria';

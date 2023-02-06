@@ -1,1 +1,1 @@
-export * from './components/defer/defer';
+export * from '../components/defer/defer';

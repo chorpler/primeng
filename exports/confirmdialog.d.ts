@@ -1,1 +1,1 @@
-export * from './components/confirmdialog/confirmdialog';
+export * from '../components/confirmdialog/confirmdialog';

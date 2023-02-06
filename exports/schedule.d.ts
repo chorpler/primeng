@@ -1,1 +1,1 @@
-export * from './components/schedule/schedule';
+export * from '../components/schedule/schedule';

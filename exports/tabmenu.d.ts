@@ -1,1 +1,1 @@
-export * from './components/tabmenu/tabmenu';
+export * from '../components/tabmenu/tabmenu';

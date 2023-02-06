@@ -1,1 +1,1 @@
-export * from './components/fieldset/fieldset';
+export * from '../components/fieldset/fieldset';

@@ -1,1 +1,1 @@
-export * from './components/overlaypanel/overlaypanel';
+export * from '../components/overlaypanel/overlaypanel';

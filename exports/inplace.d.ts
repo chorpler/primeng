@@ -1,1 +1,1 @@
-export * from './components/inplace/inplace';
+export * from '../components/inplace/inplace';

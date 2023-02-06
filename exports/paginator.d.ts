@@ -1,1 +1,1 @@
-export * from './components/paginator/paginator';
+export * from '../components/paginator/paginator';

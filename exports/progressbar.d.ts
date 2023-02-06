@@ -1,1 +1,1 @@
-export * from './components/progressbar/progressbar';
+export * from '../components/progressbar/progressbar';

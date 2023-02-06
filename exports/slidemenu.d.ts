@@ -1,1 +1,1 @@
-export * from './components/slidemenu/slidemenu';
+export * from '../components/slidemenu/slidemenu';
