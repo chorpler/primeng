@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "components",
     "rootDir": "src/app/components",
-    "target": "es2017",
+    "target": "es5",
     "module": "es2015",
     "baseUrl": "src",
     "moduleResolution": "node",

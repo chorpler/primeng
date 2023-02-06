@@ -12,12 +12,13 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "gulp:components": "gulp build-components",
+        "gulp:assets": "gulp build-assets && gulp build-exports",
+        "compile:all": "npm run clean && npm run compile:base && npm run compile:release && npm run compile:aot && npm run compile:app && npm run build && npm run gulp:assets",
         "compile:base": "tsc -p ./tsconfig.json",
         "compile:app": "tsc -p ./src/tsconfig.app.json",
         "compile:app:spec": "tsc -p ./src/tsconfig.spec.json",
         "compile:aot": "tsc -p ./tsconfig-aot.json",
-        "compile:release": "npm run clean && tsc -p ./tsconfig-release.json && npm run gulp:components"
+        "compile:release": "tsc -p ./tsconfig-release.json"
     },
     "repository": {
         "type": "git",
