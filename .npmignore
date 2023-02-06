@@ -31,11 +31,13 @@ node_modules
 .editor-config
 
 # IDE - VSCode
+.history
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/*.code-workspace
 
 # misc
 /.sass-cache
