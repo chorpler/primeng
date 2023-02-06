@@ -1,1 +1,1 @@
-export * from '../components/tristatecheckbox/tristatecheckbox';
+export * from './components/tristatecheckbox/tristatecheckbox';

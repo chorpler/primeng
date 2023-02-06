@@ -1,1 +1,1 @@
-export * from '../components/codehighlighter/codehighlighter';
+export * from './components/codehighlighter/codehighlighter';

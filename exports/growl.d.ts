@@ -1,1 +1,1 @@
-export * from '../components/growl/growl';
+export * from './components/growl/growl';

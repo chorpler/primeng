@@ -1,1 +1,1 @@
-export * from '../components/common/api';
+export * from './components/common/api';

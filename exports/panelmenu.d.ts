@@ -1,1 +1,1 @@
-export * from '../components/panelmenu/panelmenu';
+export * from './components/panelmenu/panelmenu';

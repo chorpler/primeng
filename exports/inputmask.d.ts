@@ -1,1 +1,1 @@
-export * from '../components/inputmask/inputmask';
+export * from './components/inputmask/inputmask';

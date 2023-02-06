@@ -1,1 +1,1 @@
-export * from '../components/captcha/captcha';
+export * from './components/captcha/captcha';

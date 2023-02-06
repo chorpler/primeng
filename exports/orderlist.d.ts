@@ -1,1 +1,1 @@
-export * from '../components/orderlist/orderlist';
+export * from './components/orderlist/orderlist';

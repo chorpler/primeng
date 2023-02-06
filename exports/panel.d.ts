@@ -1,1 +1,1 @@
-export * from '../components/panel/panel';
+export * from './components/panel/panel';

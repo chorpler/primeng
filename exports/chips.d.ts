@@ -1,1 +1,1 @@
-export * from '../components/chips/chips';
+export * from './components/chips/chips';

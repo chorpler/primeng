@@ -1,1 +1,1 @@
-export * from '../components/datagrid/datagrid';
+export * from './components/datagrid/datagrid';

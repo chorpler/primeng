@@ -1,1 +1,1 @@
-export * from '../components/dataview/dataview';
+export * from './components/dataview/dataview';

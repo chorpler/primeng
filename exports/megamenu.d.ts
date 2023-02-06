@@ -1,1 +1,1 @@
-export * from '../components/megamenu/megamenu';
+export * from './components/megamenu/megamenu';

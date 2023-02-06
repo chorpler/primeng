@@ -1,1 +1,1 @@
-export * from '../components/keyfilter/keyfilter';
+export * from './components/keyfilter/keyfilter';

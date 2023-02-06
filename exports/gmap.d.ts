@@ -1,1 +1,1 @@
-export * from '../components/gmap/gmap';
+export * from './components/gmap/gmap';

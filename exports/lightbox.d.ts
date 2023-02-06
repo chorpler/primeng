@@ -1,1 +1,1 @@
-export * from '../components/lightbox/lightbox';
+export * from './components/lightbox/lightbox';

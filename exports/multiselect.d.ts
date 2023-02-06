@@ -1,1 +1,1 @@
-export * from '../components/multiselect/multiselect';
+export * from './components/multiselect/multiselect';

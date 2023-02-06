@@ -1,1 +1,1 @@
-export * from '../components/splitbutton/splitbutton';
+export * from './components/splitbutton/splitbutton';

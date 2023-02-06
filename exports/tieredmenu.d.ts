@@ -1,1 +1,1 @@
-export * from '../components/tieredmenu/tieredmenu';
+export * from './components/tieredmenu/tieredmenu';

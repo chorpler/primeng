@@ -1,1 +1,1 @@
-export * from '../components/password/password';
+export * from './components/password/password';

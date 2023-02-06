@@ -1,1 +1,1 @@
-export * from '../components/scrollpanel/scrollpanel';
+export * from './components/scrollpanel/scrollpanel';

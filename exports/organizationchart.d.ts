@@ -1,1 +1,1 @@
-export * from '../components/organizationchart/organizationchart';
+export * from './components/organizationchart/organizationchart';

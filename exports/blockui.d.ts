@@ -1,1 +1,1 @@
-export * from '../components/blockui/blockui';
+export * from './components/blockui/blockui';

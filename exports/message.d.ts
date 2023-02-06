@@ -1,1 +1,1 @@
-export * from '../components/message/message';
+export * from './components/message/message';

@@ -1,1 +1,1 @@
-export * from '../components/datascroller/datascroller';
+export * from './components/datascroller/datascroller';

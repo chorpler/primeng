@@ -1,1 +1,1 @@
-export * from '../components/tabview/tabview';
+export * from './components/tabview/tabview';

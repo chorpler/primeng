@@ -1,1 +1,1 @@
-export * from '../components/picklist/picklist';
+export * from './components/picklist/picklist';
