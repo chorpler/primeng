@@ -68,3 +68,6 @@ Thumbs.db
 *.ngfactory.js
 *.ngfactory.js.map
 *.ngsummary.json
+
+# Old packages
+/primeng-*.tgz
