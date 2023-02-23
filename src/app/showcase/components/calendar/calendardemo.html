@@ -83,8 +83,14 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Touch UI</h3>
-            <p-calendar [(ngModel)]="date13" [touchUI]="true"></p-calendar>
+            <p-calendar [(ngModel)]="date15" [touchUI]="true"></p-calendar>
         </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Editable Time</h3>
+            <p-calendar #calTimeEditable [(ngModel)]="date14" [showTime]="true" [timeReadOnly]="false"></p-calendar>
+        </div>
+
     </div>
 
     <h3>Inline</h3>
@@ -286,7 +292,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>

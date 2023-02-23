@@ -192,6 +192,10 @@
     margin-left: 0;
 }
 
+.ui-timepicker .input-time {
+    max-width: 2.5em;
+}
+
 .ui-timepicker > .ui-separator {
     margin-left: 0px;
     min-width: .75em;
