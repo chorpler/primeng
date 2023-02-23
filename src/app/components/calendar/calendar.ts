@@ -116,7 +116,7 @@ export interface LocaleSettings {
         </ng-container>
         <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
           <div class="ui-hour-picker">
-            <a href="#" (click)="incrementHour($event)">
+            <a href="#" (click)="incrementHour($event)" [tabindex]="!timeReadOnly ? -1 : 20">
               <span class="pi pi-chevron-up"></span>
             </a>
             <ng-container *ngIf="timeReadOnly">
@@ -125,9 +125,9 @@ export interface LocaleSettings {
             <ng-container *ngIf="!timeReadOnly">
               <!-- <input #inputhours type="number" [min]="minHours" [max]="maxHours" [step]="stepHour" [attr.id]="inputHoursId" [(ngModel)]="currentHour" (ngModelChange)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" /> -->
               <!-- <input #inputhours type="text" [attr.id]="inputHoursId" [(ngModel)]="inValCurrentHour" (ngModelChange)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" /> -->
-              <input #inputhours type="text" [attr.id]="inputHoursId" [class.input-time]="true" [class.input-hour]="true" [value]="showCurrentHour" (input)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" />
+              <input #inputhours type="text" [attr.id]="inputHoursId" [class.input-time]="true" [class.input-hour]="true" [value]="showCurrentHour" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" />
             </ng-container>
-            <a href="#" (click)="decrementHour($event)">
+            <a href="#" (click)="decrementHour($event)" [tabindex]="!timeReadOnly ? -1 : 21">
               <span class="pi pi-chevron-down"></span>
             </a>
           </div>
@@ -141,7 +141,7 @@ export interface LocaleSettings {
             </a>
           </div>
           <div class="ui-minute-picker">
-            <a href="#" (click)="incrementMinute($event)">
+            <a href="#" (click)="incrementMinute($event)" [tabindex]="!timeReadOnly ? -1 : 22">
               <span class="pi pi-chevron-up"></span>
             </a>
             <ng-container *ngIf="timeReadOnly">
@@ -150,9 +150,9 @@ export interface LocaleSettings {
             <ng-container *ngIf="!timeReadOnly">
               <!-- <input #inputminutes type="number" [min]="0" [max]="59" [step]="stepMinute" [attr.id]="inputMinutesId" [(ngModel)]="currentMinute" (ngModelChange)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" /> -->
               <!-- <input #inputminutes type="text" [attr.id]="inputMinutesId" [(ngModel)]="inValCurrentMinute" (ngModelChange)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" /> -->
-              <input #inputminutes type="text" [attr.id]="inputMinutesId" [class.input-time]="true" [class.input-minute]="true" [value]="showCurrentMinute" (input)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" />
+              <input #inputminutes type="text" [attr.id]="inputMinutesId" [class.input-time]="true" [class.input-minute]="true" [value]="showCurrentMinute" (input)="onInputMinutes($event)" (keyup)="onKeyUp('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" />
             </ng-container>
-            <a href="#" (click)="decrementMinute($event)">
+            <a href="#" (click)="decrementMinute($event)" [tabindex]="!timeReadOnly ? -1 : 23">
               <span class="pi pi-chevron-down"></span>
             </a>
           </div>
@@ -166,7 +166,7 @@ export interface LocaleSettings {
             </a>
           </div>
           <div class="ui-second-picker" *ngIf="showSeconds">
-            <a href="#" (click)="incrementSecond($event)">
+            <a href="#" (click)="incrementSecond($event)" [tabindex]="!timeReadOnly ? -1 : 24">
               <span class="pi pi-chevron-up"></span>
             </a>
             <ng-container *ngIf="timeReadOnly">
@@ -175,9 +175,9 @@ export interface LocaleSettings {
             <ng-container *ngIf="!timeReadOnly">
               <!-- <input #inputseconds type="number" [min]="0" [max]="59" [step]="stepSecond" [attr.id]="inputSecondsId" [(ngModel)]="currentSecond" (ngModelChange)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" /> -->
               <!-- <input #inputseconds type="text" [attr.id]="inputSecondsId" [(ngModel)]="inValCurrentSecond" (ngModelChange)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" /> -->
-              <input #inputseconds type="text" [attr.id]="inputSecondsId" [class.input-time]="true" [class.input-second]="true" [value]="showCurrentSecond" (input)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" />
+              <input #inputseconds type="text" [attr.id]="inputSecondsId" [class.input-time]="true" [class.input-second]="true" [value]="showCurrentSecond" (input)="onInputSeconds($event)" (keyup)="onKeyUp('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" />
             </ng-container>
-            <a href="#" (click)="decrementSecond($event)">
+            <a href="#" (click)="decrementSecond($event)" [tabindex]="!timeReadOnly ? -1 : 25">
               <span class="pi pi-chevron-down"></span>
             </a>
           </div>
@@ -2117,6 +2117,40 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   }
   onInputSeconds(evt: any) {
     this.inputChangedSeconds.next(evt);
+  }
+
+  onKeyUp(type:'hour'|'minute'|'second', evt:KeyboardEvent) {
+    switch(type) {
+      case 'hour':
+        if(evt && evt.key === 'ArrowDown') {
+          evt.preventDefault();
+          this.incrementHour(evt);
+        } else if(evt && evt.key === 'ArrowUp') {
+          evt.preventDefault();
+          this.decrementHour(evt);
+        }
+        break;
+      case 'minute':
+        if(evt && evt.key === 'ArrowDown') {
+          evt.preventDefault();
+          this.incrementMinute(evt);
+        } else if(evt && evt.key === 'ArrowUp') {
+          evt.preventDefault();
+          this.decrementMinute(evt);
+        }
+        break;
+      case 'second':
+        if(evt && evt.key === 'ArrowDown') {
+          evt.preventDefault();
+          this.incrementSecond(evt);
+        } else if(evt && evt.key === 'ArrowUp') {
+          evt.preventDefault();
+          this.decrementSecond(evt);
+        }
+        break;
+      default:
+        break;
+    }
   }
 }
 
