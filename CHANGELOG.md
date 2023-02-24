@@ -13,6 +13,10 @@ Changelog for **PrimeNG**
 
 **Changes:**
 
+**<u>Showcase</u>**
+
+- Tracking and analytics disabled
+
 **<u>Table</u>**
 
 - Added `"__obj"` filter
