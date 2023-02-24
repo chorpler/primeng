@@ -9,6 +9,26 @@ Changelog for **PrimeNG**
 
 ---
 
+# **v6.2.3** <span style="font-size: 12px; font-style: italic">(2023-02-23)</span>
+
+**Changes:**
+
+**<u>Table</u>**
+
+- Added `"__obj"` filter
+  - **Default:** N/A
+  - **Description**: If `filter()` is run with `__obj` as the field name, it will compare each entire item instead of item's field's values. Useful for filtering by object.
+
+# **v6.2.2** <span style="font-size: 12px; font-style: italic">(2023-02-22)</span>
+
+**Changes:**
+
+**<u>Calendar</u>**
+
+- Added `timeReadOnly` input value
+  - **Default:** `true`
+  - **Description**: If `false`, time fields are editable input fields
+
 # **v6.2.1** <span style="font-size: 12px; font-style: italic">(2023-02-02)</span>
 
 **Changes:**
