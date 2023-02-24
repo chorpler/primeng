@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 import { SelectItem } from '../../../components/common/api';
+import { Table } from '../../../components/table/table';
 
 @Component({
     templateUrl: './tablefilterdemo.html'
 })
 export class TableFilterDemo implements OnInit {
-
+    @ViewChild('dt') dt:Table;
     cars: Car[];
 
     cols: any[];
@@ -23,6 +25,7 @@ export class TableFilterDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
+        window['p'] = this;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
 
         this.brands = [

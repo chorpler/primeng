@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgZone } from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 
 @Component({
@@ -41,8 +42,15 @@ export class AppComponent implements OnInit{
 
     darkDemoStyle: HTMLStyleElement;
 
+    constructor(
+      public zone: NgZone,
+    ) {
+      const self = this;
+      window['t'] = self;
+    }
+
     ngOnInit() {
-      setTimeout(()=>this.notification = true , 1000)
+      setTimeout(()=>this.notification = true , 1000);
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
@@ -61,7 +69,7 @@ export class AppComponent implements OnInit{
             document.body.removeChild(this.darkDemoStyle);
             this.darkDemoStyle = null;
         }
-        
+
         event.preventDefault();
     }
 
