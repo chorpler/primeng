@@ -9,6 +9,15 @@ Changelog for **PrimeNG**
 
 ---
 
+# **v6.2.4** <span style="font-size: 12px; font-style: italic">(2023-02-24)</span>
+
+**Changes:**
+
+**<u>Calendar</u>**
+
+- Add scroll wheel increment/decrement for editable time
+- Fix bug in editable minutes input leading to `NaN`
+
 # **v6.2.3** <span style="font-size: 12px; font-style: italic">(2023-02-23)</span>
 
 **Changes:**
