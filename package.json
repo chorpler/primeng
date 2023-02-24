@@ -18,7 +18,8 @@
         "compile:app": "tsc -p ./src/tsconfig.app.json",
         "compile:app:spec": "tsc -p ./src/tsconfig.spec.json",
         "compile:aot": "tsc -p ./tsconfig-aot.json",
-        "compile:release": "tsc -p ./tsconfig-release.json"
+        "compile:release": "tsc -p ./tsconfig-release.json",
+        "package": "npm run compile:all && npm pack"
     },
     "repository": {
         "type": "git",
