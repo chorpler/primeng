@@ -61,7 +61,7 @@ export interface LocaleSettings {
         </button>
       </ng-template>
       <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
-            'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}" (click)="onDatePickerClick($event)" [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}:
+            'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}" (click)="onDatePickerClick($event)" (wheel)="onCalendarWheelEvent($event)" [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}:
             {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
         <ng-container *ngIf="!timeOnly">
           <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
@@ -125,7 +125,7 @@ export interface LocaleSettings {
             <ng-container *ngIf="!timeReadOnly">
               <!-- <input #inputhours type="number" [min]="minHours" [max]="maxHours" [step]="stepHour" [attr.id]="inputHoursId" [(ngModel)]="currentHour" (ngModelChange)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" /> -->
               <!-- <input #inputhours type="text" [attr.id]="inputHoursId" [(ngModel)]="inValCurrentHour" (ngModelChange)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" /> -->
-              <input #inputhours type="text" [attr.id]="inputHoursId" [class.input-time]="true" [class.input-hour]="true" [value]="showCurrentHour" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" />
+              <input #inputhours type="text" [attr.id]="inputHoursId" [class.input-time]="true" [class.input-hour]="true" [value]="showCurrentHour" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" (wheel)="onInputScroll('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" />
             </ng-container>
             <a href="#" (click)="decrementHour($event)" [tabindex]="!timeReadOnly ? -1 : 21">
               <span class="pi pi-chevron-down"></span>
@@ -150,7 +150,7 @@ export interface LocaleSettings {
             <ng-container *ngIf="!timeReadOnly">
               <!-- <input #inputminutes type="number" [min]="0" [max]="59" [step]="stepMinute" [attr.id]="inputMinutesId" [(ngModel)]="currentMinute" (ngModelChange)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" /> -->
               <!-- <input #inputminutes type="text" [attr.id]="inputMinutesId" [(ngModel)]="inValCurrentMinute" (ngModelChange)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" /> -->
-              <input #inputminutes type="text" [attr.id]="inputMinutesId" [class.input-time]="true" [class.input-minute]="true" [value]="showCurrentMinute" (input)="onInputMinutes($event)" (keyup)="onKeyUp('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" />
+              <input #inputminutes type="text" [attr.id]="inputMinutesId" [class.input-time]="true" [class.input-minute]="true" [value]="showCurrentMinute" (input)="onInputMinutes($event)" (keyup)="onKeyUp('minute', $event)" (wheel)="onInputScroll('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" />
             </ng-container>
             <a href="#" (click)="decrementMinute($event)" [tabindex]="!timeReadOnly ? -1 : 23">
               <span class="pi pi-chevron-down"></span>
@@ -175,7 +175,7 @@ export interface LocaleSettings {
             <ng-container *ngIf="!timeReadOnly">
               <!-- <input #inputseconds type="number" [min]="0" [max]="59" [step]="stepSecond" [attr.id]="inputSecondsId" [(ngModel)]="currentSecond" (ngModelChange)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" /> -->
               <!-- <input #inputseconds type="text" [attr.id]="inputSecondsId" [(ngModel)]="inValCurrentSecond" (ngModelChange)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" /> -->
-              <input #inputseconds type="text" [attr.id]="inputSecondsId" [class.input-time]="true" [class.input-second]="true" [value]="showCurrentSecond" (input)="onInputSeconds($event)" (keyup)="onKeyUp('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" />
+              <input #inputseconds type="text" [attr.id]="inputSecondsId" [class.input-time]="true" [class.input-second]="true" [value]="showCurrentSecond" (input)="onInputSeconds($event)" (keyup)="onKeyUp('second', $event)" (wheel)="onInputScroll('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" />
             </ng-container>
             <a href="#" (click)="decrementSecond($event)" [tabindex]="!timeReadOnly ? -1 : 25">
               <span class="pi pi-chevron-down"></span>
@@ -375,6 +375,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   @Input() tabindex: number;
 
   @ViewChild('inputfield') inputfieldViewChild: ElementRef;
+  @ViewChild('inputhours') inputhours: ElementRef;
+  @ViewChild('inputminutes', {}) inputminutes: ElementRef;
+  @ViewChild('inputseconds') inputseconds: ElementRef;
 
   private _utc: boolean;
 
@@ -562,6 +565,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     this.currentMonth = date.getMonth();
     this.currentYear = date.getFullYear();
 
+    const wheelListener = this.onCalendarWheelEvent.bind(this);
+
+    // document.addEventListener('wheel', wheelListener, {passive:false});
+    document.addEventListener('wheel', wheelListener, {passive:true});
+
     if (this.yearNavigator && this.yearRange) {
       const years = this.yearRange.split(':');
       const yearStart = parseInt(years[0]);
@@ -582,9 +590,18 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     if (!this.timeReadOnly) {
       this.minHours = 0;
       this.maxHours = 23;
-      if (this.hourFormat === '12') {
+      if(this.hourFormat === '12') {
         this.minHours = 1;
         this.maxHours = 12;
+      }
+      if(isNaN(this.stepHour)) {
+        this.stepHour = 1;
+      }
+      if(isNaN(this.stepMinute)) {
+        this.stepMinute = 1;
+      }
+      if(isNaN(this.stepSecond)) {
+        this.stepSecond = 1;
       }
       this.subInputHours = this.inputChangedHours.debounceTime(500).distinctUntilChanged().subscribe((evt) => {
         // let newHour = Number(evt);
@@ -2145,6 +2162,98 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
           this.incrementSecond(evt);
         } else if(evt && evt.key === 'ArrowUp') {
           evt.preventDefault();
+          this.decrementSecond(evt);
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  onInputScroll(type:'hour'|'minute'|'second', evt:WheelEvent) {
+    let dir = evt != null ? evt.deltaY : 0;
+    if(dir === 0) {
+      return;
+    }
+    switch(type) {
+      case 'hour':
+        if(dir < 0) {
+          evt.preventDefault();
+          this.incrementHour(evt);
+        } else if(dir > 0) {
+          evt.preventDefault();
+          this.decrementHour(evt);
+        }
+        break;
+      case 'minute':
+        if(dir < 0) {
+          evt.preventDefault();
+          this.incrementMinute(evt);
+        } else if(dir > 0) {
+          evt.preventDefault();
+          this.decrementMinute(evt);
+        }
+        break;
+      case 'second':
+        if(dir < 0) {
+          evt.preventDefault();
+          this.incrementSecond(evt);
+        } else if(dir > 0) {
+          evt.preventDefault();
+          this.decrementSecond(evt);
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  onCalendarWheelEvent(evt:WheelEvent) {
+    let dir = evt != null ? evt.deltaY : 0;
+    if(dir === 0) {
+      return;
+    }
+    let type:"hour"|"minute"|"second";
+    let tgt:HTMLInputElement;
+    let varTgt;
+    if(this.inputhours != null && document.activeElement === this.inputhours.nativeElement) {
+      type = 'hour';
+      tgt = this.inputhours.nativeElement;
+    }
+    if(this.inputminutes != null && document.activeElement === this.inputminutes.nativeElement) {
+      type = 'minute';
+      tgt = this.inputminutes.nativeElement;
+    }
+    if(this.inputseconds != null && document.activeElement === this.inputseconds.nativeElement) {
+      type = 'second';
+      tgt = this.inputseconds.nativeElement;
+    }
+
+    switch(type) {
+      case 'hour':
+        if(dir < 0) {
+        //   evt.preventDefault();
+          this.incrementHour(evt);
+        } else if(dir > 0) {
+        //   evt.preventDefault();
+          this.decrementHour(evt);
+        }
+        break;
+      case 'minute':
+        if(dir < 0) {
+        //   evt.preventDefault();
+          this.incrementMinute(evt);
+        } else if(dir > 0) {
+        //   evt.preventDefault();
+          this.decrementMinute(evt);
+        }
+        break;
+      case 'second':
+        if(dir < 0) {
+        //   evt.preventDefault();
+          this.incrementSecond(evt);
+        } else if(dir > 0) {
+        //   evt.preventDefault();
           this.decrementSecond(evt);
         }
         break;
