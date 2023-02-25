@@ -9,6 +9,14 @@ Changelog for **PrimeNG**
 
 ---
 
+# **v6.2.5** <span style="font-size: 12px; font-style: italic">(2023-02-25)</span>
+
+**Changes:**
+
+**<u>Calendar</u>**
+
+- Fixed bug in "save" button code
+
 # **v6.2.4** <span style="font-size: 12px; font-style: italic">(2023-02-25)</span>
 
 **Changes:**
