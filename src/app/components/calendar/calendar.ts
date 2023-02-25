@@ -56,7 +56,176 @@ export interface LocaleSettings {
 
 @Component({
   selector: 'p-calendar',
-  templateUrl: './calendar.html',
+  template: `
+<span [ngClass]="{'ui-calendar':true, 'ui-calendar-w-btn': showIcon, 'ui-calendar-timeonly': timeOnly}" [ngStyle]="style" [class]="styleClass">
+  <ng-template [ngIf]="!inline">
+    <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick($event)" (blur)="onInputBlur($event)" [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" autocomplete="off"><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="ui-datepicker-trigger ui-calendar-button" [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1">
+    </button>
+  </ng-template>
+  <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
+        'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}" (click)="onDatePickerClick($event)" (wheel)="onCalendarWheelEvent($event)" [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}:
+        {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
+    <ng-container *ngIf="!timeOnly">
+      <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
+        <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+          <ng-content select="p-header"></ng-content>
+          <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="navBackward($event)" *ngIf="i === 0">
+            <span class="pi pi-chevron-left"></span>
+          </a>
+          <a class="ui-datepicker-next ui-corner-all" href="#" (click)="navForward($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)">
+            <span class="pi pi-chevron-right"></span>
+          </a>
+          <div class="ui-datepicker-title">
+            <span class="ui-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
+            <select class="ui-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
+              <option [value]="i" *ngFor="let monthName of locale.monthNames;let i = index" [selected]="i === month.month">{{monthName}}</option>
+            </select>
+            <select class="ui-datepicker-year" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
+              <option [value]="year" *ngFor="let year of yearOptions" [selected]="year === currentYear">{{year}}</option>
+            </select>
+            <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{view === 'month' ? currentYear : month.year}}</span>
+          </div>
+        </div>
+        <div class="ui-datepicker-calendar-container" *ngIf="view ==='date'">
+          <table class="ui-datepicker-calendar">
+            <thead>
+              <tr>
+                <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
+                  <span>{{weekDay}}</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let week of month.dates">
+                <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month': date.otherMonth,
+                  'ui-datepicker-current-day':isSelected(date), 'ui-datepicker-today': date.today}">
+                  <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
+                    <a class="ui-state-default" *ngIf="date.selectable" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}" (click)="onDateSelect($event,date)" draggable="false">
+                      <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
+                      <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
+                    </a>
+                    <span class="ui-state-default ui-state-disabled" *ngIf="!date.selectable"> {{date.day}} </span>
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="ui-monthpicker" *ngIf="view === 'month'">
+        <a href="#" *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-monthpicker-month" [ngClass]="{'ui-state-active': isMonthSelected(i)}"> {{m}} </a>
+      </div>
+    </ng-container>
+    <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
+      <div class="ui-hour-picker">
+        <a href="#" (click)="incrementHour($event)" [tabindex]="!timeReadOnly ? -1 : 20">
+          <span class="pi pi-chevron-up"></span>
+        </a>
+        <ng-container *ngIf="timeReadOnly">
+          <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
+        </ng-container>
+        <ng-container *ngIf="!timeReadOnly">
+          <!-- <input #inputhours type="number" [min]="minHours" [max]="maxHours" [step]="stepHour" [attr.id]="inputHoursId" [(ngModel)]="currentHour" (ngModelChange)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" /> -->
+          <!-- <input #inputhours type="text" [attr.id]="inputHoursId" [(ngModel)]="inValCurrentHour" (ngModelChange)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" /> -->
+          <input #inputhours type="text" [attr.id]="inputHoursId" [class.input-time]="true" [class.input-hour]="true" [value]="showCurrentHour" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" (wheel)="onInputScroll('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" />
+        </ng-container>
+        <a href="#" (click)="decrementHour($event)" [tabindex]="!timeReadOnly ? -1 : 21">
+          <span class="pi pi-chevron-down"></span>
+        </a>
+      </div>
+      <div class="ui-separator">
+        <a href="#">
+          <span class="pi pi-chevron-up"></span>
+        </a>
+        <span>:</span>
+        <a href="#">
+          <span class="pi pi-chevron-down"></span>
+        </a>
+      </div>
+      <div class="ui-minute-picker">
+        <a href="#" (click)="incrementMinute($event)" [tabindex]="!timeReadOnly ? -1 : 22">
+          <span class="pi pi-chevron-up"></span>
+        </a>
+        <ng-container *ngIf="timeReadOnly">
+          <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
+        </ng-container>
+        <ng-container *ngIf="!timeReadOnly">
+          <!-- <input #inputminutes type="number" [min]="0" [max]="59" [step]="stepMinute" [attr.id]="inputMinutesId" [(ngModel)]="currentMinute" (ngModelChange)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" /> -->
+          <!-- <input #inputminutes type="text" [attr.id]="inputMinutesId" [(ngModel)]="inValCurrentMinute" (ngModelChange)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" /> -->
+          <input #inputminutes type="text" [attr.id]="inputMinutesId" [class.input-time]="true" [class.input-minute]="true" [value]="showCurrentMinute" (input)="onInputMinutes($event)" (keyup)="onKeyUp('minute', $event)" (wheel)="onInputScroll('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" />
+        </ng-container>
+        <a href="#" (click)="decrementMinute($event)" [tabindex]="!timeReadOnly ? -1 : 23">
+          <span class="pi pi-chevron-down"></span>
+        </a>
+      </div>
+      <div class="ui-separator" *ngIf="showSeconds">
+        <a href="#">
+          <span class="pi pi-chevron-up"></span>
+        </a>
+        <span>:</span>
+        <a href="#">
+          <span class="pi pi-chevron-down"></span>
+        </a>
+      </div>
+      <div class="ui-second-picker" *ngIf="showSeconds">
+        <a href="#" (click)="incrementSecond($event)" [tabindex]="!timeReadOnly ? -1 : 24">
+          <span class="pi pi-chevron-up"></span>
+        </a>
+        <ng-container *ngIf="timeReadOnly">
+          <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
+        </ng-container>
+        <ng-container *ngIf="!timeReadOnly">
+          <!-- <input #inputseconds type="number" [min]="0" [max]="59" [step]="stepSecond" [attr.id]="inputSecondsId" [(ngModel)]="currentSecond" (ngModelChange)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" /> -->
+          <!-- <input #inputseconds type="text" [attr.id]="inputSecondsId" [(ngModel)]="inValCurrentSecond" (ngModelChange)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" /> -->
+          <input #inputseconds type="text" [attr.id]="inputSecondsId" [class.input-time]="true" [class.input-second]="true" [value]="showCurrentSecond" (input)="onInputSeconds($event)" (keyup)="onKeyUp('second', $event)" (wheel)="onInputScroll('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" />
+        </ng-container>
+        <a href="#" (click)="decrementSecond($event)" [tabindex]="!timeReadOnly ? -1 : 25">
+          <span class="pi pi-chevron-down"></span>
+        </a>
+      </div>
+      <div class="ui-ampm-picker" *ngIf="hourFormat=='12'">
+        <a href="#" (click)="toggleAMPM($event)">
+          <span class="pi pi-chevron-up"></span>
+        </a>
+        <span>{{pm ? 'PM' : 'AM'}}</span>
+        <a href="#" (click)="toggleAMPM($event)">
+          <span class="pi pi-chevron-down"></span>
+        </a>
+      </div>
+    </div>
+    <div class="ui-datepicker-buttonbar ui-widget-header" *ngIf="showButtonBar">
+      <div class="ui-g">
+        <ng-container *ngIf="!showTime">
+          <div class="ui-g-4">
+            <button type="button" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-4">
+            <button type="button" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-4">
+            <button type="button" [label]="_locale.save" (click)="onSaveButtonClick($event)" pButton [ngClass]="[saveButtonStyleClass]"></button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="showTime">
+          <div class="ui-g-3">
+            <button type="button" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-3">
+            <button type="button" [label]="_locale.now" (click)="onNowButtonClick($event)" pButton [ngClass]="[nowButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-3">
+            <button type="button" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-3">
+            <button type="button" [label]="_locale.save" (click)="onSaveButtonClick($event)" pButton [ngClass]="[saveButtonStyleClass]"></button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <ng-content select="p-footer"></ng-content>
+  </div>
+</span>
+`,
   animations: [
     trigger('overlayAnimation', [
       state('visible', style({
