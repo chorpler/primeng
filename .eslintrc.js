@@ -34,14 +34,14 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "eslint-plugin-html"
     ],
     "rules": {
         "@typescript-eslint/naming-convention": "warn",
-        "@typescript-eslint/semi": "warn",
-        "@typescript-eslint/eqeqeq": "smart",
         "curly": "warn",
-        "eqeqeq": "smart",
+        // "eqeqeq": "warn",
+        "eqeqeq": "off",
         "no-throw-literal": "warn",
         "semi": "warn"
     },
