@@ -153,17 +153,17 @@ export class SplitButton implements OnDestroy {
 
     alignOverlay() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+            {this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);}
         else
-            this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+            {this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);}
     }
 
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+                {document.body.appendChild(this.overlay);}
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                {this.domHandler.appendChild(this.overlay, this.appendTo);}
 
             this.overlay.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
         }

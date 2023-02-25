@@ -153,9 +153,9 @@ export class Password implements OnDestroy,DoCheck {
         let diff = x - y;
 
         if(diff <= 0)
-            return x / y;
+            {return x / y;}
         else
-            return 1 + 0.5 * (x / (x + y/4));
+            {return 1 + 0.5 * (x / (x + y/4));}
     }
 
     get disabled(): boolean {

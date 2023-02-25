@@ -127,7 +127,7 @@ export class KeyFilter implements Validator {
             if (value && !this.regex.test(value)) {
                 return {
                     validatePattern: false
-                }
+                };
             }
         }
     }

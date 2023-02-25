@@ -26,7 +26,7 @@ describe('Panel', () => {
         panel.header = 'PrimeNG Panel Header';
         fixture.detectChanges();
         const headerEl = fixture.debugElement.query(By.css('.ui-panel-title'));
-        expect(headerEl.nativeElement.textContent).toContain('PrimeNG Panel Header')
+        expect(headerEl.nativeElement.textContent).toContain('PrimeNG Panel Header');
     });
     
     it('should not render toggle icon when not toggleable', () => {

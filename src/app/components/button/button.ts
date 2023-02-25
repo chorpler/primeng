@@ -42,9 +42,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         if(this.icon) {
             if(this.label != null && this.label != undefined) {
                 if(this.iconPos == 'left')
-                    styleClass = styleClass + ' ui-button-text-icon-left';
+                    {styleClass = styleClass + ' ui-button-text-icon-left';}
                 else
-                    styleClass = styleClass + ' ui-button-text-icon-right';
+                    {styleClass = styleClass + ' ui-button-text-icon-right';}
             }
             else {
                 styleClass = styleClass + ' ui-button-icon-only';

@@ -506,9 +506,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+                {document.body.appendChild(this.overlay);}
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                {this.domHandler.appendChild(this.overlay, this.appendTo);}
 
             this.overlay.style.minWidth = this.domHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
         }
@@ -533,9 +533,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     alignOverlay() {
         if (this.overlay) {
             if (this.appendTo)
-                this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+                {this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);}
             else
-                this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+                {this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);}
         }
     }
 
@@ -732,9 +732,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.currentSearchChar = char;
 
         if (this.previousSearchChar === this.currentSearchChar)
-            this.searchValue = this.currentSearchChar;
+            {this.searchValue = this.currentSearchChar;}
         else
-            this.searchValue = this.searchValue ? this.searchValue + char : char;
+            {this.searchValue = this.searchValue ? this.searchValue + char : char;}
 
         let newOption;
         if (this.group) {
@@ -906,9 +906,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     applyFocus(): void {
         if (this.editable)
-            this.domHandler.findSingle(this.el.nativeElement, '.ui-dropdown-label.ui-inputtext').focus();
+            {this.domHandler.findSingle(this.el.nativeElement, '.ui-dropdown-label.ui-inputtext').focus();}
         else
-            this.domHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
+            {this.domHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();}
     }
 
     focus(): void {

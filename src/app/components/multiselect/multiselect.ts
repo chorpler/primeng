@@ -427,9 +427,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+                {document.body.appendChild(this.overlay);}
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                {this.domHandler.appendChild(this.overlay, this.appendTo);}
 
             this.overlay.style.minWidth = this.domHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
         }
@@ -444,9 +444,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     alignOverlay() {
         if (this.overlay) {
             if (this.appendTo)
-                this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+                {this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);}
             else
-                this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+                {this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);}
         }
     }
 

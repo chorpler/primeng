@@ -1031,9 +1031,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
         for(let col of this.columns) {
             if(col.frozen)
-                this.frozenColumns.push(col);
+                {this.frozenColumns.push(col);}
             else
-                this.scrollableColumns.push(col);
+                {this.scrollableColumns.push(col);}
         }
     }
 
@@ -1043,16 +1043,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
         for(let columnGroup of headerColumnsGroups) {
             if(columnGroup.frozen)
-                this.frozenHeaderColumnGroup = columnGroup;
+                {this.frozenHeaderColumnGroup = columnGroup;}
             else
-                this.scrollableHeaderColumnGroup = columnGroup;
+                {this.scrollableHeaderColumnGroup = columnGroup;}
         }
 
         for(let columnGroup of footerColumnsGroups) {
             if(columnGroup.frozen)
-                this.frozenFooterColumnGroup = columnGroup;
+                {this.frozenFooterColumnGroup = columnGroup;}
             else
-                this.scrollableFooterColumnGroup = columnGroup;
+                {this.scrollableFooterColumnGroup = columnGroup;}
         }
     }
 
@@ -1107,9 +1107,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     paginate() {
         if(this.lazy)
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            {this.onLazyLoad.emit(this.createLazyLoadMetadata());}
         else
-            this.updateDataToRender(this.filteredValue||this.value);
+            {this.updateDataToRender(this.filteredValue||this.value);}
 
         this.onPage.emit({
             first: this.first,
@@ -1153,9 +1153,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
             this.virtualScrollTimer = setTimeout(() => {
                 if(this.lazy)
-                    this.onLazyLoad.emit(this.createLazyLoadMetadata());
+                    {this.onLazyLoad.emit(this.createLazyLoadMetadata());}
                 else
-                    this.updateDataToRender(this.filteredValue||this.value);
+                    {this.updateDataToRender(this.filteredValue||this.value);}
             }, this.virtualScrollDelay);
         });
     }
@@ -1207,9 +1207,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             else {
                 if(this.sortMode == 'multiple')
-                    this.sortMultiple();
+                    {this.sortMultiple();}
                 else
-                    this.sortSingle();
+                    {this.sortSingle();}
             }
 
             this.onSort.emit({
@@ -1238,15 +1238,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     let result = null;
 
                     if (value1 == null && value2 != null)
-                        result = -1;
+                        {result = -1;}
                     else if (value1 != null && value2 == null)
-                        result = 1;
+                        {result = 1;}
                     else if (value1 == null && value2 == null)
-                        result = 0;
+                        {result = 0;}
                     else if (typeof value1 === 'string' && typeof value2 === 'string')
-                        result = value1.localeCompare(value2);
+                        {result = value1.localeCompare(value2);}
                     else
-                        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+                        {result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;}
 
                     return (this.sortOrder * result);
                 });
@@ -1303,9 +1303,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
 
         if(index >= 0)
-            this.multiSortMeta[index] = meta;
+            {this.multiSortMeta[index] = meta;}
         else
-            this.multiSortMeta.push(meta);
+            {this.multiSortMeta.push(meta);}
     }
 
     isSorted(column: Column) {
@@ -1610,9 +1610,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     toggleRowsWithCheckbox(event) {
         if(event.checked)
-            this.selection = this.headerCheckboxToggleAllPages ? this.value.slice() : this.dataToRender.slice();
+            {this.selection = this.headerCheckboxToggleAllPages ? this.value.slice() : this.dataToRender.slice();}
         else
-            this.selection = [];
+            {this.selection = [];}
 
         this.selectionChange.emit(this.selection);
 
@@ -1679,9 +1679,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             else {
                 if(this.selection instanceof Array)
-                    return this.findIndexInSelection(rowData) > -1;
+                    {return this.findIndexInSelection(rowData) > -1;}
                 else
-                    return this.equals(rowData, this.selection);
+                    {return this.equals(rowData, this.selection);}
             }
         }
 
@@ -1726,9 +1726,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     filter(value, field, matchMode) {
         if(!this.isFilterBlank(value))
-            this.filters[field] = {value: value, matchMode: matchMode};
+            {this.filters[field] = {value: value, matchMode: matchMode};}
         else if(this.filters[field])
-            delete this.filters[field];
+            {delete this.filters[field];}
 
         this._filter();
     }
@@ -1736,9 +1736,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     isFilterBlank(filter: any): boolean {
         if(filter !== null && filter !== undefined) {
             if((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
-                return true;
+                {return true;}
             else
-                return false;
+                {return false;}
         }
         return true;
     }
@@ -1905,7 +1905,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
             for(let i = 0; i < filter.length; i++) {
                 if(filter[i] === value)
-                    return true;
+                    {return true;}
             }
 
             return false;
@@ -1985,9 +1985,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             //tab
             else if(event.keyCode == 9) {
                 if(event.shiftKey)
-                    this.moveToPreviousCell(event);
+                    {this.moveToPreviousCell(event);}
                 else
-                    this.moveToNextCell(event);
+                    {this.moveToNextCell(event);}
             }
         }
     }
@@ -2009,9 +2009,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     onCellEditorBlur(event, column: Column, rowData: any, rowIndex: number) {
         if(this.editable) {
             if(this.editChanged)
-                this.editChanged = false;
+                {this.editChanged = false;}
             else
-                this.onEditCancel.emit({column: column, data: rowData, index: rowIndex});
+                {this.onEditCancel.emit({column: column, data: rowData, index: rowIndex});}
         }
     }
 
@@ -2049,9 +2049,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
         if(prevCell) {
             if(this.domHandler.hasClass(prevCell, 'ui-editable-column'))
-                return prevCell;
+                {return prevCell;}
             else
-                return this.findPreviousEditableColumn(prevCell);
+                {return this.findPreviousEditableColumn(prevCell);}
         }
         else {
             return null;
@@ -2070,9 +2070,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
         if(nextCell) {
             if(this.domHandler.hasClass(nextCell, 'ui-editable-column'))
-                return nextCell;
+                {return nextCell;}
             else
-                return this.findNextEditableColumn(nextCell);
+                {return this.findNextEditableColumn(nextCell);}
         }
         else {
             return null;
@@ -2350,7 +2350,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             let parent = element.parentElement;
             while(parent.nodeName != 'TH') {
                 parent = parent.parentElement;
-                if(!parent) break;
+                if(!parent) {break;}
             }
             return parent;
         }
@@ -2499,9 +2499,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.updateTotalRecords();
 
         if(this.lazy)
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            {this.onLazyLoad.emit(this.createLazyLoadMetadata());}
         else
-            this.updateDataToRender(this.value);
+            {this.updateDataToRender(this.value);}
     }
 
     public exportCSV(options?:any) {
@@ -2533,9 +2533,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     let cellData = this.resolveFieldData(record, column.field);
 
                     if(cellData != null)
-                        cellData = String(cellData).replace(/"/g, '""');
+                        {cellData = String(cellData).replace(/"/g, '""');}
                     else
-                        cellData = '';
+                        {cellData = '';}
 
                      csv += '"' + cellData + '"';
 

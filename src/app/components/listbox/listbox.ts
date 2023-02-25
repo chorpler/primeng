@@ -174,9 +174,9 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
         if (this.multiple) {
             if (this.checkbox)
-                this.onOptionClickCheckbox(event, option);
+                {this.onOptionClickCheckbox(event, option);}
             else
-                this.onOptionClickMultiple(event, option);
+                {this.onOptionClickMultiple(event, option);}
         }
         else {
             this.onOptionClickSingle(event, option);
@@ -201,7 +201,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         this.onDblClick.emit({
             originalEvent: event,
             value: this.value
-        })
+        });
     }
 
     onOptionClickSingle(event, option) {
@@ -328,9 +328,9 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     get allChecked(): boolean {
         if (this.filterValue)
-            return this.allFilteredSelected();
+            {return this.allFilteredSelected();}
         else
-            return this.value && this.options && (this.value.length > 0 && this.value.length === this.getEnabledOptionCount());
+            {return this.value && this.options && (this.value.length > 0 && this.value.length === this.getEnabledOptionCount());}
     }
 
     getEnabledOptionCount(): number {

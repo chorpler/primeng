@@ -116,9 +116,9 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     allowDrag() : boolean {
         if(this.dragHandle && this.handle)
-            return this.domHandler.matches(this.handle, this.dragHandle);
+            {return this.domHandler.matches(this.handle, this.dragHandle);}
         else
-            return true;
+            {return true;}
     }
 
     ngOnDestroy() {

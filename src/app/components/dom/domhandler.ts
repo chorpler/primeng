@@ -11,9 +11,9 @@ export class DomHandler {
 
     public addClass(element: any, className: string): void {
         if (element.classList)
-            element.classList.add(className);
+            {element.classList.add(className);}
         else
-            element.className += ' ' + className;
+            {element.className += ' ' + className;}
     }
 
     public addMultipleClasses(element: any, className: string): void {
@@ -34,16 +34,16 @@ export class DomHandler {
 
     public removeClass(element: any, className: string): void {
         if (element.classList)
-            element.classList.remove(className);
+            {element.classList.remove(className);}
         else
-            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            {element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');}
     }
 
     public hasClass(element: any, className: string): boolean {
         if (element.classList)
-            return element.classList.contains(className);
+            {return element.classList.contains(className);}
         else
-            return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+            {return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);}
     }
 
     public siblings(element: any): any {
@@ -64,8 +64,8 @@ export class DomHandler {
         let children = element.parentNode.childNodes;
         let num = 0;
         for (var i = 0; i < children.length; i++) {
-            if (children[i] == element) return num;
-            if (children[i].nodeType == 1) num++;
+            if (children[i] == element) {return num;}
+            if (children[i].nodeType == 1) {num++;}
         }
         return -1;
     }
@@ -74,8 +74,8 @@ export class DomHandler {
         let children = element.parentNode.childNodes;
         let num = 0;
         for (var i = 0; i < children.length; i++) {
-            if (children[i] == element) return num;
-            if (children[i].attributes && children[i].attributes[attributeName] && children[i].nodeType == 1) num++;
+            if (children[i] == element) {return num;}
+            if (children[i].attributes && children[i].attributes[attributeName] && children[i].nodeType == 1) {num++;}
         }
         return -1;
     }
@@ -88,7 +88,7 @@ export class DomHandler {
         let windowScrollTop = this.getWindowScrollTop();
         let viewport = this.getViewport();
         let top, left;
-        
+
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
             if(targetOffset.top + top < 0) {
@@ -98,12 +98,12 @@ export class DomHandler {
         else {
             top = targetHeight;
         }
-            
-            
+
+
         if ((targetOffset.left + elementDimensions.width) > viewport.width)
-            left = targetWidth - elementDimensions.width;
+            {left = targetWidth - elementDimensions.width;}
         else
-            left = 0;
+            {left = 0;}
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
@@ -126,15 +126,15 @@ export class DomHandler {
             if(top < 0) {
                 top = 0 + windowScrollTop;
             }
-        } 
+        }
         else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
         }
 
         if (targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
-            left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
+            {left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;}
         else
-            left = targetOffset.left + windowScrollLeft;
+            {left = targetOffset.left + windowScrollLeft;}
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
@@ -223,7 +223,7 @@ export class DomHandler {
                 opacity = 0;
                 clearInterval(fading);
             }
-            
+
             element.style.opacity = opacity;
         }, interval);
     }
@@ -282,7 +282,7 @@ export class DomHandler {
         width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
         return width;
     }
-    
+
     public getInnerHeight(el) {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
@@ -330,10 +330,10 @@ export class DomHandler {
 
         return { width: w, height: h };
     }
-    
+
     public getOffset(el) {
         let rect = el.getBoundingClientRect();
-        
+
         return {
             top: rect.top + document.body.scrollTop,
             left: rect.left + document.body.scrollLeft
@@ -342,8 +342,9 @@ export class DomHandler {
 
     public replaceElementWith(element: any, replacementElement: any): any {
         let parentNode = element.parentNode;
-        if(!parentNode) 
-            throw `Can't replace element`;
+        if(!parentNode) {
+            throw new Error(`Can't replace element`);
+        }
         return parentNode.replaceChild(replacementElement, element);
     }
 
@@ -376,35 +377,37 @@ export class DomHandler {
         // other browser
         return false;
     }
-    
+
     appendChild(element: any, target: any) {
-        if(this.isElement(target))
+        if(this.isElement(target)) {
             target.appendChild(element);
-        else if(target.el && target.el.nativeElement)
+        } else if(target.el && target.el.nativeElement) {
             target.el.nativeElement.appendChild(element);
-        else
-            throw 'Cannot append ' + target + ' to ' + element;
+        } else {
+            throw new Error('Cannot append ' + target + ' to ' + element);
+        }
     }
-    
+
     removeChild(element: any, target: any) {
-        if(this.isElement(target))
+        if(this.isElement(target)) {
             target.removeChild(element);
-        else if(target.el && target.el.nativeElement)
+        } else if(target.el && target.el.nativeElement) {
             target.el.nativeElement.removeChild(element);
-        else
-            throw 'Cannot remove ' + element + ' from ' + target;
+        } else {
+            throw new Error('Cannot remove ' + element + ' from ' + target);
+        }
     }
-    
+
     isElement(obj: any) {
         return (typeof HTMLElement === "object" ? obj instanceof HTMLElement :
             obj && typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string"
         );
     }
-    
+
     calculateScrollbarWidth(): number {
         if(this.calculatedScrollbarWidth !== null)
-            return this.calculatedScrollbarWidth;
-        
+            {return this.calculatedScrollbarWidth;}
+
         let scrollDiv = document.createElement("div");
         scrollDiv.className = "ui-scrollbar-measure";
         document.body.appendChild(scrollDiv);
@@ -413,14 +416,14 @@ export class DomHandler {
         document.body.removeChild(scrollDiv);
 
         this.calculatedScrollbarWidth = scrollbarWidth;
-        
+
         return scrollbarWidth;
     }
-    
+
     invokeElementMethod(element: any, methodName: string, args?: any[]): void {
         (element as any)[methodName].apply(element, args);
     }
-    
+
     clearSelection(): void {
         if(window.getSelection) {
             if(window.getSelection().empty) {

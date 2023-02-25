@@ -423,11 +423,11 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             this.totalRecords = (this._value ? this._value.length : 0);
 
             if (this.sortMode == 'single' && this.sortField)
-                this.sortSingle();
+                {this.sortSingle();}
             else if (this.sortMode == 'multiple' && this.multiSortMeta)
-                this.sortMultiple();
+                {this.sortMultiple();}
             else if(this.hasFilter())       //sort already filters
-                this._filter();
+                {this._filter();}
         }
 
         if(this.virtualScroll && this.virtualScrollCallback) {
@@ -551,7 +551,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
             if (sortMeta) {
                 if (!metaKey) {
-                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
+                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }];
                 }
                 else {
                     sortMeta.order = sortMeta.order * -1;
@@ -593,15 +593,15 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                         let result = null;
 
                         if (value1 == null && value2 != null)
-                            result = -1;
+                            {result = -1;}
                         else if (value1 != null && value2 == null)
-                            result = 1;
+                            {result = 1;}
                         else if (value1 == null && value2 == null)
-                            result = 0;
+                            {result = 0;}
                         else if (typeof value1 === 'string' && typeof value2 === 'string')
-                            result = value1.localeCompare(value2);
+                            {result = value1.localeCompare(value2);}
                         else
-                            result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+                            {result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;}
 
                         return (this.sortOrder * result);
                     });
@@ -659,11 +659,11 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         let result = null;
 
         if (value1 == null && value2 != null)
-            result = -1;
+            {result = -1;}
         else if (value1 != null && value2 == null)
-            result = 1;
+            {result = 1;}
         else if (value1 == null && value2 == null)
-            result = 0;
+            {result = 0;}
         if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));
@@ -936,9 +936,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             }
             else {
                 if (this.selection instanceof Array)
-                    return this.findIndexInSelection(rowData) > -1;
+                    {return this.findIndexInSelection(rowData) > -1;}
                 else
-                    return this.equals(rowData, this.selection);
+                    {return this.equals(rowData, this.selection);}
             }
         }
 
@@ -1045,9 +1045,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
             if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
-                return true;
+                {return true;}
             else
-                return false;
+                {return false;}
         }
         return true;
     }
@@ -1073,9 +1073,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 let globalFilterFieldsArray;
                 if (this.filters['global']) {
                     if (!this.columns && !this.globalFilterFields)
-                        throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
+                        {throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');}
                     else
-                        globalFilterFieldsArray = this.globalFilterFields||this.columns;
+                        {globalFilterFieldsArray = this.globalFilterFields||this.columns;}
                 }
 
                 this.filteredValue = [];
@@ -1229,9 +1229,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             }
 
             if (value.getTime && filter.getTime)
-                return value.getTime() === filter.getTime();
+                {return value.getTime() === filter.getTime();}
             else
-                return value.toString().toLowerCase() == filter.toString().toLowerCase();
+                {return value.toString().toLowerCase() == filter.toString().toLowerCase();}
         },
 
         notEquals(value, filter): boolean {
@@ -1244,9 +1244,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             }
 
             if (value.getTime && filter.getTime)
-                return value.getTime() !== filter.getTime();
+                {return value.getTime() !== filter.getTime();}
             else
-                return value.toString().toLowerCase() != filter.toString().toLowerCase();
+                {return value.toString().toLowerCase() != filter.toString().toLowerCase();}
         },
 
         in(value, filter: any[]): boolean {
@@ -1289,9 +1289,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             }
 
             if (value.getTime && filter.getTime)
-                return value.getTime() < filter.getTime();
+                {return value.getTime() < filter.getTime();}
             else
-                return value < filter;
+                {return value < filter;}
         },
 
         lte(value, filter): boolean {
@@ -1304,9 +1304,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             }
 
             if (value.getTime && filter.getTime)
-                return value.getTime() <= filter.getTime();
+                {return value.getTime() <= filter.getTime();}
             else
-                return value <= filter;
+                {return value <= filter;}
         },
 
         gt(value, filter): boolean {
@@ -1319,9 +1319,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             }
 
             if (value.getTime && filter.getTime)
-                return value.getTime() > filter.getTime();
+                {return value.getTime() > filter.getTime();}
             else
-                return value > filter;
+                {return value > filter;}
         },
 
         gte(value, filter): boolean {
@@ -1334,9 +1334,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             }
 
             if (value.getTime && filter.getTime)
-                return value.getTime() >= filter.getTime();
+                {return value.getTime() >= filter.getTime();}
             else
-                return value >= filter;
+                {return value >= filter;}
         }
     }
 
@@ -1407,10 +1407,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                             });
                         }
                         else
-                            cellData = String(cellData).replace(/"/g, '""');
+                            {cellData = String(cellData).replace(/"/g, '""');}
                     }
                     else
-                        cellData = '';
+                        {cellData = '';}
 
 
                     csv += '"' + cellData + '"';
@@ -1616,7 +1616,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 }
             }
             else {
-                throw "Scrollable tables require a colgroup to support resizable columns";
+                throw new Error("Scrollable tables require a colgroup to support resizable columns");
             }
         }
     }
@@ -1716,15 +1716,15 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
                 this.droppedRowIndex = index;
                 if (prevRowElement)
-                    this.domHandler.addClass(prevRowElement, 'ui-table-dragpoint-bottom');
+                    {this.domHandler.addClass(prevRowElement, 'ui-table-dragpoint-bottom');}
                 else
-                    this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');
+                    {this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');}
             }
             else {
                 if (prevRowElement)
-                    this.domHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');
+                    {this.domHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');}
                 else
-                    this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');
+                    {this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');}
 
                 this.droppedRowIndex = index + 1;
                 this.domHandler.addClass(rowElement, 'ui-table-dragpoint-bottom');
@@ -2079,9 +2079,9 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             }
             else {
                 if(this.frozen && this.scrollableSiblingBody && this.domHandler.getOuterWidth(this.scrollableSiblingBody) < this.domHandler.getOuterWidth(this.scrollableSiblingBody.children[0]))
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - this.domHandler.calculateScrollbarWidth()) + 'px';
+                    {this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - this.domHandler.calculateScrollbarWidth()) + 'px';}
                 else
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
+                    {this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;}
             }
         }
     }
@@ -2608,9 +2608,9 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     onMouseDown(event) {
         if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || this.domHandler.hasClass(event.target, 'ui-column-resizer'))
-            this.el.nativeElement.draggable = false;
+            {this.el.nativeElement.draggable = false;}
         else
-            this.el.nativeElement.draggable = true;
+            {this.el.nativeElement.draggable = true;}
     }
 
     onDragStart(event) {
@@ -2735,9 +2735,9 @@ export class EditableColumn implements AfterViewInit {
                 this.dt.onEditComplete.emit({ field: this.field, data: this.data });
 
                 if (event.shiftKey)
-                    this.moveToPreviousCell(event);
+                    {this.moveToPreviousCell(event);}
                 else
-                    this.moveToNextCell(event);
+                    {this.moveToNextCell(event);}
             }
         }
     }
@@ -2792,9 +2792,9 @@ export class EditableColumn implements AfterViewInit {
 
         if (prevCell) {
             if (this.domHandler.hasClass(prevCell, 'ui-editable-column'))
-                return prevCell;
+                {return prevCell;}
             else
-                return this.findPreviousEditableColumn(prevCell);
+                {return this.findPreviousEditableColumn(prevCell);}
         }
         else {
             return null;
@@ -2813,9 +2813,9 @@ export class EditableColumn implements AfterViewInit {
 
         if (nextCell) {
             if (this.domHandler.hasClass(nextCell, 'ui-editable-column'))
-                return nextCell;
+                {return nextCell;}
             else
-                return this.findNextEditableColumn(nextCell);
+                {return this.findNextEditableColumn(nextCell);}
         }
         else {
             return null;
@@ -3164,9 +3164,9 @@ export class ReorderableRow implements AfterViewInit {
 
     onMouseDown(event) {
         if (this.domHandler.hasClass(event.target, 'ui-table-reorderablerow-handle'))
-            this.el.nativeElement.draggable = true;
+            {this.el.nativeElement.draggable = true;}
         else
-            this.el.nativeElement.draggable = false;
+            {this.el.nativeElement.draggable = false;}
     }
 
     onDragStart(event) {
@@ -3197,7 +3197,7 @@ export class ReorderableRow implements AfterViewInit {
             this.dt.onRowDrop(event, this.el.nativeElement);
         }
 
-        event.preventDefault()
+        event.preventDefault();
     }
 }
 

@@ -91,9 +91,9 @@ describe('Steps', () => {
 
       for(let x =0; x < testComponent.items.length; x++ ){
         if(x==0)
-          expect(items[x].nativeElement.className).not.toContain("ui-state-disabled ui-steps-incomplete");
+          {expect(items[x].nativeElement.className).not.toContain("ui-state-disabled ui-steps-incomplete");}
         else
-          expect(items[x].nativeElement.className).toContain("ui-state-disabled ui-steps-incomplete");
+          {expect(items[x].nativeElement.className).toContain("ui-state-disabled ui-steps-incomplete");}
       }
     });
 
@@ -125,9 +125,9 @@ describe('Steps', () => {
       const items = fixture.debugElement.children[0].queryAll(By.css('li'));
       for(let x =0; x < testComponent.items.length; x++ ){
         if(x==0)
-          expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");
+          {expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");}
         else
-          expect(items[x].nativeElement.className).toContain("ui-state-default");
+          {expect(items[x].nativeElement.className).toContain("ui-state-default");}
       }
     });
 
@@ -138,9 +138,9 @@ describe('Steps', () => {
       const items = fixture.debugElement.children[0].queryAll(By.css('li'));
       for(let x =0; x < testComponent.items.length; x++ ){
         if(x==2)
-          expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");
+          {expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");}
         else
-          expect(items[x].nativeElement.className).toContain("ui-state-default");
+          {expect(items[x].nativeElement.className).toContain("ui-state-default");}
       }
     });
 
@@ -150,16 +150,16 @@ describe('Steps', () => {
       fixture.detectChanges();
 
       const items = fixture.debugElement.children[0].queryAll(By.css('li'));
-      steps.activeIndexChange.subscribe(value => steps.activeIndex = value)
+      steps.activeIndexChange.subscribe(value => steps.activeIndex = value);
       items[2].query(By.css('a')).nativeElement.click();
       fixture.detectChanges();
 
       expect(itemClickSpy).toHaveBeenCalled();
       for(let x =0; x < testComponent.items.length; x++ ){
         if(x==2)
-          expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");
+          {expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");}
         else
-          expect(items[x].nativeElement.className).toContain("ui-state-default");
+          {expect(items[x].nativeElement.className).toContain("ui-state-default");}
       }
     });
 
@@ -169,7 +169,7 @@ describe('Steps', () => {
       fixture.detectChanges();
 
       const items = fixture.debugElement.children[0].queryAll(By.css('li'));
-      steps.activeIndexChange.subscribe(value => data = value)
+      steps.activeIndexChange.subscribe(value => data = value);
       items[2].query(By.css('a')).nativeElement.click();
       fixture.detectChanges();
 

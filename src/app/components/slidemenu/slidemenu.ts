@@ -202,9 +202,9 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     toggle(event) {
         if (this.visible)
-            this.hide();
+            {this.hide();}
         else
-            this.show(event);
+            {this.show(event);}
 
         this.preventDocumentDefault = true;
     }
@@ -237,9 +237,9 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.containerViewChild.nativeElement);
+                {document.body.appendChild(this.containerViewChild.nativeElement);}
             else
-                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+                {this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);}
         }
     }
 

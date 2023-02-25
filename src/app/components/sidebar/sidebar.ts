@@ -82,9 +82,9 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
         if(this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.containerViewChild.nativeElement);
+                {document.body.appendChild(this.containerViewChild.nativeElement);}
             else
-                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+                {this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);}
         }
 
         if(this.visible) {
@@ -101,12 +101,12 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
         if(this.initialized && this.containerViewChild && this.containerViewChild.nativeElement) {
             if(this._visible)
-                this.show();
+                {this.show();}
             else {
                 if(this.preventVisibleChangePropagation)
-                    this.preventVisibleChangePropagation = false;
+                    {this.preventVisibleChangePropagation = false;}
                 else
-                    this.hide();
+                    {this.hide();}
             }
         }
     }

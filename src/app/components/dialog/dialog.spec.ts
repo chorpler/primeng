@@ -56,7 +56,7 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         const headerEl = fixture.debugElement.query(By.css('.ui-dialog-title'));
-        expect(headerEl.nativeElement.textContent).toContain('PrimeNG Dialog Header')
+        expect(headerEl.nativeElement.textContent).toContain('PrimeNG Dialog Header');
     });
     
     it('should display the close icon when closable', () => {

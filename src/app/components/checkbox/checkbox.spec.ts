@@ -33,7 +33,7 @@ describe('Checkbox', () => {
 
     it('should disabled', () => {
         checkbox.disabled = true;
-        checkbox.label = "primeng"
+        checkbox.label = "primeng";
         fixture.detectChanges();
 
         const onClickSpy = spyOn(checkbox,'onClick').and.callThrough();

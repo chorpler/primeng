@@ -423,9 +423,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+                {document.body.appendChild(this.overlay);}
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                {this.domHandler.appendChild(this.overlay, this.appendTo);}
 
             this.overlay.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
         }
@@ -439,9 +439,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     alignOverlay() {
         if (this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
+            {this.domHandler.absolutePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));}
         else
-            this.domHandler.relativePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
+            {this.domHandler.relativePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));}
     }
 
     hide() {
@@ -453,9 +453,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
 
         if (this.dropdownMode === 'blank')
-            this.search(event, '');
+            {this.search(event, '');}
         else if (this.dropdownMode === 'current')
-            this.search(event, queryValue);
+            {this.search(event, queryValue);}
 
         this.onDropdownClick.emit({
             originalEvent: event,
@@ -465,9 +465,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     focusInput() {
         if (this.multiple)
-            this.multiInputEL.nativeElement.focus();
+            {this.multiInputEL.nativeElement.focus();}
         else
-            this.inputEL.nativeElement.focus();
+            {this.inputEL.nativeElement.focus();}
     }
 
     removeItem(item: any) {
@@ -638,9 +638,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     updateFilledState() {
         if (this.multiple)
-            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
+            {this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');}
         else
-            this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');;
+            {this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');};
     }
 
     updateInputField() {

@@ -51,7 +51,7 @@ describe('InputSwitch', () => {
 
       const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(inputSwitchEl.className).toContain("Primeng ROCKS!");
-      expect(inputSwitchEl.style.primeng).toContain("rocks!")
+      expect(inputSwitchEl.style.primeng).toContain("rocks!");
     });
 
     it('should get a name inputId and tabindex', () => {

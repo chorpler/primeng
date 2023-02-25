@@ -93,9 +93,9 @@ export class Lightbox implements AfterViewInit,OnDestroy {
 
         if(this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.panel);
+                {document.body.appendChild(this.panel);}
             else
-                this.domHandler.appendChild(this.panel, this.appendTo);
+                {this.domHandler.appendChild(this.panel, this.appendTo);}
         }
 
         this.documentClickListener = this.renderer.listen('document', 'click', (event) => {

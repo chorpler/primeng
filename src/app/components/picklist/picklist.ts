@@ -221,9 +221,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             let listItem;
 
             if(this.movedUp)
-                listItem = listItems[0];
+                {listItem = listItems[0];}
             else
-                listItem = listItems[listItems.length - 1];
+                {listItem = listItems[listItems.length - 1];}
 
             this.domHandler.scrollInView(this.reorderedListElement, listItem);
             this.movedUp = false;
@@ -256,9 +256,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
         else {
             if(selected)
-                selectedItems.splice(index, 1);
+                {selectedItems.splice(index, 1);}
             else
-                selectedItems.push(item);
+                {selectedItems.push(item);}
         }
 
         callback.emit({originalEvent: event, items: selectedItems});
@@ -286,9 +286,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
 
         if(listType === this.SOURCE_LIST)
-            this.filterValueSource = query;
+            {this.filterValueSource = query;}
         else
-            this.filterValueTarget = query;
+            {this.filterValueTarget = query;}
 
         this.activateFilter(data, listType);
     }
@@ -297,16 +297,16 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         let searchFields = this.filterBy.split(',');
 
         if(listType === this.SOURCE_LIST)
-            this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
+            {this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);}
         else
-            this.visibleOptionsTarget = this.objectUtils.filter(data, searchFields, this.filterValueTarget);
+            {this.visibleOptionsTarget = this.objectUtils.filter(data, searchFields, this.filterValueTarget);}
     }
 
     isItemVisible(item: any, listType: number): boolean {
         if(listType == this.SOURCE_LIST)
-            return this.isVisibleInList(this.visibleOptionsSource, item, this.filterValueSource);
+            {return this.isVisibleInList(this.visibleOptionsSource, item, this.filterValueSource);}
         else
-            return this.isVisibleInList(this.visibleOptionsTarget, item, this.filterValueTarget);
+            {return this.isVisibleInList(this.visibleOptionsTarget, item, this.filterValueTarget);}
     }
 
     isVisibleInList(data: any[], item: any, filterValue: string): boolean {
@@ -533,9 +533,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         this.dragging = true;
         this.fromListType = listType;
         if(listType === this.SOURCE_LIST)
-            this.draggedItemIndexSource = index;
+            {this.draggedItemIndexSource = index;}
         else
-            this.draggedItemIndexTarget = index;
+            {this.draggedItemIndexTarget = index;}
 
         if(this.dragdropScope) {
             event.dataTransfer.setData("text", this.dragdropScope);
@@ -622,9 +622,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         const elementtomove = fromList[fromIndex];
 
         if(toIndex === null)
-            toList.push(fromList.splice(fromIndex, 1)[0]);
+            {toList.push(fromList.splice(fromIndex, 1)[0]);}
         else
-            toList.splice(toIndex, 0, fromList.splice(fromIndex, 1)[0]);
+            {toList.splice(toIndex, 0, fromList.splice(fromIndex, 1)[0]);}
 
         callback.emit({
             items: [elementtomove]
@@ -638,18 +638,18 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             let bottomDiff = (offsetY + moveListType.nativeElement.clientHeight) - event.pageY;
             let topDiff = (event.pageY - offsetY);
             if(bottomDiff < 25 && bottomDiff > 0)
-                moveListType.nativeElement.scrollTop += 15;
+                {moveListType.nativeElement.scrollTop += 15;}
             else if(topDiff < 25 && topDiff > 0)
-                moveListType.nativeElement.scrollTop -= 15;
+                {moveListType.nativeElement.scrollTop -= 15;}
         }
 
         if(listType === this.SOURCE_LIST) {
             if(this.fromListType === this.TARGET_LIST)
-                this.listHighlightSource = true;
+                {this.listHighlightSource = true;}
         }
         else {
             if(this.fromListType === this.SOURCE_LIST)
-                this.listHighlightTarget = true;
+                {this.listHighlightTarget = true;}
         }
         event.preventDefault();
     }

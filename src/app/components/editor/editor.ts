@@ -1,6 +1,6 @@
 import { NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SharedModule,Header} from '../common/shared'
+import {SharedModule,Header} from '../common/shared';
 import { DomHandler } from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -151,9 +151,9 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
         if(this.quill) {
             if(value)
-                this.quill.pasteHTML(value);
+                {this.quill.pasteHTML(value);}
             else
-                this.quill.setText('');
+                {this.quill.setText('');}
         }
     }
 
@@ -178,9 +178,9 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
         if(this.quill) {
             if(this._readonly)
-                this.quill.disable();
+                {this.quill.disable();}
             else
-                this.quill.enable();
+                {this.quill.enable();}
         }
     }
 }

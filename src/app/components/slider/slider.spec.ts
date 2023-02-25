@@ -60,7 +60,7 @@ describe('Slider', () => {
     });
 
     it('should change orientation', () => {
-      slider.orientation = "vertical"
+      slider.orientation = "vertical";
       fixture.detectChanges();
 
       const sliderEl = fixture.debugElement.query(By.css('div')).nativeElement;
@@ -105,7 +105,7 @@ describe('Slider', () => {
       slider.updateValue(91);
       fixture.detectChanges();
       
-      expect(value).toEqual(91)
+      expect(value).toEqual(91);
     });
 
 

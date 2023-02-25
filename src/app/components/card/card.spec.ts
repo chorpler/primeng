@@ -38,7 +38,7 @@ describe('Accordion', () => {
           Header,
           Footer
         ],
-      })
+      });
     }));
     beforeEach(() => {
       fixture = TestBed.createComponent(TestCardComponent);

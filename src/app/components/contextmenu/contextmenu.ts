@@ -96,7 +96,7 @@ export class ContextMenuSub {
     }
 
     position(sublist, item) {
-        this.containerLeft = this.domHandler.getOffset(item.parentElement)
+        this.containerLeft = this.domHandler.getOffset(item.parentElement);
         let viewport = this.domHandler.getViewport();
         let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : this.domHandler.getHiddenElementOuterWidth(sublist);
         let itemOuterWidth = this.domHandler.getOuterWidth(item.children[0]);
@@ -180,9 +180,9 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.containerViewChild.nativeElement);
+                {document.body.appendChild(this.containerViewChild.nativeElement);}
             else
-                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+                {this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);}
         }
     }
 
@@ -211,9 +211,9 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     toggle(event?: MouseEvent) {
         if (this.containerViewChild.nativeElement.offsetParent)
-            this.hide();
+            {this.hide();}
         else
-            this.show(event);
+            {this.show(event);}
     }
 
     position(event?: MouseEvent) {

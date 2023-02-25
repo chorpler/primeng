@@ -26,7 +26,7 @@ describe('Fieldset', () => {
         fieldset.legend = 'PrimeNG Fieldset Legend';
         fixture.detectChanges();
         const headerEl = fixture.debugElement.query(By.css('.ui-fieldset-legend-text'));
-        expect(headerEl.nativeElement.textContent).toContain('PrimeNG Fieldset Legend')
+        expect(headerEl.nativeElement.textContent).toContain('PrimeNG Fieldset Legend');
     });
     
     it('should not render toggle icon when not toggleable', () => {

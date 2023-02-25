@@ -102,9 +102,9 @@ export class SelectButton implements ControlValueAccessor {
         if(this.multiple) {
             let itemIndex = this.findItemIndex(option);
             if(itemIndex != -1)
-                this.value = this.value.filter((val,i) => i!=itemIndex);
+                {this.value = this.value.filter((val,i) => i!=itemIndex);}
             else
-                this.value = [...this.value||[], option.value];
+                {this.value = [...this.value||[], option.value];}
         }
         else {
             this.value = option.value;
@@ -135,9 +135,9 @@ export class SelectButton implements ControlValueAccessor {
 
     isSelected(option: SelectItem) {
         if(this.multiple)
-            return this.findItemIndex(option) != -1;
+            {return this.findItemIndex(option) != -1;}
         else
-            return this.objectUtils.equals(option.value, this.value, this.dataKey);
+            {return this.objectUtils.equals(option.value, this.value, this.dataKey);}
     }
 
     findItemIndex(option: SelectItem) {

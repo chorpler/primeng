@@ -114,7 +114,7 @@ describe('Listbox', () => {
 
     it('should change style and styleClass', () => {
       listbox.style = {'primeng' : 'rocks!'};
-      listbox.styleClass = "Primeng ROCKS!"
+      listbox.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
       
       const listboxEl = fixture.debugElement.query(By.css('div')).nativeElement;

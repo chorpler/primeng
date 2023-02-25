@@ -238,9 +238,9 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     writeValue(value: any) : void {
         if(this.range)
-            this.values = value||[0,0];
+            {this.values = value||[0,0];}
         else
-            this.value = value||0;
+            {this.value = value||0;}
 
         this.updateHandleValue();
     }
@@ -287,9 +287,9 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     calculateHandleValue(event): number {
         if(this.orientation === 'horizontal')
-            return ((event.pageX - this.initX) * 100) / (this.barWidth);
+            {return ((event.pageX - this.initX) * 100) / (this.barWidth);}
         else
-            return(((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight);
+            {return(((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight);}
     }
 
     updateHandleValue(): void {
@@ -299,11 +299,11 @@ export class Slider implements OnDestroy,ControlValueAccessor {
         }
         else {
             if(this.value < this.min)
-                this.handleValue = 0;
+                {this.handleValue = 0;}
             else if(this.value > this.max)
-                this.handleValue = 100;
+                {this.handleValue = 100;}
             else
-                this.handleValue = (this.value - this.min) * 100 / (this.max - this.min);
+                {this.handleValue = (this.value - this.min) * 100 / (this.max - this.min);}
         }
     }
 

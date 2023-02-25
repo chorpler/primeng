@@ -104,9 +104,9 @@ export class Panel implements BlockableUI {
 
         if(this.toggleable) {
             if(this.collapsed)
-                this.expand(event);
+                {this.expand(event);}
             else
-                this.collapse(event);
+                {this.collapse(event);}
         }
 
         event.preventDefault();

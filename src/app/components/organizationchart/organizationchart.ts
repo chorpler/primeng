@@ -83,7 +83,7 @@ export class OrganizationChartNode {
     }
 
     onNodeClick(event: Event, node: TreeNode) {
-        this.chart.onNodeClick(event, node)
+        this.chart.onNodeClick(event, node);
     }
 
     toggleNode(event: Event, node: TreeNode) {
@@ -145,9 +145,9 @@ export class OrganizationChart implements AfterContentInit {
 
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
         if(this.templateMap)
-            return node.type ? this.templateMap[node.type] : this.templateMap['default'];
+            {return node.type ? this.templateMap[node.type] : this.templateMap['default'];}
         else
-            return null;
+            {return null;}
     }
 
     onNodeClick(event: Event, node: TreeNode) {

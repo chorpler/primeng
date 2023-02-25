@@ -6,9 +6,9 @@ export class ObjectUtils {
 
     public equals(obj1: any, obj2: any, field?: string): boolean {
         if (field)
-            return (this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field));
+            {return (this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field));}
         else
-            return this.equalsByValue(obj1, obj2);
+            {return this.equalsByValue(obj1, obj2);}
     }
 
     public equalsByValue(obj1: any, obj2: any, visited?: any[]): boolean {
@@ -29,7 +29,7 @@ export class ObjectUtils {
 
         if (typeof obj1 == 'object' && typeof obj2 == 'object') {
             if (visited) {
-                if (visited.indexOf(obj1) !== -1) return false;
+                if (visited.indexOf(obj1) !== -1) {return false;}
             } else {
                 visited = [];
             }
@@ -42,21 +42,21 @@ export class ObjectUtils {
 
                 switch (typeof (obj1[p])) {
                     case 'object':
-                        if (!this.equalsByValue(obj1[p], obj2[p], visited)) return false;
+                        if (!this.equalsByValue(obj1[p], obj2[p], visited)) {return false;}
                         break;
 
                     case 'function':
-                        if (typeof (obj2[p]) == 'undefined' || (p != 'compare' && obj1[p].toString() != obj2[p].toString())) return false;
+                        if (typeof (obj2[p]) == 'undefined' || (p != 'compare' && obj1[p].toString() != obj2[p].toString())) {return false;}
                         break;
 
                     default:
-                        if (obj1[p] != obj2[p]) return false;
+                        if (obj1[p] != obj2[p]) {return false;}
                         break;
                 }
             }
 
             for (var p in obj2) {
-                if (typeof (obj1[p]) == 'undefined') return false;
+                if (typeof (obj1[p]) == 'undefined') {return false;}
             }
 
             delete obj1._$visited;

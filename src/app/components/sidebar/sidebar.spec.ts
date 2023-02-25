@@ -44,7 +44,7 @@ describe('Sidebar', () => {
 
       const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(containerEl.className).toContain("Primeng rocks!");
-      expect(containerEl.style.primeng).toContain('rocks!')
+      expect(containerEl.style.primeng).toContain('rocks!');
     });
 
     it('should not show icon', () => {

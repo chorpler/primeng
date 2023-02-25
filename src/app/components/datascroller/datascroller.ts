@@ -116,9 +116,9 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
 
     shouldLoad() {
         if(this.lazy)
-            return (this.rows * this.page < this.totalRecords);
+            {return (this.rows * this.page < this.totalRecords);}
         else
-            return this.value && this.value.length && (this.rows * this.page < this.value.length);
+            {return this.value && this.value.length && (this.rows * this.page < this.value.length);}
     }
 
     reset() {

@@ -235,9 +235,9 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     updateMaxedOut() {
         if(this.inputViewChild && this.inputViewChild.nativeElement) {
             if(this.max && this.value && this.max === this.value.length)
-                this.inputViewChild.nativeElement.disabled = true;
+                {this.inputViewChild.nativeElement.disabled = true;}
             else
-                this.inputViewChild.nativeElement.disabled = this.disabled || false;
+                {this.inputViewChild.nativeElement.disabled = this.disabled || false;}
         }
     }
 }

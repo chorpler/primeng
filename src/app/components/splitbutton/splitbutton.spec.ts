@@ -131,7 +131,7 @@ describe('SplitButton', () => {
     });
 
     it('should change directon of elements', () => {
-      splitbutton.dir="ltr"
+      splitbutton.dir="ltr";
       fixture.detectChanges();
 
       const dropdownButton = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton'));
@@ -141,7 +141,7 @@ describe('SplitButton', () => {
     });
 
     it('should have a tabindex', () => {
-      splitbutton.tabindex = 1
+      splitbutton.tabindex = 1;
       fixture.detectChanges();
 
       const defaultButton=fixture.debugElement.query(By.css('button'));

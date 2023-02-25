@@ -40,7 +40,7 @@ describe('Breadcrumb', () => {
       
       const breadcrumbEl = fixture.debugElement.query(By.css('div'));
       expect(breadcrumbEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(breadcrumbEl.styles.primeng).toEqual("rocks!")
+      expect(breadcrumbEl.styles.primeng).toEqual("rocks!");
     });
 
     it('should display the home', () => {
@@ -80,7 +80,7 @@ describe('Breadcrumb', () => {
         {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link'}
     ];
       fixture.detectChanges();
-      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
       const homeEl = fixture.debugElement.query(By.css('.ui-breadcrumb-home')).query(By.css('a')).nativeElement;
       homeEl.click();
       fixture.detectChanges();
@@ -95,7 +95,7 @@ describe('Breadcrumb', () => {
         {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link'}
     ];
       fixture.detectChanges();
-      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
       const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
       squadEl.click();
       fixture.detectChanges();
@@ -110,7 +110,7 @@ describe('Breadcrumb', () => {
         {label:'Lionel Messi', routerLink: 'test', icon: 'pi pi-external-link'}
     ];
       fixture.detectChanges();
-      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough();
       const messiEl = fixture.debugElement.query(By.css('ul')).children[4].children[0].nativeElement;
       messiEl.click();
       fixture.detectChanges();

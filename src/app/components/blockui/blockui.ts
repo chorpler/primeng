@@ -35,15 +35,15 @@ export class BlockUI implements AfterViewInit,OnDestroy {
 
         if (this.mask.nativeElement) {
             if (this._blocked)
-                this.block();
+                {this.block();}
             else
-                this.unblock();
+                {this.unblock();}
         }
     }
 
     ngAfterViewInit() {
         if (this.target && !this.target.getBlockableElement) {
-            throw 'Target of BlockUI must implement BlockableUI interface';
+            throw new Error('Target of BlockUI must implement BlockableUI interface');
         }
     }
 

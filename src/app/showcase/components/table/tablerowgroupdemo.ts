@@ -37,9 +37,9 @@ export class TableRowGroupDemo implements OnInit {
                     let previousRowData = this.cars[i - 1];
                     let previousRowGroup = previousRowData.brand;
                     if (brand === previousRowGroup)
-                        this.rowGroupMetadata[brand].size++;
+                        {this.rowGroupMetadata[brand].size++;}
                     else
-                        this.rowGroupMetadata[brand] = { index: i, size: 1 };
+                        {this.rowGroupMetadata[brand] = { index: i, size: 1 };}
                 }
             }
         }

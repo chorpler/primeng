@@ -38,7 +38,7 @@ describe('Calendar', () => {
     });
 
     it('should change styleClass', () => {
-      calendar.styleClass = "Primeng ROCKS!"
+      calendar.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const calenderEl = fixture.debugElement.query(By.css('span'));
@@ -46,7 +46,7 @@ describe('Calendar', () => {
     });
 
     it('should change inputStyleClass', () => {
-      calendar.inputStyleClass = "Primeng ROCKS!"
+      calendar.inputStyleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const calenderEl = fixture.debugElement.query(By.css('input'));
@@ -147,7 +147,7 @@ describe('Calendar', () => {
 
       const panelEl = fixture.debugElement.query(By.css('div'));
       expect(panelEl).toBeTruthy();
-      expect(panelEl.nativeElement.className).toContain('ui-datepicker-inline')
+      expect(panelEl.nativeElement.className).toContain('ui-datepicker-inline');
     });
 
     it('should spanish', () => {
@@ -272,9 +272,9 @@ describe('Calendar', () => {
       expect(selectedTdEl).toBeTruthy();
       for(let x=0; x<datesEl.length; x++){
         if(x == 7)
-          expect(datesEl[x].nativeElement.className).toContain("ui-state-active");
+          {expect(datesEl[x].nativeElement.className).toContain("ui-state-active");}
         else
-          expect(datesEl[x].nativeElement.className).not.toContain("ui-state-active");
+          {expect(datesEl[x].nativeElement.className).not.toContain("ui-state-active");}
       }
       expect(calendar.isSingleSelection()).toEqual(true);
       tick(150);
@@ -282,7 +282,7 @@ describe('Calendar', () => {
     }));
 
     it('should change date format', () => {
-      calendar.dateFormat = "dd/mm/yy"
+      calendar.dateFormat = "dd/mm/yy";
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -299,9 +299,9 @@ describe('Calendar', () => {
 
       expect(calendar.inputFieldValue).toEqual(inputEl.value);
       if(calendar.currentMonth < 9)
-        expect(calendar.inputFieldValue).toEqual("05/0"+(calendar.currentMonth+1)+"/"+calendar.currentYear);
+        {expect(calendar.inputFieldValue).toEqual("05/0"+(calendar.currentMonth+1)+"/"+calendar.currentYear);}
       else
-        expect(calendar.inputFieldValue).toEqual("05/"+(calendar.currentMonth+1)+"/"+calendar.currentYear);
+        {expect(calendar.inputFieldValue).toEqual("05/"+(calendar.currentMonth+1)+"/"+calendar.currentYear);}
       expect(onDateSelectSpy).toHaveBeenCalled();
     });
 
@@ -485,13 +485,13 @@ describe('Calendar', () => {
       expect(incrementMinuteSpy).toHaveBeenCalled();
       expect(fixture.debugElement.query(By.css('input')).nativeElement.value).toEqual(calendar.inputFieldValue);
       if(calendar.currentHour<10 && calendar.currentMinute<10)
-        expect(calendar.inputFieldValue).toEqual("08/08/2008"+" 0"+calendar.currentHour+":0"+calendar.currentMinute);
+        {expect(calendar.inputFieldValue).toEqual("08/08/2008"+" 0"+calendar.currentHour+":0"+calendar.currentMinute);}
       else if (calendar.currentHour<10)
-        expect(calendar.inputFieldValue).toEqual("08/08/2008"+" 0"+calendar.currentHour+":"+calendar.currentMinute);
+        {expect(calendar.inputFieldValue).toEqual("08/08/2008"+" 0"+calendar.currentHour+":"+calendar.currentMinute);}
       else if (calendar.currentMinute<10)
-        expect(calendar.inputFieldValue).toEqual("08/08/2008"+" "+calendar.currentHour+":0"+calendar.currentMinute);
+        {expect(calendar.inputFieldValue).toEqual("08/08/2008"+" "+calendar.currentHour+":0"+calendar.currentMinute);}
       else
-        expect(calendar.inputFieldValue).toEqual("08/08/2008"+" "+calendar.currentHour+":"+calendar.currentMinute);
+        {expect(calendar.inputFieldValue).toEqual("08/08/2008"+" "+calendar.currentHour+":"+calendar.currentMinute);}
     });
 
     it('should only time', () => {
@@ -751,9 +751,9 @@ describe('Calendar', () => {
       tick(150);
       expect(calendar.overlayVisible).toEqual(false);
       if(calendar.currentMonth<9)
-        expect(calendar.inputFieldValue).toEqual("0"+(calendar.currentMonth+1)+"/01/"+calendar.currentYear);
+        {expect(calendar.inputFieldValue).toEqual("0"+(calendar.currentMonth+1)+"/01/"+calendar.currentYear);}
       else
-        expect(calendar.inputFieldValue).toEqual((calendar.currentMonth+1)+"/01/"+calendar.currentYear);
+        {expect(calendar.inputFieldValue).toEqual((calendar.currentMonth+1)+"/01/"+calendar.currentYear);}
       expect(inputEl.value).toEqual(calendar.inputFieldValue);
       expect(onDateSelectSpy).toHaveBeenCalled();
       expect(onOverlayAnimationStartSpy).toHaveBeenCalled();
@@ -1057,7 +1057,7 @@ describe('Calendar', () => {
       inputEl.nativeElement.dispatchEvent(focusEvent);
       fixture.detectChanges();
       
-      const seperatorEl = fixture.debugElement.queryAll(By.css('.ui-separator'))
+      const seperatorEl = fixture.debugElement.queryAll(By.css('.ui-separator'));
       const secondPicker = fixture.debugElement.query(By.css('.ui-second-picker'));
       expect(seperatorEl.length).toEqual(2);
       expect(calendar.showSeconds).toBeTruthy();

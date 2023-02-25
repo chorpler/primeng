@@ -24,7 +24,7 @@ describe('RadioButton', () => {
 
     it('should change name inputId value style styleClass label labelStyleClass and tabIndex', () => {
         radiobutton.name = "primeng";
-        radiobutton.inputId = "prime"
+        radiobutton.inputId = "prime";
         radiobutton.value = "Primeng";
         radiobutton.style = {'primeng': 'rocks!'};
         radiobutton.styleClass = "Primeng ROCKS!";
@@ -58,7 +58,7 @@ describe('RadioButton', () => {
 
     it('should disabled', () => {
         radiobutton.disabled = true;
-        radiobutton.label = "prime"
+        radiobutton.label = "prime";
         fixture.detectChanges();
 
         const handleClickSpy = spyOn(radiobutton,'handleClick').and.callThrough();
@@ -110,7 +110,7 @@ describe('RadioButton', () => {
     });
 
     it('should click label', () => {
-        radiobutton.label = "prime"
+        radiobutton.label = "prime";
         fixture.detectChanges();
         
         let value;

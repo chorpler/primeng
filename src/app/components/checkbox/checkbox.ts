@@ -83,9 +83,9 @@ export class Checkbox implements ControlValueAccessor {
     updateModel() {
         if(!this.binary) {
             if(this.checked)
-                this.addValue();
+                {this.addValue();}
             else
-                this.removeValue();
+                {this.removeValue();}
 
             this.onModelChange(this.model);
 
@@ -107,9 +107,9 @@ export class Checkbox implements ControlValueAccessor {
 
     isChecked(): boolean {
         if(this.binary)
-            return this.model;
+            {return this.model;}
         else
-            return this.model && this.model.indexOf(this.value) > -1;
+            {return this.model && this.model.indexOf(this.value) > -1;}
     }
 
     removeValue() {
@@ -118,9 +118,9 @@ export class Checkbox implements ControlValueAccessor {
 
     addValue() {
         if(this.model)
-            this.model = [...this.model, this.value];
+            {this.model = [...this.model, this.value];}
         else
-            this.model = [this.value];
+            {this.model = [this.value];}
     }
 
     onFocus(event) {

@@ -193,9 +193,9 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             let c = maskTokens[i];
             if(c != '?') {
                 if(this.defs[c])
-                    this.buffer.push(this.getPlaceholder(i));
+                    {this.buffer.push(this.getPlaceholder(i));}
                 else
-                    this.buffer.push(c);
+                    {this.buffer.push(c);}
             }
         }
         this.defaultBuffer = this.buffer.join('');
@@ -206,9 +206,9 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
         if(this.inputViewChild.nativeElement) {
             if(this.value == undefined || this.value == null)
-                this.inputViewChild.nativeElement.value = '';
+                {this.inputViewChild.nativeElement.value = '';}
             else
-                this.inputViewChild.nativeElement.value = this.value;
+                {this.inputViewChild.nativeElement.value = this.value;}
 
             this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;
@@ -283,12 +283,12 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     seekNext(pos) {
-        while (++pos < this.len && !this.tests[pos]);
+        while (++pos < this.len && !this.tests[pos]){;}
         return pos;
     }
 
     seekPrev(pos) {
-        while (--pos >= 0 && !this.tests[pos]);
+        while (--pos >= 0 && !this.tests[pos]){;}
         return pos;
     }
 
@@ -339,11 +339,11 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             // a deletion or backspace happened
             this.checkVal(true);
             while (pos.begin > 0 && !this.tests[pos.begin-1])
-                  pos.begin--;
+                  {pos.begin--;}
             if (pos.begin === 0)
             {
                while (pos.begin < this.firstNonMaskPos && !this.tests[pos.begin])
-                  pos.begin++;
+                  {pos.begin++;}
             }
 
             setTimeout(() => {
@@ -356,7 +356,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         } else {
             this.checkVal(true);
             while (pos.begin < this.len && !this.tests[pos.begin])
-                pos.begin++;
+                {pos.begin++;}
 
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
@@ -530,7 +530,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             if (this.autoClear || this.buffer.join('') === this.defaultBuffer) {
                 // Invalid value. Remove it and replace it with the
                 // mask, which is the default behavior.
-                if(this.inputViewChild.nativeElement.value) this.inputViewChild.nativeElement.value = '';
+                if(this.inputViewChild.nativeElement.value) {this.inputViewChild.nativeElement.value = '';}
                 this.clearBuffer(0, this.len);
             } else {
                 // Invalid value, but we opt to show the value to the
@@ -575,9 +575,9 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     onInput(event) {
         if (this.androidChrome)
-            this.handleAndroidInput(event);
+            {this.handleAndroidInput(event);}
         else
-            this.handleInputChange(event);
+            {this.handleInputChange(event);}
     }
 
     handleInputChange(event) {

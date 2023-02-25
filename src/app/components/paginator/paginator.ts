@@ -219,7 +219,7 @@ export class Paginator implements OnInit {
             rows: this.rows,
             first: this.first,
             totalRecords: this.totalRecords
-        }
+        };
     }
 }
 

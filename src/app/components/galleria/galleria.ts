@@ -218,9 +218,9 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
                     frameViewportRight = frameViewportLeft + this.frameWidth;
 
                     if(frameViewportRight > this.domHandler.width(this.stripWrapper))
-                        this.stripLeft -= stepFactor;
+                        {this.stripLeft -= stepFactor;}
                     else if(frameViewportLeft < 0)
-                        this.stripLeft += stepFactor;
+                        {this.stripLeft += stepFactor;}
                 }
             }
 
@@ -231,7 +231,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
 
     clickImage(event, image, i) {
-        this.onImageClicked.emit({originalEvent: event, image: image, index: i})
+        this.onImageClicked.emit({originalEvent: event, image: image, index: i});
     }
 
     ngOnDestroy() {

@@ -163,9 +163,9 @@ export class ConfirmDialog implements OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.container);
+                {document.body.appendChild(this.container);}
             else
-                this.domHandler.appendChild(this.container, this.appendTo);
+                {this.domHandler.appendChild(this.container, this.appendTo);}
         }
     }
 

@@ -327,9 +327,9 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
                     this.progress = 0;
 
                     if(xhr.status >= 200 && xhr.status < 300)
-                        this.onUpload.emit({xhr: xhr, files: this.files});
+                        {this.onUpload.emit({xhr: xhr, files: this.files});}
                     else
-                        this.onError.emit({xhr: xhr, files: this.files});
+                        {this.onError.emit({xhr: xhr, files: this.files});}
 
                     this.clear();
                 }

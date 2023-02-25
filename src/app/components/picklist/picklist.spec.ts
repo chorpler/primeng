@@ -130,9 +130,9 @@ describe('PickList', () => {
       expect(picklist.visibleOptionsSource[1].brand).toEqual("Volvo");
       for(let i =0; i<sourceListItems.length;i++){
         if(i==0 || i==5)
-          expect(sourceListItems[i].nativeElement.style.display).toEqual("block");
+          {expect(sourceListItems[i].nativeElement.style.display).toEqual("block");}
         else
-          expect(sourceListItems[i].nativeElement.style.display).not.toEqual("block");
+          {expect(sourceListItems[i].nativeElement.style.display).not.toEqual("block");}
       }
       
     });
@@ -156,9 +156,9 @@ describe('PickList', () => {
       expect(picklist.visibleOptionsTarget[1].brand).toEqual("Volvo");
       for(let i =0; i<targetListItems.length;i++){
         if(i==0 || i==5)
-          expect(targetListItems[i].nativeElement.style.display).toEqual("block");
+          {expect(targetListItems[i].nativeElement.style.display).toEqual("block");}
         else
-          expect(targetListItems[i].nativeElement.style.display).not.toEqual("block");
+          {expect(targetListItems[i].nativeElement.style.display).not.toEqual("block");}
       }
       
     });
@@ -562,7 +562,7 @@ describe('PickList', () => {
       fixture.detectChanges();
 
       let data;
-      picklist.onSourceSelect.subscribe(value => data = value)
+      picklist.onSourceSelect.subscribe(value => data = value);
       const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
       sourceListItems[0].nativeElement.click();
       fixture.detectChanges();
@@ -583,7 +583,7 @@ describe('PickList', () => {
       fixture.detectChanges();
 
       let data;
-      picklist.onTargetSelect.subscribe(value => data = value)
+      picklist.onTargetSelect.subscribe(value => data = value);
       const targetListItems = fixture.debugElement.query(By.css('.ui-picklist-target-wrapper')).queryAll(By.css('.ui-picklist-item'));
       targetListItems[0].nativeElement.click();
       fixture.detectChanges();

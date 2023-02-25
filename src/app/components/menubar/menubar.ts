@@ -78,7 +78,7 @@ export class MenubarSub implements OnDestroy {
 
                 if (this.root) {
                     sublist.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
-                    sublist.style.left = '0px'
+                    sublist.style.left = '0px';
                 }
                 else {
                     sublist.style.top = '0px';
@@ -124,7 +124,7 @@ export class MenubarSub implements OnDestroy {
 
                 if (this.root) {
                     sublist.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
-                    sublist.style.left = '0px'
+                    sublist.style.left = '0px';
                 }
                 else {
                     sublist.style.top = '0px';

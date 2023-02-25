@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Accordion } from './accordion';
-import { AccordionTab } from './accordion'
+import { AccordionTab } from './accordion';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '../../../../node_modules/@angular/core';
 
@@ -37,7 +37,7 @@ describe('Accordion', () => {
         AccordionTab,
         TestAccordionComponent
       ],
-    })
+    });
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(TestAccordionComponent);
@@ -45,12 +45,12 @@ describe('Accordion', () => {
     firstAccordionTab = fixture.debugElement.children[0].children[0].children[0].componentInstance;
     secondAccordionTab = fixture.debugElement.children[0].children[0].children[1].componentInstance;
     fixture.detectChanges();
-  })
+  });
 
     it('should have a two accordionTab', () => {
       fixture.detectChanges();
 
-      expect(accordion.tabs.length).toBe(2)
+      expect(accordion.tabs.length).toBe(2);
     });
 
     it('should change header', () => {
@@ -58,7 +58,7 @@ describe('Accordion', () => {
       fixture.detectChanges();
 
       const accordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header-text'));
-      expect(accordionTabHeaderEl.nativeElement.textContent).toContain("Primeng ROCKS")
+      expect(accordionTabHeaderEl.nativeElement.textContent).toContain("Primeng ROCKS");
     });
 
     it('should have selected first accordionTab and second accordionTab should be unselected', () => {
@@ -95,7 +95,7 @@ describe('Accordion', () => {
       const accordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header')).nativeElement;
       firstAccordionTabOpenEl.click();
       expect(accordionTabHeaderEl.className).toContain('ui-state-disabled');
-      expect(accordionTabHeaderEl.className).not.toContain("ui-state-active")
+      expect(accordionTabHeaderEl.className).not.toContain("ui-state-active");
     });
 
     it('should change expandIcon and collapseIcon', () => {
@@ -112,7 +112,7 @@ describe('Accordion', () => {
     });
 
     it('should get styleClass', () => {
-      accordion.styleClass = "alwaysbetonprime"
+      accordion.styleClass = "alwaysbetonprime";
       fixture.detectChanges();
 
       const accordionEl = fixture.debugElement.children[0].query(By.css('.ui-accordion')).nativeElement;
@@ -120,7 +120,7 @@ describe('Accordion', () => {
     });
 
     it('should get style', () => {
-      accordion.style = { "prime": 'Rocks' }
+      accordion.style = { "prime": 'Rocks' };
       fixture.detectChanges();
 
       const accordionEl = fixture.debugElement.children[0].query(By.css('.ui-accordion')).nativeElement;
@@ -134,7 +134,7 @@ describe('Accordion', () => {
       const secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
       accordion.onOpen.subscribe(value => activeIndex=value.index);    
       secondAccordionTabOpenEl.click();
-      expect(activeIndex).toEqual(1)
+      expect(activeIndex).toEqual(1);
     });
 
 });

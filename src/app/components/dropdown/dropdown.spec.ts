@@ -32,7 +32,7 @@ describe('Dropdown', () => {
       const containerEl = fixture.debugElement.query(By.css('.ui-dropdown')).nativeElement;
       const hiddenEl = fixture.debugElement.queryAll(By.css('.ui-helper-hidden-accessible'))[1].children[0].nativeElement;
       const editableInputEl = fixture.debugElement.query(By.css('.ui-dropdown')).children[2].nativeElement;
-      expect(containerEl.className).toContain('ui-state-disabled')
+      expect(containerEl.className).toContain('ui-state-disabled');
       expect(hiddenEl.disabled).toEqual(true);
       expect(editableInputEl.disabled).toEqual(true);
     });
@@ -42,7 +42,7 @@ describe('Dropdown', () => {
       fixture.detectChanges();
 
       const selectEl = fixture.debugElement.query(By.css('.ui-helper-hidden-accessible')).children[0].nativeElement;     
-      expect(selectEl.name).toEqual("Primeng")
+      expect(selectEl.name).toEqual("Primeng");
     });
 
     it('should change dropdown icon', () => {
@@ -50,12 +50,12 @@ describe('Dropdown', () => {
       fixture.detectChanges();
 
       const dropdownSpanEl = fixture.debugElement.query(By.css('.ui-dropdown-trigger-icon.ui-clickable')).nativeElement;
-      expect(dropdownSpanEl.className).toContain("Primeng")
+      expect(dropdownSpanEl.className).toContain("Primeng");
     });
 
     it('should change style and styleClass', () => {
       dropdown.styleClass = "Primeng";
-      dropdown.style = {'primeng':'rocks'}
+      dropdown.style = {'primeng':'rocks'};
       fixture.detectChanges();
 
       const containerEl = fixture.debugElement.query(By.css('.ui-dropdown'));
@@ -140,7 +140,7 @@ describe('Dropdown', () => {
       items.children[2].nativeElement.click();
       fixture.detectChanges();
       expect(dropdown.selectedOption.name).toEqual('London');
-      expect(items.children[2].nativeElement.className).toContain('ui-state-highlight')
+      expect(items.children[2].nativeElement.className).toContain('ui-state-highlight');
     });
 
     it('should item clear', () => {
@@ -167,7 +167,7 @@ describe('Dropdown', () => {
       fixture.detectChanges();
 
       expect(dropdown.selectedOption).toEqual({ label: 'Select City', value: null });
-      expect(items.children[2].nativeElement.className).not.toContain('ui-state-highlight')
+      expect(items.children[2].nativeElement.className).not.toContain('ui-state-highlight');
     });
 
     it('should filtered', async(() => {
@@ -191,7 +191,7 @@ describe('Dropdown', () => {
       filterInputEl.nativeElement.value = "n";
       filterInputEl.nativeElement.dispatchEvent(new Event('keydown'));
       const event = {'target':{'value':'n'}};
-      dropdown.onFilter(event)
+      dropdown.onFilter(event);
       fixture.detectChanges();
 
       const items=fixture.debugElement.query(By.css('.ui-dropdown-items'));
@@ -219,7 +219,7 @@ describe('Dropdown', () => {
       filterInputEl.nativeElement.value = "primeng";
       filterInputEl.nativeElement.dispatchEvent(new Event('keydown'));
       const event = {'target':{'value':'primeng'}};
-      dropdown.onFilter(event)
+      dropdown.onFilter(event);
       fixture.detectChanges();
 
       const items = fixture.debugElement.query(By.css('.ui-dropdown-items'));

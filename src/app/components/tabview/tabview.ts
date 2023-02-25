@@ -58,14 +58,14 @@ export class TabViewNav {
         this.onTabClick.emit({
             originalEvent: event,
             tab: tab
-        })
+        });
     }
 
     clickClose(event, tab: TabPanel) {
         this.onTabCloseClick.emit({
             originalEvent: event,
             tab: tab
-        })
+        });
     }
 }
 
@@ -206,9 +206,9 @@ export class TabView implements AfterContentInit,BlockableUI {
         let selectedTab: TabPanel = this.findSelectedTab();
         if(!selectedTab && this.tabs.length) {
             if(this.activeIndex != null && this.tabs.length > this.activeIndex)
-                this.tabs[this.activeIndex].selected = true;
+                {this.tabs[this.activeIndex].selected = true;}
             else
-                this.tabs[0].selected = true;
+                {this.tabs[0].selected = true;}
         }
     }
 
@@ -223,7 +223,7 @@ export class TabView implements AfterContentInit,BlockableUI {
         if(!tab.selected) {
             let selectedTab: TabPanel = this.findSelectedTab();
             if(selectedTab) {
-                selectedTab.selected = false
+                selectedTab.selected = false;
             }
 
             tab.selected = true;

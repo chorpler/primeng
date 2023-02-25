@@ -58,7 +58,7 @@ describe('TabView', () => {
     });
 
     it('should change the orientation', () => {
-      tabview.orientation="left"
+      tabview.orientation="left";
       fixture.detectChanges();
       
       const tabPanelEl=fixture.debugElement.children[0].query(By.css('.ui-tabview')).nativeElement;
@@ -70,8 +70,8 @@ describe('TabView', () => {
     it('should change the header', () => {
       fixture.detectChanges();
 
-      firstTabPanel.header = "Primeng ROCKS!"
-      secondTabPanel.header = "Primeng ROCKS!"
+      firstTabPanel.header = "Primeng ROCKS!";
+      secondTabPanel.header = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;

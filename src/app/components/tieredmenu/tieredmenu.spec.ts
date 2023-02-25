@@ -316,7 +316,7 @@ describe('TieredMenu', () => {
       });
 
     it('should call onItemMouseEnter when mouseenter', () => {
-        tieredmenu.hideDelay
+        tieredmenu.hideDelay;
       tieredmenu.model = [
         {
             label: 'File',
@@ -359,7 +359,7 @@ describe('TieredMenu', () => {
     });
 
     it('should call onItemMouseEnter and do nothing', () => {
-        tieredmenu.hideDelay
+        tieredmenu.hideDelay;
       tieredmenu.model = [
         {
             label: 'File',

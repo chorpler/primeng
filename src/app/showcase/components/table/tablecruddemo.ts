@@ -48,9 +48,9 @@ export class TableCrudDemo implements OnInit {
     save() {
         let cars = [...this.cars];
         if (this.newCar)
-            cars.push(this.car);
+            {cars.push(this.car);}
         else
-            cars[this.cars.indexOf(this.selectedCar)] = this.car;
+            {cars[this.cars.indexOf(this.selectedCar)] = this.car;}
 
         this.cars = cars;
         this.car = null;

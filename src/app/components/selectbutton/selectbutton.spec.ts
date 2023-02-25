@@ -26,7 +26,7 @@ describe('SelectButton', () => {
     selectButton.options = [{label: 'Apartment', value: 'Apartment'},{label: 'House', value: 'House'},{label: 'Studio', value: 'Studio'}];
     fixture.detectChanges();
     const labelEl = fixture.debugElement.query(By.css('.ui-selectbutton')).children[0];
-    expect(labelEl.nativeElement.querySelector('.ui-button-text').textContent).toContain('Apartment')
+    expect(labelEl.nativeElement.querySelector('.ui-button-text').textContent).toContain('Apartment');
   });
   
   it('should display the preselected button', () => {

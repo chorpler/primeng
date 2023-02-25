@@ -26,7 +26,7 @@ export class LineChartDemo {
                     borderColor: '#565656'
                 }
             ]
-        }
+        };
     }
 
     selectData(event) {

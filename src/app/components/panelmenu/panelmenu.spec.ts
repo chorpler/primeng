@@ -149,7 +149,7 @@ describe('PanelMenu', () => {
 
       const menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
       for(let menuItem of menuItems)
-        expect(menuItem.nativeElement.className).toContain("ui-helper-hidden");
+        {expect(menuItem.nativeElement.className).toContain("ui-helper-hidden");}
     });
 
     it('should change child style and styleClass', () => {

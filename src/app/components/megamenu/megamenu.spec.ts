@@ -82,7 +82,7 @@ describe('MegaMenu', () => {
     });
 
     it('should change orientation', () => {
-        megamenu.orientation = "vertical"
+        megamenu.orientation = "vertical";
         megamenu.model  = [
         {
             label: 'TV', icon: 'fa fa-fw fa-check',
@@ -271,7 +271,7 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
 
         tvEl.dispatchEvent(mouseLeaveEvent);
-        tick(1000)
+        tick(1000);
         fixture.detectChanges();
 
         expect(mouseLeaveSpy).toHaveBeenCalled();

@@ -104,13 +104,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.clearHideTimeout();
 
         if (this.showDelay)
-            this.showTimeout = setTimeout(() => { this.show() }, this.showDelay);
+            {this.showTimeout = setTimeout(() => { this.show(); }, this.showDelay);}
         else
-            this.show();
+            {this.show();}
 
         if (this.life) {
             let duration = this.showDelay ? this.life + this.showDelay : this.life;
-            this.hideTimeout = setTimeout(() => { this.hide() }, duration);
+            this.hideTimeout = setTimeout(() => { this.hide(); }, duration);
         }
     }
 
@@ -120,7 +120,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         if (this.hideDelay) {
             this.clearHideTimeout();    //life timeout
-            this.hideTimeout = setTimeout(() => { this.hide() }, this.hideDelay);
+            this.hideTimeout = setTimeout(() => { this.hide(); }, this.hideDelay);
         }
         else {
             this.hide();
@@ -136,9 +136,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         if (this.active) {
             if (this._text) {
                 if (this.container && this.container.offsetParent)
-                    this.updateText();
+                    {this.updateText();}
                 else
-                    this.show();
+                    {this.show();}
             }
             else {
                 this.hide();
@@ -165,11 +165,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.appendChild(this.tooltipText);
 
         if (this.appendTo === 'body')
-            document.body.appendChild(this.container);
+            {document.body.appendChild(this.container);}
         else if (this.appendTo === 'target')
-            this.domHandler.appendChild(this.container, this.el.nativeElement);
+            {this.domHandler.appendChild(this.container, this.el.nativeElement);}
         else
-            this.domHandler.appendChild(this.container, this.appendTo);
+            {this.domHandler.appendChild(this.container, this.appendTo);}
 
         this.container.style.display = 'inline-block';
     }
@@ -184,9 +184,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.domHandler.fadeIn(this.container, 250);
 
         if (this.tooltipZIndex === 'auto')
-            this.container.style.zIndex = ++DomHandler.zindex;
+            {this.container.style.zIndex = ++DomHandler.zindex;}
         else
-            this.container.style.zIndex = this.tooltipZIndex;
+            {this.container.style.zIndex = this.tooltipZIndex;}
 
         this.bindDocumentResizeListener();
     }
@@ -358,11 +358,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     remove() {
         if (this.container && this.container.parentElement) {
             if (this.appendTo === 'body')
-                document.body.removeChild(this.container);
+                {document.body.removeChild(this.container);}
             else if (this.appendTo === 'target')
-                this.el.nativeElement.removeChild(this.container);
+                {this.el.nativeElement.removeChild(this.container);}
             else
-                this.domHandler.removeChild(this.container, this.appendTo);
+                {this.domHandler.removeChild(this.container, this.appendTo);}
         }
 
         this.unbindDocumentResizeListener();

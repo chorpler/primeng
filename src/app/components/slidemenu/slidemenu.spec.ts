@@ -123,7 +123,7 @@ describe('SlideMenu', () => {
         if(item.items){
           for(let child of item.items as MenuItem[]){
             if(child.label)
-              expect(child.label).toEqual(itemsEl[i].query(By.css('.ui-menuitem-text')).nativeElement.textContent);
+              {expect(child.label).toEqual(itemsEl[i].query(By.css('.ui-menuitem-text')).nativeElement.textContent);}
             i++;
           }
         }

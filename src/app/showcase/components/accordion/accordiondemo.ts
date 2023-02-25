@@ -12,7 +12,7 @@ export class AccordionDemo {
     constructor(private messageService: MessageService) {}
 
     onTabClose(event) {
-        this.messageService.add({severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index})
+        this.messageService.add({severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index});
     }
 
     onTabOpen(event) {

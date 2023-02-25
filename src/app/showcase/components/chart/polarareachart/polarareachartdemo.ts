@@ -33,6 +33,6 @@ export class PolarAreaChartDemo {
                 "Grey",
                 "Blue"
             ]
-        }
+        };
     }
 }

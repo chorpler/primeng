@@ -133,9 +133,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
             if (listItems.length > 0) {
                 if (this.movedUp)
-                    listItem = listItems[0];
+                    {listItem = listItems[0];}
                 else
-                    listItem = listItems[listItems.length - 1];
+                    {listItem = listItems[listItems.length - 1];}
 
                 this.domHandler.scrollInView(this.listViewChild.nativeElement, listItem);
             }
@@ -346,9 +346,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             let bottomDiff = (offsetY + this.listViewChild.nativeElement.clientHeight) - event.pageY;
             let topDiff = (event.pageY - offsetY);
             if (bottomDiff < 25 && bottomDiff > 0)
-                this.listViewChild.nativeElement.scrollTop += 15;
+                {this.listViewChild.nativeElement.scrollTop += 15;}
             else if (topDiff < 25 && topDiff > 0)
-                this.listViewChild.nativeElement.scrollTop -= 15;
+                {this.listViewChild.nativeElement.scrollTop -= 15;}
         }
     }
 }

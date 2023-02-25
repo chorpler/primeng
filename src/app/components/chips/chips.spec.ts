@@ -105,7 +105,7 @@ describe('Chips', () => {
       inputEl.nativeElement.value = "primeng";
       fixture.detectChanges();
 
-      let event = {'which':13,preventDefault(){}}
+      let event = {'which':13,preventDefault(){}};
       chips.onKeydown(event as KeyboardEvent);
       fixture.detectChanges();
 
@@ -125,7 +125,7 @@ describe('Chips', () => {
       inputEl.nativeElement.value = "primeng";
       fixture.detectChanges();
 
-      let event = {'which':13,preventDefault(){}}
+      let event = {'which':13,preventDefault(){}};
       chips.onKeydown(event as KeyboardEvent);
       fixture.detectChanges();
 
@@ -148,7 +148,7 @@ describe('Chips', () => {
       inputEl.nativeElement.value = "primeng";
       fixture.detectChanges();
 
-      let event = {'which':13,preventDefault(){}}
+      let event = {'which':13,preventDefault(){}};
       chips.onKeydown(event as KeyboardEvent);
       fixture.detectChanges();
 
@@ -173,7 +173,7 @@ describe('Chips', () => {
       inputEl.nativeElement.value = "primeng";
       fixture.detectChanges();
 
-      let event = {'which':9,preventDefault(){}}
+      let event = {'which':9,preventDefault(){}};
       chips.onKeydown(event as KeyboardEvent);
       fixture.detectChanges();
 
@@ -211,7 +211,7 @@ describe('Chips', () => {
       inputEl.nativeElement.value = "primeng";
       fixture.detectChanges();
 
-      let event = {'which':13,preventDefault(){}}
+      let event = {'which':13,preventDefault(){}};
       chips.onKeydown(event as KeyboardEvent);
       fixture.detectChanges();
 
@@ -247,7 +247,7 @@ describe('Chips', () => {
       expect(chips.value[0]).toEqual("primeng");
       fixture.detectChanges();
 
-      let event = {'which':8,preventDefault(){}}
+      let event = {'which':8,preventDefault(){}};
       chips.onKeydown(event as KeyboardEvent);
       fixture.detectChanges();
 
@@ -300,7 +300,7 @@ describe('Chips', () => {
       
 
       const labelEl = fixture.debugElement.query(By.css('.ui-chips-token-label'));
-      expect(labelEl.nativeElement.textContent).toEqual("primeng")
+      expect(labelEl.nativeElement.textContent).toEqual("primeng");
       expect(chips.value[0].name).toEqual("primeng");
     });
 

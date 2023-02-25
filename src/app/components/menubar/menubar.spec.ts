@@ -92,10 +92,10 @@ describe('Menubar', () => {
       let i = 0;
       for(let parentMenu of parentMenuEls){
         if(menubar.model[i].label){
-          expect(parentMenu.query(By.css('.ui-menuitem-text')).nativeElement.textContent).toEqual(menubar.model[i].label)
+          expect(parentMenu.query(By.css('.ui-menuitem-text')).nativeElement.textContent).toEqual(menubar.model[i].label);
         }
         if(menubar.model[i].icon){
-          expect(parentMenu.query(By.css('.ui-menuitem-icon')).nativeElement.className).toContain(menubar.model[i].icon)
+          expect(parentMenu.query(By.css('.ui-menuitem-icon')).nativeElement.className).toContain(menubar.model[i].icon);
         }        
         i++;
       }

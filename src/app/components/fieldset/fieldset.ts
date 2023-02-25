@@ -79,9 +79,9 @@ export class Fieldset implements BlockableUI {
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
 
         if(this.collapsed)
-            this.expand(event);
+            {this.expand(event);}
         else
-            this.collapse(event);
+            {this.collapse(event);}
 
         this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});
         event.preventDefault();

@@ -211,7 +211,7 @@ describe('AutoComplete', () => {
       
       const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
       const panelEl = fixture.debugElement.query(By.css('div'));
-      expect(panelEl.nativeElement.style.maxHeight).toEqual("450px")
+      expect(panelEl.nativeElement.style.maxHeight).toEqual("450px");
       expect(autocomplete.suggestions.length).toEqual(1);
       expect(suggestionsEls.length).toEqual(1);
       expect(testComponent.filteredBrands.length).toEqual(1);
@@ -622,7 +622,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-      autocomplete.suggestions = ["Volvo","VW"]
+      autocomplete.suggestions = ["Volvo","VW"];
       autocomplete.overlayVisible = true;
       let event = {'which':40,preventDefault(){}};
       autocomplete.onKeydown(event);
@@ -649,7 +649,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
-      autocomplete.suggestions = ["Volvo","VW"]
+      autocomplete.suggestions = ["Volvo","VW"];
       autocomplete.overlayVisible = true;
       let event = {'which':40,preventDefault(){}};
       autocomplete.onKeydown(event);
@@ -672,7 +672,7 @@ describe('AutoComplete', () => {
 
       const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
       const hideSpy = spyOn(autocomplete, 'hide').and.callThrough();
-      autocomplete.suggestions = ["Volvo","VW"]
+      autocomplete.suggestions = ["Volvo","VW"];
       autocomplete.overlayVisible = true;
       let event = {'which':27,preventDefault(){}};
       autocomplete.onKeydown(event);

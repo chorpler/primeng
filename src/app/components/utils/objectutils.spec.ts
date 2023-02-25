@@ -36,7 +36,7 @@ describe('ObjectUtils Suite', () => {
                 },
                 city: 'Corleone'
             }
-        }
+        };
 
         expect(objectUtils.resolveFieldData(obj, 'firstname')).toBe('Silvio');
         expect(objectUtils.resolveFieldData(obj, 'lastname')).toBe('Andolini');

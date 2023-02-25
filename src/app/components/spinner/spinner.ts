@@ -128,14 +128,14 @@ export class Spinner implements OnInit,ControlValueAccessor {
         let currentValue: number;
 
         if (this.value)
-            currentValue = (typeof this.value === 'string') ? this.parseValue(this.value) : this.value;
+            {currentValue = (typeof this.value === 'string') ? this.parseValue(this.value) : this.value;}
         else
-            currentValue = 0;
+            {currentValue = 0;}
 
         if (this.precision)
-            this.value = parseFloat(this.toFixed(currentValue + step, this.precision));
+            {this.value = parseFloat(this.toFixed(currentValue + step, this.precision));}
         else
-            this.value = currentValue + step;
+            {this.value = currentValue + step;}
 
         if (this.maxlength !== undefined && this.value.toString().length > this.maxlength) {
             this.value = currentValue;
@@ -241,9 +241,9 @@ export class Spinner implements OnInit,ControlValueAccessor {
         }
         else {
             if (this.precision)
-                value = parseFloat(val.replace(',', '.'));
+                {value = parseFloat(val.replace(',', '.'));}
             else
-                value = parseInt(val, 10);
+                {value = parseInt(val, 10);}
 
             if (!isNaN(value)) {
                 if (this.max !== null && value > this.max) {

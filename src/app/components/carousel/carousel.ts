@@ -225,16 +225,16 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         let lastPage = (this.page === (this.totalPages - 1));
 
         if(!lastPage)
-            this.setPage(this.page + 1);
+            {this.setPage(this.page + 1);}
         else if(this.circular)
-            this.setPage(0);
+            {this.setPage(0);}
     }
 
     onPrevNav() {
         if(this.page !== 0)
-            this.setPage(this.page - 1);
+            {this.setPage(this.page - 1);}
         else if(this.circular)
-            this.setPage(this.totalPages - 1);
+            {this.setPage(this.totalPages - 1);}
     }
 
     setPageWithLink(event, p: number) {
@@ -272,9 +272,9 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     routerDisplay () {
         let win = window;
         if(win.innerWidth <= this.breakpoint)
-            return true;
+            {return true;}
         else
-            return false;
+            {return false;}
     }
 
     updateState() {
@@ -297,9 +297,9 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     startAutoplay() {
         this.interval = setInterval(() => {
             if(this.page === (this.totalPages - 1))
-                this.setPage(0);
+                {this.setPage(0);}
             else
-                this.setPage(this.page + 1);
+                {this.setPage(this.page + 1);}
         },
         this.autoplayInterval);
     }

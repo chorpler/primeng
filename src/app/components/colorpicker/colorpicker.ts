@@ -292,9 +292,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+                {document.body.appendChild(this.overlay);}
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                {this.domHandler.appendChild(this.overlay, this.appendTo);}
         }
     }
 
@@ -306,9 +306,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     alignOverlay() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);
+            {this.domHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);}
         else
-            this.domHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);
+            {this.domHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);}
     }
     
     hide() {
@@ -322,9 +322,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     togglePanel() {
         if(!this.overlayVisible)
-            this.show();
+            {this.show();}
         else
-            this.hide();
+            {this.hide();}
     }
     
     onInputKeydown(event: KeyboardEvent) {
@@ -503,20 +503,20 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
                 r: v,
                 g: v,
                 b: v
-            }
+            };
         } 
         else {
             var t1 = v;
             var t2 = (255-s)*v/255;
             var t3 = (t1-t2)*(h%60)/60;
-            if(h==360) h = 0;
-            if(h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3}
-            else if(h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3}
-            else if(h<180) {rgb.g=t1; rgb.r=t2;	rgb.b=t2+t3}
-            else if(h<240) {rgb.b=t1; rgb.r=t2;	rgb.g=t1-t3}
-            else if(h<300) {rgb.b=t1; rgb.g=t2;	rgb.r=t2+t3}
-            else if(h<360) {rgb.r=t1; rgb.g=t2;	rgb.b=t1-t3}
-            else {rgb.r=0; rgb.g=0;	rgb.b=0}
+            if(h==360) {h = 0;}
+            if(h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3;}
+            else if(h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3;}
+            else if(h<180) {rgb.g=t1; rgb.r=t2;	rgb.b=t2+t3;}
+            else if(h<240) {rgb.b=t1; rgb.r=t2;	rgb.g=t1-t3;}
+            else if(h<300) {rgb.b=t1; rgb.g=t2;	rgb.r=t2+t3;}
+            else if(h<360) {rgb.r=t1; rgb.g=t2;	rgb.b=t1-t3;}
+            else {rgb.r=0; rgb.g=0;	rgb.b=0;}
         }
         return {r:Math.round(rgb.r), g:Math.round(rgb.g), b:Math.round(rgb.b)};
     }

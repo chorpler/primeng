@@ -118,7 +118,7 @@ describe('TabMenu', () => {
       calenderItem.click();
       fixture.detectChanges();
 
-      expect(itemList.children[1].nativeElement.className).toContain("ui-state-active")
+      expect(itemList.children[1].nativeElement.className).toContain("ui-state-active");
       expect(tabmenu.activeItem.label).toEqual('Calendar');
       expect(tabmenu.activeItem.icon).toContain('fa-calendar');
       expect(itemClickSpy).toHaveBeenCalled();
@@ -140,7 +140,7 @@ describe('TabMenu', () => {
       calenderItem.click();
       fixture.detectChanges();
 
-      expect(itemList.children[1].nativeElement.className).toContain("ui-state-active")
+      expect(itemList.children[1].nativeElement.className).toContain("ui-state-active");
       expect(tabmenu.activeItem.label).toEqual('Calendar');
       expect(tabmenu.activeItem.icon).toContain('fa-calendar');
       expect(itemClickSpy).toHaveBeenCalled();

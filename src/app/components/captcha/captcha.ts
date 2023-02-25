@@ -36,7 +36,7 @@ export class Captcha implements AfterViewInit {
         else {
             (<any>window)[this.initCallback] = () => {
               this.init();
-            }
+            };
         }
     }
 
@@ -48,21 +48,21 @@ export class Captcha implements AfterViewInit {
             'size': this.size,
             'tabindex': this.tabindex,
             'hl': this.language,
-            'callback': (response: string) => {this._zone.run(() => this.recaptchaCallback(response))},
-            'expired-callback': () => {this._zone.run(() => this.recaptchaExpiredCallback())}
+            'callback': (response: string) => {this._zone.run(() => this.recaptchaCallback(response));},
+            'expired-callback': () => {this._zone.run(() => this.recaptchaExpiredCallback());}
         });
     }
 
     reset() {
         if(this._instance === null)
-            return;
+            {return;}
 
         (<any>window).grecaptcha.reset(this._instance);
     }
 
     getResponse(): String {
         if (this._instance === null)
-            return null;
+            {return null;}
 
         return (<any>window).grecaptcha.getResponse(this._instance);
     }
