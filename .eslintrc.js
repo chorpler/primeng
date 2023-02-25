@@ -35,10 +35,14 @@ module.exports = {
     },
     "plugins": [
         "@typescript-eslint",
-        "eslint-plugin-html"
+        "eslint-plugin-html",
+        "css"
+    ],
+    "extends": [
+        "plugin:css/recommended"
     ],
     "rules": {
-        "@typescript-eslint/naming-convention": "warn",
+        "@typescript-eslint/naming-convention": "off",
         "curly": "warn",
         // "eqeqeq": "warn",
         "eqeqeq": "off",
