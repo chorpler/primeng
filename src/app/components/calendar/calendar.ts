@@ -1709,6 +1709,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     switch (event.toState) {
       case 'visible':
       case 'visibleTouchUI':
+        if(!this.defaultDate) {
+          this.defaultDate = new Date();
+        }
         if (!this.inline) {
           this.overlay = event.element;
           this.appendOverlay();
@@ -2167,6 +2170,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   }
 
   onSaveButtonClick(evt) {
+    if(!(this.value && this.value instanceof Date)) {
+      if(this.defaultDate instanceof Date) {
+        this.value = this.defaultDate;
+      } else {
+        this.value = new Date();
+      }
+    }
     this.updateInputfield();
     this.overlayVisible = false;
     this.onSaveClick.emit(evt);
