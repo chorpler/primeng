@@ -136,15 +136,31 @@
     </div>
     <div class="ui-datepicker-buttonbar ui-widget-header" *ngIf="showButtonBar">
       <div class="ui-g">
-        <div class="ui-g-4">
-          <button type="button" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
-        </div>
-        <div class="ui-g-4">
-          <button type="button" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
-        </div>
-        <div class="ui-g-4">
-          <button type="button" [label]="_locale.save" (click)="onSaveButtonClick($event)" pButton [ngClass]="[saveButtonStyleClass]"></button>
-        </div>
+        <ng-container *ngIf="!showTime">
+          <div class="ui-g-4">
+            <button type="button" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-4">
+            <button type="button" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-4">
+            <button type="button" [label]="_locale.save" (click)="onSaveButtonClick($event)" pButton [ngClass]="[saveButtonStyleClass]"></button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="showTime">
+          <div class="ui-g-3">
+            <button type="button" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-3">
+            <button type="button" [label]="_locale.now" (click)="onNowButtonClick($event)" pButton [ngClass]="[nowButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-3">
+            <button type="button" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
+          </div>
+          <div class="ui-g-3">
+            <button type="button" [label]="_locale.save" (click)="onSaveButtonClick($event)" pButton [ngClass]="[saveButtonStyleClass]"></button>
+          </div>
+        </ng-container>
       </div>
     </div>
     <ng-content select="p-footer"></ng-content>

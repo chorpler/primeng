@@ -9,12 +9,13 @@ Changelog for **PrimeNG**
 
 ---
 
-# **v6.2.4** <span style="font-size: 12px; font-style: italic">(2023-02-24)</span>
+# **v6.2.4** <span style="font-size: 12px; font-style: italic">(2023-02-25)</span>
 
 **Changes:**
 
 **<u>Calendar</u>**
 
+- Add buttons for "now" and "OK" in button bar
 - Add scroll wheel increment/decrement for editable time
 - Fix bug in editable minutes input leading to `NaN`
 

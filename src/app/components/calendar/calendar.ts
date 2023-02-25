@@ -49,6 +49,7 @@ export interface LocaleSettings {
   monthNames: string[];
   monthNamesShort: string[];
   today: string;
+  now ?: string;
   clear: string;
   save?: string;
 }
@@ -166,6 +167,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   @Input() todayButtonStyleClass: string = 'ui-button-secondary';
 
+  @Input() nowButtonStyleClass: string = 'ui-button-secondary';
+
   @Input() clearButtonStyleClass: string = 'ui-button-secondary';
 
   @Input() saveButtonStyleClass: string = 'ui-button-primary';
@@ -181,8 +184,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   @Input() keepInvalid: boolean = false;
 
   @Input() hideOnDateTimeSelect: boolean = false;
-
-  @Input()
 
   @Input() numberOfMonths: number = 1;
 
@@ -208,6 +209,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
 
+  @Output() onNowClick: EventEmitter<any> = new EventEmitter();
+
   @Output() onClearClick: EventEmitter<any> = new EventEmitter();
 
   @Output() onSaveClick: EventEmitter<any> = new EventEmitter();
@@ -226,6 +229,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     today: 'Today',
+    now: 'Now',
     clear: 'Clear',
     save: 'OK'
   };
@@ -1974,6 +1978,16 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     this.onDateSelect(event, dateMeta);
     this.onTodayClick.emit(event);
+  }
+
+  onNowButtonClick(event) {
+    let date: Date = new Date();
+    let dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), hour: date.getHours(), minute: date.getMinutes(), second: date.getSeconds(), millisecond: date.getMilliseconds(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
+    this.currentHour = date.getHours();
+    this.currentMinute = date.getMinutes();
+    this.currentSecond = date.getSeconds();
+    this.onDateSelect(event, dateMeta);
+    this.onNowClick.emit(event);
   }
 
   onClearButtonClick(event) {
