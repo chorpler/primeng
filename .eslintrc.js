@@ -39,14 +39,15 @@ module.exports = {
     "rules": {
         "@typescript-eslint/naming-convention": "warn",
         "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/eqeqeq": "smart",
         "curly": "warn",
-        "eqeqeq": "warn",
+        "eqeqeq": "smart",
         "no-throw-literal": "warn",
-        "semi": "off"
+        "semi": "warn"
     },
     "ignorePatterns": [
         "out",
         "dist",
         "**/*.d.ts"
     ]
-}
+};
