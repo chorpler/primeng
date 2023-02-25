@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {SharedModule,Header} from '../common/shared'
-import {DomHandler} from '../dom/domhandler';
+import { DomHandler } from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 declare var Quill: any;
@@ -66,39 +66,39 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     providers: [DomHandler,EDITOR_VALUE_ACCESSOR]
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
-        
+
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(Header) toolbar;
-    
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Input() placeholder: string;
-    
+
     @Input() formats: string[];
-    
+
     @Output() onInit: EventEmitter<any> = new EventEmitter();
-    
+
     value: string;
-    
+
     _readonly: boolean;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
+
     quill: any;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
 
     ngAfterViewInit() {
-        let editorElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
-        let toolbarElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
-        
+        let editorElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content');
+        let toolbarElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar');
+
         this.quill = new Quill(editorElement, {
           modules: {
               toolbar: toolbarElement
@@ -108,11 +108,11 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
           theme: 'snow',
           formats: this.formats
         });
-                
+
         if(this.value) {
             this.quill.pasteHTML(this.value);
         }
-        
+
         this.quill.on('text-change', (delta, oldContents, source) => {
             if (source === 'user') {
                 let html = editorElement.children[0].innerHTML;
@@ -127,12 +127,12 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
                     delta: delta,
                     source: source
                 });
-                
+
                 this.onModelChange(html);
                 this.onModelTouched();
             }
         });
-        
+
         this.quill.on('selection-change', (range, oldRange, source) => {
             this.onSelectionChange.emit({
                 range: range,
@@ -140,15 +140,15 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
                 source: source
             });
         });
-        
+
         this.onInit.emit({
             editor: this.quill
         });
     }
-        
+
     writeValue(value: any) : void {
         this.value = value;
-                
+
         if(this.quill) {
             if(value)
                 this.quill.pasteHTML(value);
@@ -156,7 +156,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
                 this.quill.setText('');
         }
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -164,18 +164,18 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     getQuill() {
         return this.quill;
     }
-    
+
     @Input() get readonly(): boolean {
         return this._readonly;
     }
 
     set readonly(val:boolean) {
         this._readonly = val;
-        
+
         if(this.quill) {
             if(this._readonly)
                 this.quill.disable();

@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const RATING_VALUE_ACCESSOR: any = {
@@ -16,7 +16,7 @@ export const RATING_VALUE_ACCESSOR: any = {
                 <span class="ui-rating-icon" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
             </a>
             <a href="#" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)">
-                <span class="ui-rating-icon" 
+                <span class="ui-rating-icon"
                     [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
                     [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"
                 ></span>
@@ -51,23 +51,23 @@ export class Rating implements ControlValueAccessor {
 
     @Output() onCancel: EventEmitter<any> = new EventEmitter();
 
-    constructor(private cd: ChangeDetectorRef) {} 
-    
+    constructor(private cd: ChangeDetectorRef) {}
+
     value: number;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
+
     public starsArray: number[];
-    
+
     ngOnInit() {
         this.starsArray = [];
         for(let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
         }
     }
-    
+
     rate(event, i: number): void {
         if(!this.readonly&&!this.disabled) {
             this.value = (i + 1);
@@ -78,9 +78,9 @@ export class Rating implements ControlValueAccessor {
                 value: (i+1)
             });
         }
-        event.preventDefault();        
+        event.preventDefault();
     }
-    
+
     clear(event): void {
         if(!this.readonly&&!this.disabled) {
             this.value = null;
@@ -90,12 +90,12 @@ export class Rating implements ControlValueAccessor {
         }
         event.preventDefault();
     }
-    
+
     writeValue(value: any) : void {
         this.value = value;
         this.cd.detectChanges();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -103,7 +103,7 @@ export class Rating implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }

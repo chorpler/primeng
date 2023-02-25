@@ -1,5 +1,5 @@
-import {Component,OnInit} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
+import { Component,OnInit } from '@angular/core';
+import { MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './toolbardemo.html',
@@ -20,7 +20,7 @@ import {MenuItem} from '../../../components/common/api';
 export class ToolbarDemo implements OnInit {
 
     items: MenuItem[];
-    
+
     ngOnInit() {
         this.items = [
             {label: 'Angular.io', icon: 'fa fa-link', url: 'http://angular.io'},

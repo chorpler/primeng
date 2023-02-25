@@ -1,6 +1,6 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {FlexGridDemo} from './flexgriddemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { FlexGridDemo } from './flexgriddemo';
 
 @NgModule({
 	imports: [

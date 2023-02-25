@@ -1,4 +1,4 @@
-import {Component,OnInit,EventEmitter} from '@angular/core';
+import { Component,OnInit,EventEmitter } from '@angular/core';
 
 @Component({
     templateUrl: './blockuidemo.html',
@@ -11,9 +11,9 @@ import {Component,OnInit,EventEmitter} from '@angular/core';
 export class BlockUIDemo {
 
     blockedPanel: boolean = false;
-    
+
     blockedDocument: boolean = false;
-        
+
     blockDocument() {
         this.blockedDocument = true;
         setTimeout(() => {

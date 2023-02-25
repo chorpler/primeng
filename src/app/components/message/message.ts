@@ -1,5 +1,5 @@
-import {NgModule,Component,Input,Output,EventEmitter,Optional} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule,Component,Input,Output,EventEmitter,Optional } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'p-message',

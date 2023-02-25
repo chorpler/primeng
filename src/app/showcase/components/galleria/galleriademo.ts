@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './galleriademo.html'
 })
 export class GalleriaDemo {
-    
+
     images: any[];
-    
+
     constructor() {
         this.images = [];
         this.images.push({source:'assets/showcase/images/demo/galleria/galleria1.jpg', alt:'Description for Image 1', title:'Title 1'});

@@ -1,5 +1,5 @@
-import {Component,OnInit,EventEmitter} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
+import { Component,OnInit,EventEmitter } from '@angular/core';
+import { MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './breadcrumbdemo.html'
@@ -7,9 +7,9 @@ import {MenuItem} from '../../../components/common/api';
 export class BreadcrumbDemo implements OnInit {
 
     items: MenuItem[];
-    
+
     home: MenuItem;
-    
+
     ngOnInit() {
         this.items = [
             {label:'Categories'},
@@ -21,7 +21,7 @@ export class BreadcrumbDemo implements OnInit {
             {label:'Squad'},
             {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link'}
         ];
-        
+
         this.home = {icon: 'pi pi-home'};
     }
 }

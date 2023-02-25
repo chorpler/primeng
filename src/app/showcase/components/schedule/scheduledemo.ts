@@ -1,5 +1,5 @@
-import {Component,OnInit} from '@angular/core';
-import {EventService} from '../../service/eventservice';
+import { Component,OnInit } from '@angular/core';
+import { EventService } from '../../service/eventservice';
 
 @Component({
     templateUrl: './scheduledemo.html',
@@ -7,7 +7,7 @@ import {EventService} from '../../service/eventservice';
         .ui-grid-row div {
           padding: 4px 10px
         }
-        
+
         .ui-grid-row div label {
           font-weight: bold;
         }
@@ -16,14 +16,14 @@ import {EventService} from '../../service/eventservice';
 export class ScheduleDemo implements OnInit {
 
     events: any[];
-    
+
     header: any;
-            
+
     constructor(private eventService: EventService) { }
 
     ngOnInit() {
         this.eventService.getEvents().then(events => {this.events = events;});
-        
+
         this.header = {
 			left: 'prev,next',
 			center: 'title',

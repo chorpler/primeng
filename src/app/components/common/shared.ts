@@ -1,6 +1,6 @@
-import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,OnChanges,OnDestroy,AfterContentInit,QueryList,SimpleChanges,EmbeddedViewRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
+import { NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,OnChanges,OnDestroy,AfterContentInit,QueryList,SimpleChanges,EmbeddedViewRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'p-header',
@@ -20,13 +20,13 @@ export class Footer {}
     }
 })
 export class PrimeTemplate {
-    
+
     @Input() type: string;
-    
+
     @Input('pTemplate') name: string;
-    
+
     constructor(public template: TemplateRef<any>) {}
-    
+
     getType(): string {
         return this.name;
     }
@@ -72,36 +72,36 @@ export class Column implements AfterContentInit{
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     @ContentChild(TemplateRef) template: TemplateRef<any>;
-    
+
     public headerTemplate: TemplateRef<any>;
-    public bodyTemplate: TemplateRef<any>;    
+    public bodyTemplate: TemplateRef<any>;
     public footerTemplate: TemplateRef<any>;
     public filterTemplate: TemplateRef<any>;
     public editorTemplate: TemplateRef<any>;
-    
+
     ngAfterContentInit():void {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
                 break;
-                
+
                 case 'body':
                     this.bodyTemplate = item.template;
                 break;
-                
+
                 case 'footer':
                     this.footerTemplate = item.template;
                 break;
-                
+
                 case 'filter':
                     this.filterTemplate = item.template;
                 break;
-                
+
                 case 'editor':
                     this.editorTemplate = item.template;
                 break;
-                
+
                 default:
                     this.bodyTemplate = item.template;
                 break;
@@ -116,9 +116,9 @@ export class Column implements AfterContentInit{
     template: ``
 })
 export class Row {
-    
+
     @ContentChildren(Column) columns: QueryList<Column>;
-    
+
 }
 
 /* Deprecated */
@@ -127,9 +127,9 @@ export class Row {
     template: ``
 })
 export class HeaderColumnGroup {
-    
+
     @Input() frozen: boolean;
-        
+
     @ContentChildren(Row) rows: QueryList<any>;
 }
 
@@ -139,9 +139,9 @@ export class HeaderColumnGroup {
     template: ``
 })
 export class FooterColumnGroup {
-        
+
     @Input() frozen: boolean;
-        
+
     @ContentChildren(Row) rows: QueryList<any>;
 }
 

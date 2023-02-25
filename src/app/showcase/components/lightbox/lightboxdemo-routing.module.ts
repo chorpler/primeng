@@ -1,6 +1,6 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {LightboxDemo} from './lightboxdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { LightboxDemo } from './lightboxdemo';
 
 @NgModule({
 	imports: [

@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './datagriddemo.html'
@@ -8,9 +8,9 @@ import {CarService} from '../../service/carservice';
 export class DataGridDemo implements OnInit {
 
     cars: Car[];
-    
+
     selectedCar: Car;
-    
+
     displayDialog: boolean;
 
     constructor(private carService: CarService) { }
@@ -18,12 +18,12 @@ export class DataGridDemo implements OnInit {
     ngOnInit() {
         this.carService.getCarsLarge().then(cars => this.cars = cars);
     }
-    
+
     selectCar(car: Car) {
         this.selectedCar = car;
         this.displayDialog = true;
     }
-    
+
     onDialogHide() {
         this.selectedCar = null;
     }

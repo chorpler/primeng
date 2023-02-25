@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
+import { Component } from '@angular/core';
+import { MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './contextmenudemo.html'
@@ -7,7 +7,7 @@ import {MenuItem} from '../../../components/common/api';
 export class ContextMenuDemo {
 
     items1: MenuItem[];
-    
+
     items2: MenuItem[];
 
     ngOnInit() {
@@ -16,7 +16,7 @@ export class ContextMenuDemo {
                 label: 'File',
                 icon: 'pi pi-fw pi-file',
                 items: [{
-                        label: 'New', 
+                        label: 'New',
                         icon: 'pi pi-fw pi-plus',
                         items: [
                             {label: 'Project'},
@@ -44,11 +44,11 @@ export class ContextMenuDemo {
                         label: 'Contents'
                     },
                     {
-                        label: 'Search', 
-                        icon: 'pi pi-fw pi-search', 
+                        label: 'Search',
+                        icon: 'pi pi-fw pi-search',
                         items: [
                             {
-                                label: 'Text', 
+                                label: 'Text',
                                 items: [
                                     {
                                         label: 'Workspace'
@@ -87,7 +87,7 @@ export class ContextMenuDemo {
                 label: 'Quit', icon: 'pi pi-fw pi-times'
             }
         ];
-        
+
         this.items2 = [
             {
                 label: 'Next',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 import { MenuItem } from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import { MessageService } from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './tablecontextmenudemo.html',
@@ -51,7 +51,7 @@ export class TableContextMenuDemo implements OnInit {
             }
         }
         this.cars.splice(index, 1);
-        
+
         this.messageService.add({ severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand });
     }
 }

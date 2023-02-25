@@ -1,6 +1,6 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {GridDemo} from './griddemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { GridDemo } from './griddemo';
 
 @NgModule({
 	imports: [

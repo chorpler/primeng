@@ -1,7 +1,7 @@
-import {NgModule,Component,Input,AfterViewInit,OnDestroy,EventEmitter,ElementRef,ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {BlockableUI} from '../common/blockableui';
+import { NgModule,Component,Input,AfterViewInit,OnDestroy,EventEmitter,ElementRef,ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { BlockableUI } from '../common/blockableui';
 
 @Component({
     selector: 'p-blockUI',
@@ -15,24 +15,24 @@ import {BlockableUI} from '../common/blockableui';
 export class BlockUI implements AfterViewInit,OnDestroy {
 
     @Input() target: any;
-    
+
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @ViewChild('mask') mask: ElementRef;
-    
+
     _blocked: boolean;
-        
+
     constructor(public el: ElementRef,public domHandler: DomHandler) {}
-    
+
     @Input() get blocked(): boolean {
         return this._blocked;
     }
-    
+
     set blocked(val: boolean) {
         this._blocked = val;
-        
+
         if (this.mask.nativeElement) {
             if (this._blocked)
                 this.block();
@@ -40,13 +40,13 @@ export class BlockUI implements AfterViewInit,OnDestroy {
                 this.unblock();
         }
     }
-    
+
     ngAfterViewInit() {
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
         }
     }
-        
+
     block() {
         if (this.target) {
             this.target.getBlockableElement().appendChild(this.mask.nativeElement);
@@ -57,16 +57,16 @@ export class BlockUI implements AfterViewInit,OnDestroy {
         else {
             document.body.appendChild(this.mask.nativeElement);
         }
-        
+
         if (this.autoZIndex) {
             this.mask.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
+
     unblock() {
         this.el.nativeElement.appendChild(this.mask.nativeElement);
     }
-    
+
     ngOnDestroy() {
         this.unblock();
     }

@@ -1,11 +1,11 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,ContentChildren,EventEmitter,QueryList,Renderer2,ChangeDetectorRef,ViewChild} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common/menuitem';
-import {ButtonModule} from '../button/button';
-import {Router} from '@angular/router';
-import {RouterModule} from '@angular/router';
+import { NgModule,Component,ElementRef,OnDestroy,Input,Output,ContentChildren,EventEmitter,QueryList,Renderer2,ChangeDetectorRef,ViewChild } from '@angular/core';
+import { trigger,state,style,transition,animate,AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { MenuItem } from '../common/menuitem';
+import { ButtonModule } from '../button/button';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'p-splitButton',
@@ -58,27 +58,27 @@ export class SplitButton implements OnDestroy {
     @Input() icon: string;
 
     @Input() iconPos: string = 'left';
-        
+
     @Input() label: string;
-    
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() menuStyle: any;
-    
+
     @Input() menuStyleClass: string;
-    
+
     @Input() disabled: boolean;
 
     @Input() tabindex: number;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() dir: string;
 
     @Input() showTransitionOptions: string = '225ms ease-out';
@@ -86,45 +86,45 @@ export class SplitButton implements OnDestroy {
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
 
     overlay: HTMLDivElement;
-                    
+
     public overlayVisible: boolean = false;
-    
+
     public documentClickListener: any;
-    
+
     public dropdownClick: boolean;
-    
+
     public shown: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
-                
+
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
     }
-    
+
     itemClick(event: Event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(!item.url) {
             event.preventDefault();
         }
-        
-        if(item.command) {            
+
+        if(item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
-        
+
         this.overlayVisible = false;
     }
-    
+
     show() {
         this.overlayVisible = !this.overlayVisible;
     }
@@ -144,7 +144,7 @@ export class SplitButton implements OnDestroy {
             break;
         }
     }
-        
+
     onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
         this.dropdownClick = true;
@@ -174,7 +174,7 @@ export class SplitButton implements OnDestroy {
             this.el.nativeElement.appendChild(this.overlay);
         }
     }
-    
+
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
@@ -189,7 +189,7 @@ export class SplitButton implements OnDestroy {
             });
         }
     }
-    
+
     unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
@@ -201,7 +201,7 @@ export class SplitButton implements OnDestroy {
         this.unbindDocumentClickListener();
         this.overlay = null;
     }
-         
+
     ngOnDestroy() {
         this.restoreOverlayAppend();
         this.onOverlayHide();

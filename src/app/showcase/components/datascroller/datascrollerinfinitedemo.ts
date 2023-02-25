@@ -1,7 +1,7 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
-import {MessageService} from '../../../components/common/messageservice';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
+import { MessageService } from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './datascrollerinfinitedemo.html',
@@ -14,7 +14,7 @@ import {MessageService} from '../../../components/common/messageservice';
         .car-item .ui-md-3 {
             text-align: center;
         }
-        
+
         .car-item .ui-g-10 {
             font-weight: bold;
         }
@@ -31,11 +31,11 @@ export class DataScrollerInfiniteDemo {
     cars: Car[];
 
     totalRecords: number;
-    
+
     constructor(private carService: CarService, private messageService: MessageService) {
         this.totalRecords = 50;
      }
-    
+
     loadData(event) {
         //initialize
         if(!this.cars) {
@@ -47,7 +47,7 @@ export class DataScrollerInfiniteDemo {
             for(let i = 0; i < newArray.length; i++) {
                 this.cars.push(newArray[i]);
             }
-            
+
             this.messageService.add({severity:'info', summary:'Data Loaded', detail:'Between ' + event.first + ' and ' + (event.first + event.rows)});
         }
     }

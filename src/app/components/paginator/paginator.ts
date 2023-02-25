@@ -1,9 +1,9 @@
-import {NgModule,Component,OnInit,ElementRef,Input,Output,SimpleChange,EventEmitter,TemplateRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {DropdownModule} from '../dropdown/dropdown';
-import {SelectItem} from '../common/selectitem';
-import {SharedModule} from '../common/shared';
+import { NgModule,Component,OnInit,ElementRef,Input,Output,SimpleChange,EventEmitter,TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from '../dropdown/dropdown';
+import { SelectItem } from '../common/selectitem';
+import { SharedModule } from '../common/shared';
 
 @Component({
     selector: 'p-paginator',
@@ -33,7 +33,7 @@ import {SharedModule} from '../common/shared';
                     (click)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="ui-paginator-icon pi pi-step-forward"></span>
             </a>
-            <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
+            <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions"
                 (onChange)="onRppChange($event)" [autoWidth]="false" [appendTo]="dropdownAppendTo"></p-dropdown>
             <div class="ui-paginator-right-content" *ngIf="templateRight">
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
@@ -52,9 +52,9 @@ export class Paginator implements OnInit {
     @Input() styleClass: string;
 
     @Input() alwaysShow: boolean = true;
-    
+
     @Input() templateLeft: TemplateRef<any>;
-    
+
     @Input() templateRight: TemplateRef<any>;
 
     @Input() dropdownAppendTo: any;
@@ -66,13 +66,13 @@ export class Paginator implements OnInit {
     _first: number = 0;
 
     _rows: number = 0;
-    
+
     _rowsPerPageOptions: number[];
-    
+
     rowsPerPageItems: SelectItem[];
-    
+
     paginatorState: any;
-    
+
     ngOnInit() {
         this.updatePaginatorState();
     }
@@ -103,7 +103,7 @@ export class Paginator implements OnInit {
         this._rows = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get rowsPerPageOptions(): number[] {
         return this._rowsPerPageOptions;
     }
@@ -212,7 +212,7 @@ export class Paginator implements OnInit {
     onRppChange(event) {
         this.changePage(this.getPage());
     }
-    
+
     updatePaginatorState() {
         this.paginatorState = {
             page: this.getPage(),

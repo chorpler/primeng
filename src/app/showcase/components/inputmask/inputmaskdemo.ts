@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './inputmaskdemo.html',
@@ -20,6 +20,6 @@ export class InputMaskDemo {
     val4: string;
 
     val5: string;
-    
+
     val6: string;
 }

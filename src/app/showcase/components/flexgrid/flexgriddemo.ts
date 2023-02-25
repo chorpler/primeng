@@ -1,5 +1,5 @@
-import {Component,ViewEncapsulation} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import { Component,ViewEncapsulation } from '@angular/core';
+import { trigger,state,style,transition,animate,AnimationEvent } from '@angular/animations';
 
 @Component ({
     styles:[`

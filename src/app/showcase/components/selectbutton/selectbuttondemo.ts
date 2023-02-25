@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {SelectItem} from '../../../components/common/api';
+import { Component } from '@angular/core';
+import { SelectItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './selectbuttondemo.html'

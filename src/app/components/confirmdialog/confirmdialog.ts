@@ -1,17 +1,17 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {Header,Footer,SharedModule} from '../common/shared';
-import {ButtonModule} from '../button/button';
-import {Confirmation} from '../common/confirmation';
-import {ConfirmationService} from '../common/confirmationservice';
-import {Subscription}   from 'rxjs';
+import { NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone } from '@angular/core';
+import { trigger,state,style,transition,animate,AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { Header,Footer,SharedModule } from '../common/shared';
+import { ButtonModule } from '../button/button';
+import { Confirmation } from '../common/confirmation';
+import { ConfirmationService } from '../common/confirmationservice';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-confirmDialog',
     template: `
-        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" 
+        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}"
             [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()"
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
@@ -49,35 +49,35 @@ import {Subscription}   from 'rxjs';
     providers: [DomHandler]
 })
 export class ConfirmDialog implements OnDestroy {
-    
+
     @Input() visible: boolean;
 
     @Input() header: string;
-    
+
     @Input() icon: string;
-    
+
     @Input() message: string;
-    
+
     @Input() acceptIcon: string = 'pi pi-check';
-    
+
     @Input() acceptLabel: string = 'Yes';
-    
+
     @Input() acceptVisible: boolean = true;
 
     @Input() rejectIcon: string = 'pi pi-times';
-    
+
     @Input() rejectLabel: string = 'No';
-    
+
     @Input() rejectVisible: boolean = true;
-    
+
     @Input() acceptButtonStyleClass: string;
-    
+
     @Input() rejectButtonStyleClass: string;
-        
+
     @Input() width: any;
 
     @Input() height: any;
-    
+
     @Input() closeOnEscape: boolean = true;
 
     @Input() rtl: boolean;
@@ -85,35 +85,35 @@ export class ConfirmDialog implements OnDestroy {
     @Input() closable: boolean = true;
 
     @Input() responsive: boolean = true;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() key: string;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
 
     @ContentChild(Footer) footer;
-    
+
     confirmation: Confirmation;
-        
+
     _visible: boolean;
-    
+
     documentEscapeListener: any;
-    
+
     documentResponsiveListener: any;
-    
+
     mask: any;
 
     container: HTMLDivElement;
-        
+
     contentContainer: HTMLDivElement;
-      
+
     subscription: Subscription;
-                
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (confirmation.key === this.key) {
@@ -130,7 +130,7 @@ export class ConfirmDialog implements OnDestroy {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
                 }
-                
+
                 if (this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
@@ -138,7 +138,7 @@ export class ConfirmDialog implements OnDestroy {
 
                 this.visible = true;
             }
-        });         
+        });
     }
 
     onAnimationStart(event: AnimationEvent) {
@@ -174,7 +174,7 @@ export class ConfirmDialog implements OnDestroy {
             this.el.nativeElement.appendChild(this.container);
         }
     }
-      
+
     center() {
         let elementWidth = this.domHandler.getOuterWidth(this.container);
         let elementHeight = this.domHandler.getOuterHeight(this.container);
@@ -193,7 +193,7 @@ export class ConfirmDialog implements OnDestroy {
         this.container.style.left = x + 'px';
         this.container.style.top = y + 'px';
     }
-    
+
     enableModality() {
         if (!this.mask) {
             this.mask = document.createElement('div');
@@ -203,7 +203,7 @@ export class ConfirmDialog implements OnDestroy {
             this.domHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
-    
+
     disableModality() {
         if (this.mask) {
             document.body.removeChild(this.mask);
@@ -211,26 +211,26 @@ export class ConfirmDialog implements OnDestroy {
             this.mask = null;
         }
     }
-    
+
     close(event: Event) {
         if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
-        
+
         this.hide();
         event.preventDefault();
     }
-    
+
     hide() {
         this.visible = false;
     }
-    
+
     moveOnTop() {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
+
     bindGlobalListeners() {
         if (this.closeOnEscape && this.closable && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
@@ -241,7 +241,7 @@ export class ConfirmDialog implements OnDestroy {
                 }
             });
         }
-        
+
         if (this.responsive) {
             this.zone.runOutsideAngular(() => {
                 this.documentResponsiveListener = this.center.bind(this);
@@ -249,13 +249,13 @@ export class ConfirmDialog implements OnDestroy {
             });
         }
     }
-    
+
     unbindGlobalListeners() {
         if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
-        
+
         if (this.documentResponsiveListener) {
             window.removeEventListener('resize', this.documentResponsiveListener);
             this.documentResponsiveListener = null;
@@ -267,27 +267,27 @@ export class ConfirmDialog implements OnDestroy {
         this.unbindGlobalListeners();
         this.container = null;
     }
-                
+
     ngOnDestroy() {
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();
     }
-    
+
     accept() {
         if (this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
-        
+
         this.hide();
         this.confirmation = null;
     }
-    
+
     reject() {
         if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
-        
+
         this.hide();
         this.confirmation = null;
     }

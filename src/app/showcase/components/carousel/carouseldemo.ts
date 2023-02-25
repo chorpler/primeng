@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {MessageService} from '../../../components/common/messageservice';
-import {Car} from '../../components/domain/car';
+import { Component } from '@angular/core';
+import { MessageService } from '../../../components/common/messageservice';
+import { Car } from '../../components/domain/car';
 
 @Component({
     templateUrl: './carouseldemo.html',
@@ -36,7 +36,7 @@ export class CarouselDemo {
             {vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black'}
         ];
     }
-    
+
     selectCar(car: Car) {
         this.messageService.add({severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin});
     }

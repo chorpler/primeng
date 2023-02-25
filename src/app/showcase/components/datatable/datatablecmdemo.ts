@@ -1,7 +1,7 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
-import {Message,MenuItem} from '../../../components/common/api';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
+import { Message,MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './datatablecmdemo.html'
@@ -13,14 +13,14 @@ export class DataTableCMDemo implements OnInit {
     cars: Car[];
 
     selectedCar: Car;
-    
+
     items: MenuItem[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-        
+
         this.items = [
             {label: 'View', icon: 'fa-search', command: (event) => this.viewCar(this.selectedCar)},
             {label: 'Delete', icon: 'fa-close', command: (event) => this.deleteCar(this.selectedCar)}
@@ -41,7 +41,7 @@ export class DataTableCMDemo implements OnInit {
             }
         }
         this.cars.splice(index, 1);
-        
+
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand});
     }

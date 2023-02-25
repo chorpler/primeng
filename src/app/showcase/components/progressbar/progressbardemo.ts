@@ -1,5 +1,5 @@
-import {Component,OnInit} from '@angular/core';
-import {MessageService} from '../../../components/common/messageservice';
+import { Component,OnInit } from '@angular/core';
+import { MessageService } from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './progressbardemo.html',
@@ -8,7 +8,7 @@ import {MessageService} from '../../../components/common/messageservice';
 export class ProgressBarDemo {
 
     value: number = 0;
-    
+
     constructor(private messageService: MessageService) {}
 
     ngOnInit() {

@@ -1,6 +1,6 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {ValidationDemo} from './validationdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ValidationDemo } from './validationdemo';
 
 @NgModule({
 	imports: [

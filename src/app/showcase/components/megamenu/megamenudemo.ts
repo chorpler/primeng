@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
+import { Component } from '@angular/core';
+import { MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './megamenudemo.html'
@@ -31,7 +31,7 @@ export class MegaMenuDemo {
                         {
                             label: 'TV 4',
                             items: [{label: 'TV 4.1'},{label: 'TV 4.2'}]
-                        }    
+                        }
                     ]
                 ]
             },
@@ -92,7 +92,7 @@ export class MegaMenuDemo {
                         {
                             label: 'Entertainment 4',
                             items: [{label: 'Entertainment 4.1'},{label: 'Entertainment 4.2'}]
-                        }    
+                        }
                     ]
                 ]
             },
@@ -117,7 +117,7 @@ export class MegaMenuDemo {
                         {
                             label: 'Technology 4',
                             items: [{label: 'Technology 4.1'},{label: 'Technology 4.2'}]
-                        }  
+                        }
                     ]
                 ]
             }

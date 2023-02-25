@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
+import { Component } from '@angular/core';
+import { MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './menubardemo.html'
@@ -14,7 +14,7 @@ export class MenubarDemo {
                 label: 'File',
                 icon: 'pi pi-fw pi-file',
                 items: [{
-                        label: 'New', 
+                        label: 'New',
                         icon: 'pi pi-fw pi-plus',
                         items: [
                             {label: 'Project'},
@@ -42,11 +42,11 @@ export class MenubarDemo {
                         label: 'Contents'
                     },
                     {
-                        label: 'Search', 
-                        icon: 'pi pi-fw pi-search', 
+                        label: 'Search',
+                        icon: 'pi pi-fw pi-search',
                         items: [
                             {
-                                label: 'Text', 
+                                label: 'Text',
                                 items: [
                                     {
                                         label: 'Workspace'

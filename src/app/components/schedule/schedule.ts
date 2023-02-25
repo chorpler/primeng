@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,OnDestroy,DoCheck,OnChanges,Input,Output,EventEmitter,IterableDiffers,OnInit,AfterViewChecked,SimpleChanges} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule,Component,ElementRef,OnDestroy,DoCheck,OnChanges,Input,Output,EventEmitter,IterableDiffers,OnInit,AfterViewChecked,SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 declare const FullCalendar: any;
 
@@ -8,127 +8,127 @@ declare const FullCalendar: any;
     template: '<div [ngStyle]="style" [class]="styleClass"></div>'
 })
 export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChecked {
-    
+
     @Input() events: any[];
-    
+
     @Input() header: any;
 
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() rtl: boolean;
-    
+
     @Input() weekends: boolean;
-    
+
     @Input() hiddenDays: number[];
-        
+
     @Input() fixedWeekCount: boolean;
-    
+
     @Input() weekNumbers: boolean;
-    
+
     @Input() businessHours: any;
-    
+
     @Input() height: any;
-    
+
     @Input() contentHeight: any;
-    
+
     @Input() aspectRatio: number = 1.35;
-    
+
     @Input() eventLimit: any;
-    
+
     @Input() defaultDate: any;
-    
+
     @Input() editable: boolean;
-    
+
     @Input() droppable: boolean;
-    
+
     @Input() eventStartEditable: boolean;
-    
+
     @Input() eventDurationEditable: boolean;
-    
+
     @Input() defaultView: string = 'month';
-    
+
     @Input() allDaySlot: boolean = true;
 
     @Input() allDayText: string = 'all-day';
 
     @Input() slotDuration: any = '00:30:00';
-    
+
     @Input() slotLabelInterval: any;
-    
+
     @Input() snapDuration: any;
-    
+
     @Input() scrollTime: any = '06:00:00';
-    
+
     @Input() minTime: any = '00:00:00';
-        
+
     @Input() maxTime: any = '24:00:00';
-    
+
     @Input() slotEventOverlap: boolean = true;
-    
+
     @Input() nowIndicator: boolean;
-    
+
     @Input() dragRevertDuration: number = 500;
-    
+
     @Input() dragOpacity: number = .75;
-    
+
     @Input() dragScroll: boolean = true;
-    
+
     @Input() eventOverlap: any;
-        
+
     @Input() eventConstraint: any;
-    
+
     @Input() locale: string;
 
     @Input() timezone: boolean | string = false;
-    
+
     @Input() timeFormat: string | null = null;
 
     @Input() eventRender: Function;
-    
+
     @Input() dayRender: Function;
-    
+
     @Input() navLinks: boolean;
-        
+
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onDrop: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onEventClick: EventEmitter<any> = new EventEmitter();
-        
+
     @Output() onEventMouseover: EventEmitter<any> = new EventEmitter();
-            
+
     @Output() onEventMouseout: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onEventDragStart: EventEmitter<any> = new EventEmitter();
 
     @Output() onEventDragStop: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onEventDrop: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onEventResizeStart: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onEventResizeStop: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onEventResize: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onViewRender: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onViewDestroy: EventEmitter<any> = new EventEmitter();
 
     @Output() onNavLinkDayClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onNavLinkWeekClick: EventEmitter<any> = new EventEmitter();
-        
+
     initialized: boolean;
-    
+
     stopNgOnChangesPropagation: boolean;
-    
+
     differ: any;
-    
+
     calendar: any;
-    
+
     config: any;
 
     _options: any;
@@ -137,7 +137,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         this.differ = differs.find([]).create(null);
         this.initialized = false;
     }
-    
+
     ngOnInit() {
         this.config = {
             theme: true,
@@ -231,7 +231,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             },
             eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
                 this._updateEvent(event);
-                
+
                 this.onEventDrop.emit({
                     'event': event,
                     'delta': delta,
@@ -256,7 +256,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             },
             eventResize: (event, delta, revertFunc, jsEvent, ui, view) => {
                 this._updateEvent(event);
-                
+
                 this.onEventResize.emit({
                     'event': event,
                     'delta': delta,
@@ -268,7 +268,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             viewRender: (view, element) => {
                 this.onViewRender.emit({
                     'view': view,
-                    'element': element                    
+                    'element': element
                 });
             },
             viewDestroy: (view, element) => {
@@ -290,26 +290,26 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 });
             }
         };
-                
+
         if (this.options) {
             for (let prop in this.options) {
                 this.config[prop] = this.options[prop];
             }
         }
     }
-    
+
     ngAfterViewChecked() {
         if (!this.initialized && this.el.nativeElement.offsetParent) {
             this.initialize();
         }
     }
-    
+
     ngOnChanges(changes: SimpleChanges) {
         if (this.calendar) {
             for (let propName in changes) {
                 if (propName !== 'options' && propName !== 'events') {
                     this.calendar.option(propName, changes[propName].currentValue);
-                }                
+                }
             }
         }
     }
@@ -338,13 +338,13 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             this.calendar.addEventSource(this.events);
         }
     }
-     
+
     ngDoCheck() {
         let changes = this.differ.diff(this.events);
-        
+
         if (this.calendar && changes) {
             this.calendar.removeEventSources();
-            
+
             if (this.events) {
                 this.calendar.addEventSource(this.events);
             }
@@ -356,49 +356,49 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             this.calendar.destroy;
             this.initialized = false;
             this.calendar = null;
-        }        
+        }
     }
-    
+
     gotoDate(date: any) {
         this.calendar.gotoDate(date);
     }
-    
+
     prev() {
         this.calendar.prev();
     }
-    
+
     next() {
         this.calendar.next();
     }
-    
+
     prevYear() {
         this.calendar.prevYear();
     }
-    
+
     nextYear() {
         this.calendar.nextYear();
     }
-    
+
     today() {
         this.calendar.today();
     }
-    
+
     incrementDate(duration: any) {
         this.calendar.incrementDate(duration);
     }
-     
+
     changeView(viewName: string, dateOrRange: any) {
         this.calendar.changeView(viewName, dateOrRange);
     }
-    
+
     getDate() {
         return this.calendar.getDate();
     }
-   
+
     updateEvent(event: any) {
         this.calendar.updateEvent(event);
     }
- 
+
     _findEvent(id: string) {
         let event;
         if (this.events) {
@@ -411,14 +411,14 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         }
         return event;
     }
-    
+
     _updateEvent(event: any) {
         let sourceEvent = this._findEvent(event.id);
         if (sourceEvent) {
             sourceEvent.start = event.start.format();
             if (event.end) {
                 sourceEvent.end = event.end.format();
-            }    
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {DataGridDemo} from './datagriddemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DataGridDemo } from './datagriddemo';
 
 @NgModule({
 	imports: [

@@ -1,6 +1,6 @@
-import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {TreeNode} from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
+import { TreeNode } from '../../../components/common/api';
+import { MessageService } from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
@@ -10,44 +10,44 @@ import {MessageService} from '../../../components/common/messageservice';
             padding: 0;
             border: 0 none;
         }
-        
+
         .node-header,.node-content {
             padding: .5em .7em;
         }
-        
+
         .node-header {
             background-color: #495ebb;
             color: #ffffff;
         }
-        
+
         .node-content {
             text-align: center;
             border: 1px solid #495ebb;
         }
-        
+
         .node-content img {
             border-radius: 50%;
         }
-        
+
         .ui-organizationchart-node-content.department-cfo {
             background-color: #7247bc;
             color: #ffffff;
         }
-        
+
         .ui-organizationchart-node-content.department-coo {
             background-color: #a534b6;
             color: #ffffff;
         }
-        
+
         .ui-organizationchart-node-content.department-cto {
             background-color: #e9286f;
             color: #ffffff;
         }
-        
+
         .ui-person .ui-node-toggler {
             color: #495ebb !important;
         }
-        
+
         .department-cto .ui-node-toggler {
             color: #8a0a39 !important;
         }
@@ -57,13 +57,13 @@ import {MessageService} from '../../../components/common/messageservice';
 export class OrganizationChartDemo implements OnInit {
 
     data1: TreeNode[];
-    
+
     data2: TreeNode[];
-    
+
     selectedNode: TreeNode;
-    
+
     constructor(private messageService: MessageService) {}
-    
+
     ngOnInit() {
         this.data1 = [{
             label: 'CEO',
@@ -132,7 +132,7 @@ export class OrganizationChartDemo implements OnInit {
                 }
             ]
         }];
-        
+
         this.data2 = [{
             label: 'F.C Barcelona',
             expanded: true,
@@ -164,7 +164,7 @@ export class OrganizationChartDemo implements OnInit {
             ]
         }];
     }
-    
+
     onNodeSelect(event) {
         this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
     }

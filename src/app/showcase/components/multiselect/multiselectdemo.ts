@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {SelectItem} from '../../../components/common/api';
+import { Component } from '@angular/core';
+import { SelectItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './multiselectdemo.html'
@@ -9,7 +9,7 @@ export class MultiSelectDemo {
     cars: SelectItem[];
 
     selectedCars1: string[] = [];
-    
+
     selectedCars2: string[] = [];
 
     constructor() {

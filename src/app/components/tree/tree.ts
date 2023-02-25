@@ -1,14 +1,14 @@
 import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,EmbeddedViewRef,ViewContainerRef,
     ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,Host} from '@angular/core';
-import {Optional} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TreeNode} from '../common/treenode';
-import {SharedModule} from '../common/shared';
-import {PrimeTemplate} from '../common/shared';
-import {TreeDragDropService} from '../common/treedragdropservice';
-import {Subscription}   from 'rxjs';
-import {BlockableUI} from '../common/blockableui';
-import {DomHandler} from '../dom/domhandler';
+import { Optional } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TreeNode } from '../common/treenode';
+import { SharedModule } from '../common/shared';
+import { PrimeTemplate } from '../common/shared';
+import { TreeDragDropService } from '../common/treedragdropservice';
+import { Subscription } from 'rxjs';
+import { BlockableUI } from '../common/blockableui';
+import { DomHandler } from '../dom/domhandler';
 
 @Component({
     selector: 'p-treeNode',
@@ -20,7 +20,7 @@ import {DomHandler} from '../dom/domhandler';
                 <div class="ui-treenode-content" role="treeitem" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" tabIndex="0"
-                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" 
+                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}"
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()">
                     <span class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
                             (click)="toggle($event)"></span

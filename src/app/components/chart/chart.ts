@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 declare var Chart: any;
 
@@ -18,23 +18,23 @@ export class UIChart implements AfterViewInit, OnDestroy {
     @Input() options: any = {};
 
     @Input() plugins: any[] = [];
-    
+
     @Input() width: string;
-    
+
     @Input() height: string;
 
     @Input() responsive: boolean = true;
-    
+
     @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
-    
+
     _data: any;
 
     chart: any;
 
     constructor(public el: ElementRef) {}
-    
+
     @Input() get data(): any {
         return this._data;
     }
@@ -75,34 +75,34 @@ export class UIChart implements AfterViewInit, OnDestroy {
             plugins: this.plugins
         });
     }
-    
+
     getCanvas() {
         return this.el.nativeElement.children[0].children[0];
     }
-    
+
     getBase64Image() {
         return this.chart.toBase64Image();
     }
-    
+
     generateLegend() {
         if(this.chart) {
             return this.chart.generateLegend();
         }
     }
-    
+
     refresh() {
         if(this.chart) {
             this.chart.update();
         }
     }
-    
+
     reinit() {
         if(this.chart) {
             this.chart.destroy();
             this.initChart();
         }
     }
-    
+
     ngOnDestroy() {
         if(this.chart) {
             this.chart.destroy();

@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './datatabledemo.html'
@@ -10,9 +10,9 @@ export class DataTableDemo implements OnInit {
     loading: boolean;
 
     cars: Car[];
-    
+
     cols: any[];
-    
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
@@ -21,7 +21,7 @@ export class DataTableDemo implements OnInit {
             this.carService.getCarsSmall().then(cars => this.cars = cars);
             this.loading = false;
         }, 1000);
-        
+
         this.cols = [
             {field: 'vin', header: 'Vin'},
             {field: 'year', header: 'Year'},

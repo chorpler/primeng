@@ -1,9 +1,9 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {Message} from '../common/message';
-import {MessageService} from '../common/messageservice';
-import {Subscription} from 'rxjs';
+import { NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { trigger,state,style,transition,animate } from '@angular/animations';
+import { Message } from '../common/message';
+import { MessageService } from '../common/messageservice';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'p-messages',
@@ -52,7 +52,7 @@ export class Messages implements OnInit, OnDestroy {
     @Input() closable: boolean = true;
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() enableService: boolean = true;
@@ -64,7 +64,7 @@ export class Messages implements OnInit, OnDestroy {
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     messageSubscription: Subscription;
 
     clearSubscription: Subscription;
@@ -147,7 +147,7 @@ export class Messages implements OnInit, OnDestroy {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }

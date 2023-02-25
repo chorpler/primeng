@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {SelectItem} from '../common/selectitem';
+import { Injectable } from '@angular/core';
+import { SelectItem } from '../common/selectitem';
 
 @Injectable()
 export class ObjectUtils {

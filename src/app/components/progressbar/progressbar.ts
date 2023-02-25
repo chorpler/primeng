@@ -1,5 +1,5 @@
-import {NgModule,Component,Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule,Component,Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'p-progressBar',
@@ -14,17 +14,17 @@ import {CommonModule} from '@angular/common';
 export class ProgressBar {
 
     @Input() value: any;
-    
+
     @Input() showValue: boolean = true;
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() unit: string = '%';
-    
+
     @Input() mode: string = 'determinate';
-    
+
 }
 
 @NgModule({

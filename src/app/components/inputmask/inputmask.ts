@@ -25,10 +25,10 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import {NgModule,Component,ElementRef,OnInit,OnDestroy,HostBinding,HostListener,Input,forwardRef,Output,EventEmitter,ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {InputTextModule} from '../inputtext/inputtext';
+import { NgModule,Component,ElementRef,OnInit,OnDestroy,HostBinding,HostListener,Input,forwardRef,Output,EventEmitter,ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { InputTextModule } from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
@@ -70,9 +70,9 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() maxlength: number;
 
     @Input() tabindex: string;
-    
+
     @Input() ariaLabel: string;
-     
+
     @Input() ariaRequired: boolean;
 
     @Input() disabled: boolean;
@@ -357,7 +357,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             this.checkVal(true);
             while (pos.begin < this.len && !this.tests[pos.begin])
                 pos.begin++;
-                
+
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
                 this.updateModel(e);

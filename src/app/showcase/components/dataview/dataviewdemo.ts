@@ -1,14 +1,14 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
-import {SelectItem} from '../../../components/common/api';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
+import { SelectItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './dataviewdemo.html',
-    styles: [`      
-        .ui-button { 
+    styles: [`
+        .ui-button {
             margin-top: 3em;
-        }  
+        }
 
         .filter-container {
             text-align: center;
@@ -29,9 +29,9 @@ import {SelectItem} from '../../../components/common/api';
 export class DataViewDemo implements OnInit {
 
     cars: Car[];
-    
+
     selectedCar: Car;
-    
+
     displayDialog: boolean;
 
     sortOptions: SelectItem[];
@@ -53,7 +53,7 @@ export class DataViewDemo implements OnInit {
             {label: 'Brand', value: 'brand'}
         ];
     }
-    
+
     selectCar(event: Event, car: Car) {
         this.selectedCar = car;
         this.displayDialog = true;
@@ -72,7 +72,7 @@ export class DataViewDemo implements OnInit {
             this.sortField = value;
         }
     }
-    
+
     onDialogHide() {
         this.selectedCar = null;
     }

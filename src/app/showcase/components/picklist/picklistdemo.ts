@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './picklistdemo.html'
@@ -8,9 +8,9 @@ import {CarService} from '../../service/carservice';
 export class PickListDemo {
 
     sourceCars: Car[];
-    
+
     targetCars: Car[];
-    
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {

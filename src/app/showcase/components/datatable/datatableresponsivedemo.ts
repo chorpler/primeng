@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './datatableresponsivedemo.html',
@@ -8,7 +8,7 @@ import {CarService} from '../../service/carservice';
 export class DataTableResponsiveDemo implements OnInit {
 
     cars: Car[];
-    
+
     stacked: boolean;
 
     constructor(private carService: CarService) { }
@@ -16,7 +16,7 @@ export class DataTableResponsiveDemo implements OnInit {
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
     }
-    
+
     toggle() {
         this.stacked = !this.stacked;
     }

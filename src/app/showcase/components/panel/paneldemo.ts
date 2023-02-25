@@ -1,17 +1,17 @@
-import {Component,OnInit} from '@angular/core';
-import {MessageService} from '../../../components/common/messageservice';
-import {MenuItem} from '../../../components/common/api';
+import { Component,OnInit } from '@angular/core';
+import { MessageService } from '../../../components/common/messageservice';
+import { MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './paneldemo.html',
     providers: [MessageService]
 })
 export class PanelDemo implements OnInit {
-    
+
     items: MenuItem[];
-    
+
     constructor(private messageService: MessageService) {}
-    
+
     ngOnInit() {
         this.items = [
             {label: 'Update', icon: 'fa fa-fw fa-refresh', command: () => {

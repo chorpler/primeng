@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {MessageService} from '../../../components/common/messageservice';
+import { Component } from '@angular/core';
+import { MessageService } from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './toastdemo.html',
@@ -73,7 +73,7 @@ export class ToastDemo {
     onReject() {
         this.messageService.clear('c');
     }
-    
+
     clear() {
         this.messageService.clear();
     }

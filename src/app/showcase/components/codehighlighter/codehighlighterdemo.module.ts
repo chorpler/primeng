@@ -1,9 +1,9 @@
-import {NgModule}     from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {CodeHighlighterDemo} from './codehighlighterdemo';
-import {CodeHighlighterDemoRoutingModule} from './codehighlighterdemo-routing.module';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
-import {TabViewModule} from '../../../components/tabview/tabview';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CodeHighlighterDemo } from './codehighlighterdemo';
+import { CodeHighlighterDemoRoutingModule } from './codehighlighterdemo-routing.module';
+import { CodeHighlighterModule } from '../../../components/codehighlighter/codehighlighter';
+import { TabViewModule } from '../../../components/tabview/tabview';
 
 @NgModule({
 	imports: [

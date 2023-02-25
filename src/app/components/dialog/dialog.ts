@@ -1,9 +1,9 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
         ContentChildren,QueryList,ViewChild,NgZone} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {Header,Footer,SharedModule} from '../common/shared';
+import { trigger,state,style,transition,animate,AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { Header,Footer,SharedModule } from '../common/shared';
 
 let idx: number = 0;
 
@@ -11,7 +11,7 @@ let idx: number = 0;
     selector: 'p-dialog',
     template: `
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}"
-            [ngStyle]="style" [class]="styleClass" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" [style.minHeight.px]="minHeight" (mousedown)="moveOnTop()" 
+            [ngStyle]="style" [class]="styleClass" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" [style.minHeight.px]="minHeight" (mousedown)="moveOnTop()"
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" role="dialog" [attr.aria-labelledby]="id + '-label'" *ngIf="visible">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -50,7 +50,7 @@ let idx: number = 0;
     providers: [DomHandler]
 })
 export class Dialog implements OnDestroy {
-    
+
     @Input() visible: boolean;
 
     @Input() header: string;
@@ -58,7 +58,7 @@ export class Dialog implements OnDestroy {
     @Input() draggable: boolean = true;
 
     @Input() resizable: boolean = true;
-    
+
     @Input() minWidth: number = 150;
 
     @Input() minHeight: number = 150;
@@ -76,7 +76,7 @@ export class Dialog implements OnDestroy {
     @Input() modal: boolean;
 
     @Input() closeOnEscape: boolean = true;
-	
+
     @Input() dismissableMask: boolean;
 
     @Input() rtl: boolean;
@@ -84,21 +84,21 @@ export class Dialog implements OnDestroy {
     @Input() closable: boolean = true;
 
     @Input() responsive: boolean = true;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() showHeader: boolean = true;
-    
+
     @Input() breakpoint: number = 640;
-    
+
     @Input() blockScroll: boolean = false;
-    
+
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() minX: number = 0;
@@ -110,13 +110,13 @@ export class Dialog implements OnDestroy {
     @Input() maximizable: boolean;
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
-    
+
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
-    
+
     @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
-        
+
     @ViewChild('titlebar') headerViewChild: ElementRef;
-    
+
     @ViewChild('content') contentViewChild: ElementRef;
 
     @ViewChild('footer') footerViewChild: ElementRef;
@@ -128,39 +128,39 @@ export class Dialog implements OnDestroy {
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
 
     container: HTMLDivElement;
-    
+
     _visible: boolean;
-    
+
     dragging: boolean;
 
     documentDragListener: any;
 
     documentDragEndListener: any;
-    
+
     resizing: boolean;
 
     documentResizeListener: any;
-    
+
     documentResizeEndListener: any;
-    
+
     documentResponsiveListener: any;
-    
+
     documentEscapeListener: Function;
-	
+
     maskClickListener: Function;
-    
+
     lastPageX: number;
-    
+
     lastPageY: number;
-    
+
     mask: HTMLDivElement;
-    
+
     closeIconMouseDown: boolean;
-    
+
     preWidth: number;
-    
+
     preventVisibleChangePropagation: boolean;
-        
+
     maximized: boolean;
 
     preMaximizeContentHeight: number;
@@ -172,11 +172,11 @@ export class Dialog implements OnDestroy {
     preMaximizePageX: number;
 
     preMaximizePageY: number;
-    
+
     id: string = `ui-dialog-${idx++}`;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public zone: NgZone) {}
-    
+
     focus() {
         let focusable = this.domHandler.findSingle(this.container, 'button');
         if(focusable) {
@@ -185,7 +185,7 @@ export class Dialog implements OnDestroy {
             });
         }
     }
-    
+
     positionOverlay() {
         let viewport = this.domHandler.getViewport();
         if (this.domHandler.getOuterHeight(this.container) > viewport.height) {
@@ -197,7 +197,7 @@ export class Dialog implements OnDestroy {
                 this.container.style.height = this.height + 'px';
             }
         }
-        
+
         if (this.positionLeft >= 0 && this.positionTop >= 0) {
             this.container.style.left = this.positionLeft + 'px';
             this.container.style.top = this.positionTop + 'px';
@@ -215,7 +215,7 @@ export class Dialog implements OnDestroy {
         this.visibleChange.emit(false);
         event.preventDefault();
     }
-    
+
     center() {
         let elementWidth = this.domHandler.getOuterWidth(this.container);
         let elementHeight = this.domHandler.getOuterHeight(this.container);
@@ -234,7 +234,7 @@ export class Dialog implements OnDestroy {
         this.container.style.left = x + 'px';
         this.container.style.top = y + 'px';
     }
-    
+
     enableModality() {
         if (!this.mask) {
             this.mask = document.createElement('div');
@@ -244,7 +244,7 @@ export class Dialog implements OnDestroy {
                 maskStyleClass += ' ui-dialog-mask-scrollblocker';
             }
             this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
-            
+
 			if(this.closable && this.dismissableMask) {
 	             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
 					this.close(event);
@@ -256,7 +256,7 @@ export class Dialog implements OnDestroy {
             }
         }
     }
-    
+
     disableModality() {
         if (this.mask) {
             this.unbindMaskClickListener();
@@ -272,7 +272,7 @@ export class Dialog implements OnDestroy {
                         break;
                     }
                 }
-                
+
                 if (!hasBlockerMasks) {
                     this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
                 }
@@ -331,30 +331,30 @@ export class Dialog implements OnDestroy {
             setTimeout(() => this.domHandler.removeClass(this.container, 'ui-dialog-maximized'), 300);
         });
     }
-    
+
     unbindMaskClickListener() {
         if (this.maskClickListener) {
             this.maskClickListener();
             this.maskClickListener = null;
 		}
     }
-    
+
     moveOnTop() {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
+
     onCloseMouseDown(event: Event) {
         this.closeIconMouseDown = true;
     }
-    
+
     initDrag(event: MouseEvent) {
         if (this.closeIconMouseDown) {
             this.closeIconMouseDown = false;
             return;
         }
-        
+
         if (this.draggable) {
             this.dragging = true;
             this.lastPageX = event.pageX;
@@ -362,7 +362,7 @@ export class Dialog implements OnDestroy {
             this.domHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
-    
+
     onDrag(event: MouseEvent) {
         if (this.dragging) {
             let deltaX = event.pageX - this.lastPageX;
@@ -382,14 +382,14 @@ export class Dialog implements OnDestroy {
             this.lastPageY = event.pageY;
         }
     }
-    
+
     endDrag(event: MouseEvent) {
         if (this.draggable) {
             this.dragging = false;
             this.domHandler.removeClass(document.body, 'ui-unselectable-text');
         }
     }
-    
+
     initResize(event: MouseEvent) {
         if (this.resizable) {
             this.preWidth = null;
@@ -399,7 +399,7 @@ export class Dialog implements OnDestroy {
             this.domHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
-    
+
     onResize(event: MouseEvent) {
         if (this.resizing) {
             let deltaX = event.pageX - this.lastPageX;
@@ -413,7 +413,7 @@ export class Dialog implements OnDestroy {
             if (newWidth > this.minWidth) {
                 this.container.style.width = newWidth + 'px';
             }
-            
+
             if (newHeight > this.minHeight) {
                 this.container.style.height = newHeight + 'px';
                 this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
@@ -423,33 +423,33 @@ export class Dialog implements OnDestroy {
             this.lastPageY = event.pageY;
         }
     }
-    
+
     onResizeEnd(event: MouseEvent) {
         if (this.resizing) {
             this.resizing = false;
             this.domHandler.removeClass(document.body, 'ui-unselectable-text');
         }
     }
-    
+
     bindGlobalListeners() {
         if (this.draggable) {
             this.bindDocumentDragListener();
             this.bindDocumentDragEndListener();
         }
-        
+
         if (this.resizable) {
             this.bindDocumentResizeListeners();
         }
-        
+
         if (this.responsive) {
             this.bindDocumentResponsiveListener();
         }
-        
+
         if (this.closeOnEscape && this.closable) {
             this.bindDocumentEscapeListener();
         }
     }
-    
+
     unbindGlobalListeners() {
         this.unbindDocumentDragListener();
         this.unbindDocumentDragEndListener();
@@ -457,14 +457,14 @@ export class Dialog implements OnDestroy {
         this.unbindDocumentResponsiveListener();
         this.unbindDocumentEscapeListener();
     }
-    
+
     bindDocumentDragListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragListener = this.onDrag.bind(this);
             window.document.addEventListener('mousemove', this.documentDragListener);
         });
     }
-    
+
     unbindDocumentDragListener() {
         if(this.documentDragListener) {
             window.document.removeEventListener('mousemove', this.documentDragListener);
@@ -478,14 +478,14 @@ export class Dialog implements OnDestroy {
             window.document.addEventListener('mouseup', this.documentDragEndListener);
         });
     }
-    
+
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
             window.document.removeEventListener('mouseup', this.documentDragEndListener);
             this.documentDragEndListener = null;
         }
     }
-    
+
     bindDocumentResizeListeners() {
         this.zone.runOutsideAngular(() => {
             this.documentResizeListener = this.onResize.bind(this);
@@ -494,7 +494,7 @@ export class Dialog implements OnDestroy {
             window.document.addEventListener('mouseup', this.documentResizeEndListener);
         });
     }
-    
+
     unbindDocumentResizeListeners() {
         if (this.documentResizeListener && this.documentResizeEndListener) {
             window.document.removeEventListener('mouseup', this.documentResizeListener);
@@ -503,26 +503,26 @@ export class Dialog implements OnDestroy {
             this.documentResizeEndListener = null;
         }
     }
-    
+
     bindDocumentResponsiveListener() {
         this.zone.runOutsideAngular(() => {
             this.documentResponsiveListener = this.onWindowResize.bind(this);
             window.addEventListener('resize', this.documentResponsiveListener);
         });
     }
-    
+
     unbindDocumentResponsiveListener() {
         if (this.documentResponsiveListener) {
             window.removeEventListener('resize', this.documentResponsiveListener);
             this.documentResponsiveListener = null;
         }
     }
-    
+
     onWindowResize(event) {
         if (this.maximized) {
             return;
         }
-        
+
         let viewport = this.domHandler.getViewport();
         let width = this.domHandler.getOuterWidth(this.container);
         if (viewport.width <= this.breakpoint) {
@@ -537,7 +537,7 @@ export class Dialog implements OnDestroy {
             this.positionOverlay();
         }
     }
-    
+
     bindDocumentEscapeListener() {
         this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
             if (event.which == 27) {
@@ -547,7 +547,7 @@ export class Dialog implements OnDestroy {
             }
         });
     }
-    
+
     unbindDocumentEscapeListener() {
         if(this.documentEscapeListener) {
             this.documentEscapeListener();
@@ -579,15 +579,15 @@ export class Dialog implements OnDestroy {
                 this.moveOnTop();
                 this.positionOverlay();
                 this.bindGlobalListeners();
-        
+
                 if (this.maximized) {
                     this.domHandler.addClass(document.body, 'ui-overflow-hidden');
                 }
-                
+
                 if (this.modal) {
                     this.enableModality();
                 }
-        
+
                 if (this.focusOnShow) {
                     this.focus();
                 }
@@ -608,14 +608,14 @@ export class Dialog implements OnDestroy {
             this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
             this.maximized = false;
         }
-        
+
         if (this.modal) {
             this.disableModality();
         }
 
         this.container = null;
     }
-    
+
     ngOnDestroy() {
         if (this.container) {
             this.restoreAppend();

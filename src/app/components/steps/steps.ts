@@ -1,7 +1,7 @@
-import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MenuItem} from '../common/menuitem';
-import {RouterModule} from '@angular/router';
+import { NgModule,Component,Input,Output,EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MenuItem } from '../common/menuitem';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'p-steps',
@@ -27,32 +27,32 @@ import {RouterModule} from '@angular/router';
     `
 })
 export class Steps {
-    
+
     @Input() activeIndex: number = 0;
-    
+
     @Input() model: MenuItem[];
-    
+
     @Input() readonly: boolean =  true;
-    
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
-    
+
     itemClick(event: Event, item: MenuItem, i: number) {
         if(this.readonly || item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         this.activeIndexChange.emit(i);
-                
+
         if(!item.url) {
             event.preventDefault();
         }
-        
-        if(item.command) {            
+
+        if(item.command) {
             item.command({
                 originalEvent: event,
                 item: item,
@@ -60,7 +60,7 @@ export class Steps {
             });
         }
     }
-    
+
 }
 
 @NgModule({

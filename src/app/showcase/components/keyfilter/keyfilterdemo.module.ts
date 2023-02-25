@@ -1,13 +1,13 @@
-import {NgModule}     from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {KeyFilterDemo} from './keyfilterdemo';
-import {FormsModule} from '@angular/forms';
-import {MessageModule} from '../../../components/message/message';
-import {KeyFilterDemoRoutingModule} from './keyfilterdemo-routing.module';
-import {KeyFilterModule} from '../../../components/keyfilter/keyfilter';
-import {InputTextModule} from '../../../components/inputtext/inputtext';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { KeyFilterDemo } from './keyfilterdemo';
+import { FormsModule } from '@angular/forms';
+import { MessageModule } from '../../../components/message/message';
+import { KeyFilterDemoRoutingModule } from './keyfilterdemo-routing.module';
+import { KeyFilterModule } from '../../../components/keyfilter/keyfilter';
+import { InputTextModule } from '../../../components/inputtext/inputtext';
+import { TabViewModule } from '../../../components/tabview/tabview';
+import { CodeHighlighterModule } from '../../../components/codehighlighter/codehighlighter';
 
 @NgModule({
 	imports: [

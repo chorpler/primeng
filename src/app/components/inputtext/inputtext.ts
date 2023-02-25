@@ -1,6 +1,6 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,DoCheck,Optional} from '@angular/core';
-import {NgModel} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import { NgModule,Directive,ElementRef,HostListener,Input,DoCheck,Optional } from '@angular/core';
+import { NgModel } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Directive({
     selector: '[pInputText]',
@@ -17,17 +17,17 @@ export class InputText implements DoCheck {
     filled: boolean;
 
     constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
-        
+
     ngDoCheck() {
         this.updateFilledState();
     }
-    
+
     //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
-    @HostListener('input', ['$event']) 
+    @HostListener('input', ['$event'])
     onInput(e) {
         this.updateFilledState();
     }
-    
+
     updateFilledState() {
         this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) ||
                         (this.ngModel && this.ngModel.model);

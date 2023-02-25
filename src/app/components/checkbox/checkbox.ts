@@ -1,5 +1,5 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl} from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
@@ -34,52 +34,52 @@ export class Checkbox implements ControlValueAccessor {
     @Input() name: string;
 
     @Input() disabled: boolean;
-    
+
     @Input() binary: string;
-    
+
     @Input() label: string;
 
     @Input() tabindex: number;
 
     @Input() inputId: string;
-    
+
     @Input() style: any;
 
     @Input() styleClass: string;
 
     @Input() labelStyleClass: string;
-    
+
     @Input() formControl: FormControl;
-    
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-    
+
     model: any;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-        
+
     focused: boolean = false;
-    
+
     checked: boolean = false;
 
     constructor(private cd: ChangeDetectorRef) {}
 
     onClick(event,checkbox,focus:boolean) {
         event.preventDefault();
-        
+
         if(this.disabled) {
             return;
         }
-        
+
         this.checked = !this.checked;
         this.updateModel();
-        
+
         if(focus) {
             checkbox.focus();
         }
     }
-    
+
     updateModel() {
         if(!this.binary) {
             if(this.checked)
@@ -88,7 +88,7 @@ export class Checkbox implements ControlValueAccessor {
                 this.removeValue();
 
             this.onModelChange(this.model);
-            
+
             if(this.formControl) {
                 this.formControl.setValue(this.model);
             }
@@ -96,10 +96,10 @@ export class Checkbox implements ControlValueAccessor {
         else {
             this.onModelChange(this.checked);
         }
-        
+
         this.onChange.emit(this.checked);
     }
-    
+
     handleChange(event) {
         this.checked = event.target.checked;
         this.updateModel();
@@ -122,7 +122,7 @@ export class Checkbox implements ControlValueAccessor {
         else
             this.model = [this.value];
     }
-    
+
     onFocus(event) {
         this.focused = true;
     }
@@ -131,13 +131,13 @@ export class Checkbox implements ControlValueAccessor {
         this.focused = false;
         this.onModelTouched();
     }
-    
+
     writeValue(model: any) : void {
         this.model = model;
         this.checked = this.isChecked();
         this.cd.markForCheck();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -145,7 +145,7 @@ export class Checkbox implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }

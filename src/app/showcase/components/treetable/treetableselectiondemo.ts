@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TreeNode } from '../../../components/common/api';
 import { NodeService } from '../../service/nodeservice';
-import {MessageService} from '../../../components/common/messageservice';
+import { MessageService } from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './treetableselectiondemo.html',
@@ -50,7 +50,7 @@ export class TreeTableSelectionDemo {
     nodeSelect(event) {
         this.messageService.add({severity: 'info', summary: 'Node Selected', detail: event.node.data.name});
     }
-    
+
     nodeUnselect(event) {
         this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.data.name});
     }

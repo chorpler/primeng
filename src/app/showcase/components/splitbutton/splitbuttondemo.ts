@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
-import {MessageService} from '../../../components/common/messageservice';
-import {MenuItem} from '../../../components/common/api';
+import { Component,OnInit } from '@angular/core';
+import { MessageService } from '../../../components/common/messageservice';
+import { MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './splitbuttondemo.html',
@@ -12,11 +12,11 @@ import {MenuItem} from '../../../components/common/api';
     `]
 })
 export class SplitButtonDemo implements OnInit {
-    
+
     items: MenuItem[];
-    
+
     constructor(private messageService: MessageService) {}
-    
+
     ngOnInit() {
         this.items = [
             {label: 'Update', icon: 'pi pi-refresh', command: () => {
@@ -33,11 +33,11 @@ export class SplitButtonDemo implements OnInit {
     save(severity: string) {
         this.messageService.add({severity: severity, summary:'Success', detail:'Data Saved'});
     }
-    
+
     update() {
         this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
     }
-    
+
     delete() {
         this.messageService.add({severity:'success', summary:'Success', detail:'Data Deleted'});
     }

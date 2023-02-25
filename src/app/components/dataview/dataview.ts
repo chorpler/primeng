@@ -1,10 +1,10 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ObjectUtils} from '../utils/objectutils';
-import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
-import {PaginatorModule} from '../paginator/paginator';
-import {BlockableUI} from '../common/blockableui';
-import {SelectItem} from '../common/selectitem';
+import { NgModule,Component,ElementRef,OnInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ObjectUtils } from '../utils/objectutils';
+import { Header,Footer,PrimeTemplate,SharedModule } from '../common/shared';
+import { PaginatorModule } from '../paginator/paginator';
+import { BlockableUI } from '../common/blockableui';
+import { SelectItem } from '../common/selectitem';
 
 @Component({
     selector: 'p-dataView',
@@ -45,15 +45,15 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     @Input() paginator: boolean;
 
     @Input() rows: number;
-    
+
     @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
-    
+
     @Input() rowsPerPageOptions: number[];
 
     @Input() paginatorPosition: string = 'bottom';
-    
+
     @Input() alwaysShowPaginator: boolean = true;
 
     @Input() paginatorDropdownAppendTo: any;
@@ -61,7 +61,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     @Input() lazy: boolean;
 
     @Input() emptyMessage: string = 'No records found';
-    
+
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     @Input() style: any;
@@ -71,7 +71,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     @Input() trackBy: Function = (index: number, item: any) => item;
 
     @Input() filterBy: string;
-    
+
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'pi pi-spinner';
@@ -81,15 +81,15 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     _value: any[];
-    
+
     listItemTemplate: TemplateRef<any>;
 
     gridItemTemplate: TemplateRef<any>;
@@ -99,7 +99,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     paginatorLeftTemplate: TemplateRef<any>;
 
     paginatorRightTemplate: TemplateRef<any>;
-    
+
     filteredValue: any[];
 
     filterValue: string;
@@ -109,7 +109,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     _sortOrder: number = 1;
 
     initialized: boolean;
-    
+
     constructor(public el: ElementRef, public objectUtils: ObjectUtils) {}
 
     ngOnInit() {
@@ -143,14 +143,14 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             this.sort();
         }
     }
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'listItem':
                     this.listItemTemplate = item.template;
                 break;
-                
+
                 case 'gridItem':
                     this.gridItemTemplate = item.template;
                 break;
@@ -173,13 +173,13 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             case 'list':
                 this.itemTemplate = this.listItemTemplate;
             break;
-            
+
             case 'grid':
                 this.itemTemplate = this.gridItemTemplate;
             break;
         }
     }
-    
+
     @Input() get value(): any[] {
         return this._value;
     }
@@ -198,7 +198,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         this.layout = layout;
         this.updateItemTemplate();
     }
-        
+
     updateTotalRecords() {
         this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
     }
@@ -258,14 +258,14 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         let data = this.filteredValue||this.value;
         return data == null || data.length == 0;
     }
-    
+
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
             rows: this.rows
         };
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
@@ -276,15 +276,15 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         if (this.value && this.value.length) {
             let searchFields = this.filterBy.split(',');
             this.filteredValue = this.objectUtils.filter(this.value, searchFields, filter);
-    
+
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;
             }
-    
+
             if (this.paginator) {
                 this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
             }
-        }       
+        }
     }
 
     hasFilter() {

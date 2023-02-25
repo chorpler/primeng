@@ -1,9 +1,9 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,Renderer2} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common/menuitem';
-import {Location} from '@angular/common';
-import {RouterModule} from '@angular/router';
+import { NgModule,Component,ElementRef,AfterViewInit,Input,Output,Renderer2 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { MenuItem } from '../common/menuitem';
+import { Location } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'p-megaMenu',
@@ -15,14 +15,14 @@ import {RouterModule} from '@angular/router';
                     <li *ngIf="category.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': category.visible === false}">
                     <li *ngIf="!category.separator" #item [ngClass]="{'ui-menuitem ui-corner-all':true,'ui-menuitem-active':item==activeItem, 'ui-helper-hidden': category.visible === false}"
                         (mouseenter)="onItemMouseEnter($event, item, category)" (mouseleave)="onItemMouseLeave($event, item)">
-   
+
                         <a *ngIf="!category.routerLink" [href]="category.url||'#'" [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id" (click)="itemClick($event, category)"
                             [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass">
                             <span class="ui-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="ui-menuitem-text">{{category.label}}</span>
                             <span *ngIf="category.items" class="ui-submenu-icon pi pi-fw" [ngClass]="{'pi-caret-down':orientation=='horizontal','pi-caret-right':orientation=='vertical'}"></span>
                         </a>
-                        <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" 
+                        <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}"
                             [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id"
                             (click)="itemClick($event, category)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass">
                             <span class="ui-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
@@ -44,8 +44,8 @@ import {RouterModule} from '@angular/router';
                                                             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="ui-menuitem-text">{{item.label}}</span>
                                                         </a>
-                                                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" 
-                                                            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" 
+                                                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'"
+                                                            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all"
                                                              [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
                                                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                                             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
@@ -76,19 +76,19 @@ export class MegaMenu {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() orientation: string = 'horizontal';
 
     @Input() autoZIndex: boolean = true;
 
     @Input() baseZIndex: number = 0;
-    
+
     activeItem: any;
 
     hideTimeout: any;
-                
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
-    
+
     onItemMouseEnter(event, item, menuitem: MenuItem) {
         if(menuitem.disabled) {
             return;
@@ -98,7 +98,7 @@ export class MegaMenu {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
-        
+
         this.activeItem = item;
 
         if(menuitem.items) {
@@ -119,33 +119,33 @@ export class MegaMenu {
             }
         }
     }
-    
+
     onItemMouseLeave(event, link) {
         this.hideTimeout = setTimeout(() => {
             this.activeItem = null;
         }, 1000);
     }
-    
+
     itemClick(event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(!item.url) {
             event.preventDefault();
         }
-        
+
         if(item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
-                        
+
         this.activeItem = null;
     }
-    
+
     getColumnClass(menuitem: MenuItem) {
         let length = menuitem.items ? menuitem.items.length: 0;
         let columnClass;
@@ -153,24 +153,24 @@ export class MegaMenu {
             case 2:
                 columnClass= 'ui-g-6';
             break;
-            
+
             case 3:
                 columnClass= 'ui-g-4';
             break;
-            
+
             case 4:
                 columnClass= 'ui-g-3';
             break;
-            
+
             case 6:
                 columnClass= 'ui-g-2';
             break;
-                        
+
             default:
                 columnClass= 'ui-g-12';
             break;
         }
-        
+
         return columnClass;
     }
 }

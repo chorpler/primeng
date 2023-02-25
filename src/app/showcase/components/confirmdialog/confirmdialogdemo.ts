@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {ConfirmationService} from '../../../components/common/api';
-import {Message} from '../../../components/common/api';
+import { Component } from '@angular/core';
+import { ConfirmationService } from '../../../components/common/api';
+import { Message } from '../../../components/common/api';
 
 @Component({
     templateUrl: './confirmdialogdemo.html',
@@ -12,9 +12,9 @@ import {Message} from '../../../components/common/api';
     providers: [ConfirmationService]
 })
 export class ConfirmDialogDemo {
-    
+
     msgs: Message[] = [];
-    
+
     constructor(private confirmationService: ConfirmationService) {}
 
     confirm1() {
@@ -30,7 +30,7 @@ export class ConfirmDialogDemo {
             }
         });
     }
-    
+
     confirm2() {
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',

@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './datascrollerloaderdemo.html',
@@ -12,7 +12,7 @@ import {CarService} from '../../service/carservice';
         .car-item .ui-md-3 {
             text-align: center;
         }
-        
+
         .car-item .ui-g-10 {
             font-weight: bold;
         }
@@ -27,7 +27,7 @@ import {CarService} from '../../service/carservice';
 export class DataScrollerLoaderDemo implements OnInit {
 
     cars: Car[];
-        
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {

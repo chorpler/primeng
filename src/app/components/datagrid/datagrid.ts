@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,IterableDiffers} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
-import {PaginatorModule} from '../paginator/paginator';
-import {BlockableUI} from '../common/blockableui';
+import { NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,IterableDiffers } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Header,Footer,PrimeTemplate,SharedModule } from '../common/shared';
+import { PaginatorModule } from '../paginator/paginator';
+import { BlockableUI } from '../common/blockableui';
 
 @Component({
     selector: 'p-dataGrid',
@@ -34,57 +34,57 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() paginator: boolean;
 
     @Input() rows: number;
-    
+
     @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
-    
+
     @Input() rowsPerPageOptions: number[];
 
     @Input() lazy: boolean;
 
     @Input() emptyMessage: string = 'No records found';
-    
+
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() paginatorPosition: string = 'bottom';
-    
+
     @Input() alwaysShowPaginator: boolean = true;
-    
+
     @Input() trackBy: Function = (index: number, item: any) => item;
-    
+
     @Input() immutable: boolean = true;
 
     @Input() paginatorDropdownAppendTo: any;
-    
+
     @Output() onPage: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     _value: any[];
-    
+
     itemTemplate: TemplateRef<any>;
 
     dataToRender: any[];
 
     first: number = 0;
-    
+
     page: number = 0;
-    
+
     differ: any;
-    
+
     constructor(public el: ElementRef, public differs: IterableDiffers) {
 		this.differ = differs.find([]).create(null);
 	}
-    
+
     ngAfterViewInit() {
         if(this.lazy) {
             this.onLazyLoad.emit({
@@ -93,40 +93,40 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
             });
         }
     }
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
             }
         });
     }
-    
+
     @Input() get value(): any[] {
         return this._value;
     }
 
     set value(val:any[]) {
         this._value = val;
-        
+
         if(this.immutable) {
             this.handleDataChange();
         }
     }
-    
+
     handleDataChange() {
         if(this.paginator) {
             this.updatePaginator();
         }
         this.updateDataToRender(this.value);
     }
-    
+
     ngDoCheck() {
         if(!this.immutable) {
             let changes = this.differ.diff(this.value);
@@ -139,7 +139,7 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     updatePaginator() {
         //total records
         this.totalRecords = this.lazy ? this.totalRecords : (this.value ? this.value.length: 0);
-        
+
         //first
         if(this.totalRecords && this.first >= this.totalRecords) {
             let numberOfPages = Math.ceil(this.totalRecords/this.rows);
@@ -150,14 +150,14 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     paginate(event) {
         this.first = event.first;
         this.rows = event.rows;
-        
+
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
             this.updateDataToRender(this.value);
         }
-        
+
         this.onPage.emit({
             first: this.first,
             rows: this.rows
@@ -184,14 +184,14 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     isEmpty() {
         return !this.dataToRender||(this.dataToRender.length == 0);
     }
-    
+
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
             rows: this.rows
         };
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }

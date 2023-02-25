@@ -1,11 +1,11 @@
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,
             forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,ContentChild} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {SelectItem} from '../common/selectitem';
-import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/objectutils';
-import {SharedModule,PrimeTemplate,Footer} from '../common/shared';
+import { trigger,state,style,transition,animate,AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { SelectItem } from '../common/selectitem';
+import { DomHandler } from '../dom/domhandler';
+import { ObjectUtils } from '../utils/objectutils';
+import { SharedModule,PrimeTemplate,Footer } from '../common/shared';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {

@@ -1,6 +1,6 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {SpinnerDemo} from './spinnerdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { SpinnerDemo } from './spinnerdemo';
 
 @NgModule({
 	imports: [

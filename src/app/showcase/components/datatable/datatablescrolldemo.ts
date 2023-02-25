@@ -1,8 +1,8 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
-import {LazyLoadEvent} from '../../../components/common/api';
-import {FilterMetadata} from '../../../components/common/api';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
+import { LazyLoadEvent } from '../../../components/common/api';
+import { FilterMetadata } from '../../../components/common/api';
 
 @Component({
     templateUrl: './datatablescrolldemo.html',
@@ -10,15 +10,15 @@ import {FilterMetadata} from '../../../components/common/api';
 export class DataTableScrollDemo implements OnInit {
 
     cars: Car[];
-    
+
     frozenCars: Car[];
-    
+
     carsLarge: Car[];
-    
+
     totalRecords: number;
-    
+
     sales: any[];
-    
+
     loading: boolean;
 
     constructor(private carService: CarService) { }
@@ -30,7 +30,7 @@ export class DataTableScrollDemo implements OnInit {
             {"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"},
             {"brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23"}
         ];
-        
+
         this.sales = [
             {brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342'},
             {brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122'},
@@ -43,15 +43,15 @@ export class DataTableScrollDemo implements OnInit {
             {brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'},
             {brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'}
         ];
-        
+
         this.totalRecords = 250000;
     }
-    
+
     loadCarsLazy(event: LazyLoadEvent) {
         this.loading = true;
-            
-        //for demo purposes keep loading the same dataset 
-        //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
+
+        //for demo purposes keep loading the same dataset
+        //in a real production application, this data should come from server by building the query with LazyLoadEvent options
         setTimeout(() => {
             this.loading = false;
             this.carsLarge = [
@@ -95,7 +95,7 @@ export class DataTableScrollDemo implements OnInit {
                 {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 37},
                 {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 38},
                 {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 39}
-            ];  
-        }, 2000);    
+            ];
+        }, 2000);
     }
 }

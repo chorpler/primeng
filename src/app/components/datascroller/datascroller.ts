@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,Renderer2,NgZone,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
-import {DomHandler} from '../dom/domhandler';
+import { NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,Renderer2,NgZone,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Header,Footer,PrimeTemplate,SharedModule } from '../common/shared';
+import { DomHandler } from '../dom/domhandler';
 
 @Component({
     selector: 'p-dataScroller',
@@ -31,39 +31,39 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
     @Input() rows: number;
 
     @Input() lazy: boolean;
-    
+
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() buffer: number = 0.9;
-    
+
     @Input() inline: boolean;
-    
+
     @Input() scrollHeight: any;
-    
+
     @Input() loader: any;
 
     @Input() totalRecords: number;
-    
+
     @Input() trackBy: Function = (index: number, item: any) => item;
-                
+
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild('content') contentViewChild: ElementRef;
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-        
+
     itemTemplate: TemplateRef<any>;
 
     dataToRender: any[] = [];
 
     first: number = 0;
-        
+
     inlineScrollListener: any;
 
     windowScrollListener: any;
@@ -88,21 +88,21 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
             this.bindScrollListener();
         }
     }
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
             }
         });
     }
-                
+
     load() {
         if(this.lazy) {
             this.onLazyLoad.emit({
@@ -110,7 +110,7 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
                 rows: this.rows
             });
         }
-        
+
         this.page = this.page + 1;
     }
 
@@ -120,7 +120,7 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
         else
             return this.value && this.value.length && (this.rows * this.page < this.value.length);
     }
-     
+
     reset() {
         this.page = 0;
     }
@@ -128,7 +128,7 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
     isEmpty() {
         return !this.value||(this.value.length == 0);
     }
-        
+
     bindScrollListener() {
         this.zone.runOutsideAngular(() => {
             if(this.inline) {
@@ -167,7 +167,7 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
                 this.zone.run(() => {
                     this.load();
                 });
-            }   
+            }
         }
     }
 
@@ -183,10 +183,10 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
                 this.zone.run(() => {
                     this.load();
                 });
-            }  
+            }
         }
     }
-    
+
     ngOnDestroy() {
         this.unbindScrollListener();
     }

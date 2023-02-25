@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './piechartdemo.html'
@@ -23,7 +23,7 @@ export class PieChartDemo {
                         "#36A2EB",
                         "#FFCE56"
                     ]
-                }]    
+                }]
             };
     }
 }

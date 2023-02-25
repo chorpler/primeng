@@ -1,25 +1,25 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {DataTableDemo} from './datatabledemo';
-import {DataTableCMDemo} from './datatablecmdemo';
-import {DataTableColReorderDemo} from './datatablecolreorderdemo';
-import {DataTableColResizeDemo} from './datatablecolresizedemo';
-import {DataTableColTogglerDemo} from './datatablecoltogglerdemo';
-import {DataTableCrudDemo} from './datatablecruddemo';
-import {DataTableEditableDemo} from './datatableeditabledemo';
-import {DataTableExportDemo} from './datatableexportdemo';
-import {DataTableFacetsDemo} from './datatablefacetsdemo';
-import {DataTableFilterDemo} from './datatablefilterdemo';
-import {DataTableColGroupDemo} from './datatablecolgroupdemo';
-import {DataTableRowGroupDemo} from './datatablerowgroupdemo';
-import {DataTableLazyDemo} from './datatablelazydemo';
-import {DataTablePaginatorDemo} from './datatablepaginatordemo';
-import {DataTableResponsiveDemo} from './datatableresponsivedemo';
-import {DataTableRowExpansionDemo} from './datatablerowexpansiondemo';
-import {DataTableScrollDemo} from './datatablescrolldemo';
-import {DataTableSelectionDemo} from './datatableselectiondemo';
-import {DataTableSortDemo} from './datatablesortdemo';
-import {DataTableTemplatingDemo} from './datatabletemplatingdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DataTableDemo } from './datatabledemo';
+import { DataTableCMDemo } from './datatablecmdemo';
+import { DataTableColReorderDemo } from './datatablecolreorderdemo';
+import { DataTableColResizeDemo } from './datatablecolresizedemo';
+import { DataTableColTogglerDemo } from './datatablecoltogglerdemo';
+import { DataTableCrudDemo } from './datatablecruddemo';
+import { DataTableEditableDemo } from './datatableeditabledemo';
+import { DataTableExportDemo } from './datatableexportdemo';
+import { DataTableFacetsDemo } from './datatablefacetsdemo';
+import { DataTableFilterDemo } from './datatablefilterdemo';
+import { DataTableColGroupDemo } from './datatablecolgroupdemo';
+import { DataTableRowGroupDemo } from './datatablerowgroupdemo';
+import { DataTableLazyDemo } from './datatablelazydemo';
+import { DataTablePaginatorDemo } from './datatablepaginatordemo';
+import { DataTableResponsiveDemo } from './datatableresponsivedemo';
+import { DataTableRowExpansionDemo } from './datatablerowexpansiondemo';
+import { DataTableScrollDemo } from './datatablescrolldemo';
+import { DataTableSelectionDemo } from './datatableselectiondemo';
+import { DataTableSortDemo } from './datatablesortdemo';
+import { DataTableTemplatingDemo } from './datatabletemplatingdemo';
 
 @NgModule({
 	imports: [

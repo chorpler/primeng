@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './dragdropdemo.html',
@@ -24,24 +24,24 @@ import {CarService} from '../../service/carservice';
     `]
 })
 export class DragDropDemo {
-    
+
     availableCars: Car[];
-    
+
     selectedCars: Car[];
-    
+
     draggedCar: Car;
-    
+
     constructor(private carService: CarService) { }
-    
+
     ngOnInit() {
         this.selectedCars = [];
         this.carService.getCarsSmall().then(cars => this.availableCars = cars);
     }
-    
+
     dragStart(event,car: Car) {
         this.draggedCar = car;
     }
-    
+
     drop(event) {
         if(this.draggedCar) {
             let draggedCarIndex = this.findIndex(this.draggedCar);
@@ -50,11 +50,11 @@ export class DragDropDemo {
             this.draggedCar = null;
         }
     }
-    
+
     dragEnd(event) {
         this.draggedCar = null;
     }
-    
+
     findIndex(car: Car) {
         let index = -1;
         for(let i = 0; i < this.availableCars.length; i++) {

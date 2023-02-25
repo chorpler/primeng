@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {SelectItem} from '../../../components/common/api';
+import { Component } from '@angular/core';
+import { SelectItem } from '../../../components/common/api';
 
 interface City {
     name: string,
@@ -48,5 +48,5 @@ export class ListboxDemo {
             {label: 'Volvo', value: 'Volvo'}
         ];
     }
-    
+
 }

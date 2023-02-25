@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
+import { Component } from '@angular/core';
+import { MenuItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './menudemo.html'
 })
 export class MenuDemo {
-    
+
     items: MenuItem[];
 
     ngOnInit() {

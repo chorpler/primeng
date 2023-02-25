@@ -1,35 +1,35 @@
 import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
             ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ButtonModule} from '../button/button';
-import {MessagesModule} from '../messages/messages';
-import {ProgressBarModule} from '../progressbar/progressbar';
-import {DomHandler} from '../dom/domhandler';
-import {Message} from '../common/message';
-import {PrimeTemplate,SharedModule} from '../common/shared';
-import {BlockableUI} from '../common/blockableui';
+import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ButtonModule } from '../button/button';
+import { MessagesModule } from '../messages/messages';
+import { ProgressBarModule } from '../progressbar/progressbar';
+import { DomHandler } from '../dom/domhandler';
+import { Message } from '../common/message';
+import { PrimeTemplate,SharedModule } from '../common/shared';
+import { BlockableUI } from '../common/blockableui';
 
 @Component({
     selector: 'p-fileUpload',
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}"> 
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}">
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
                 <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
                 <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
-            
+
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
-            <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}" 
+            <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}"
                 (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
-                
+
                 <p-messages [value]="msgs" [enableService]="false"></p-messages>
-                
+
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
                         <div class="ui-fileupload-row" *ngFor="let file of files; let i = index;">
@@ -46,7 +46,7 @@ import {BlockableUI} from '../common/blockableui';
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
         </div>
-        <span *ngIf="mode === 'basic'" [ngClass]="{'ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left': true, 
+        <span *ngIf="mode === 'basic'" [ngClass]="{'ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left': true,
                 'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus, 'ui-state-disabled':disabled}"
                 [ngStyle]="style" [class]="styleClass" (mouseup)="onSimpleUploaderClick($event)">
             <span class="ui-button-icon-left pi" [ngClass]="{'pi-plus': !hasFiles()||auto, 'pi-upload': hasFiles()&&!auto}"></span>

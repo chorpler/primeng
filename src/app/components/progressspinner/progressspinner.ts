@@ -1,5 +1,5 @@
-import {NgModule,Component,Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule,Component,Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'p-progressSpinner',
@@ -14,15 +14,15 @@ import {CommonModule} from '@angular/common';
 export class ProgressSpinner {
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() strokeWidth: string = "2";
-    
+
     @Input() fill: string = "none";
-    
+
     @Input() animationDuration: string = "2s";
-    
+
 }
 
 @NgModule({

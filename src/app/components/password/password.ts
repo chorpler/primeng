@@ -1,6 +1,6 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import { NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
 
 @Directive({
     selector: '[pPassword]',
@@ -22,29 +22,29 @@ export class Password implements OnDestroy,DoCheck {
     @Input() mediumLabel: string = 'Medium';
 
     @Input() strongLabel: string = 'Strong';
-    
+
     @Input() feedback: boolean = true;
-    
+
     panel: HTMLDivElement;
-    
+
     meter: any;
-    
+
     info: any;
-    
+
     filled: boolean;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
-    
+
     ngDoCheck() {
         this.updateFilledState();
     }
-    
+
     //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
-    @HostListener('input', ['$event']) 
+    @HostListener('input', ['$event'])
     onInput(e) {
         this.updateFilledState();
     }
-    
+
     updateFilledState() {
         this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
@@ -62,14 +62,14 @@ export class Password implements OnDestroy,DoCheck {
         this.panel.style.minWidth = this.domHandler.getOuterWidth(this.el.nativeElement) + 'px';
         document.body.appendChild(this.panel);
     }
-        
-    @HostListener('focus', ['$event']) 
+
+    @HostListener('focus', ['$event'])
     onFocus(e) {
         if (this.feedback) {
             if (!this.panel) {
                 this.createPanel();
             }
-    
+
             this.panel.style.zIndex = String(++DomHandler.zindex);
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
@@ -80,9 +80,9 @@ export class Password implements OnDestroy,DoCheck {
             });
         }
     }
-    
-    @HostListener('blur', ['$event']) 
-    onBlur(e) {   
+
+    @HostListener('blur', ['$event'])
+    onBlur(e) {
         if (this.feedback) {
             this.domHandler.addClass(this.panel, 'ui-password-panel-hidden');
             this.domHandler.removeClass(this.panel, 'ui-password-panel-visible');
@@ -92,9 +92,9 @@ export class Password implements OnDestroy,DoCheck {
                     this.ngOnDestroy();
                 }, 150);
             });
-        }     
+        }
     }
-    
+
     @HostListener('keyup', ['$event'])
     onKeyup(e) {
         if (this.feedback) {
@@ -116,7 +116,7 @@ export class Password implements OnDestroy,DoCheck {
                 else if(score >= 30 && score < 80) {
                     label = this.mediumLabel;
                     meterPos = '0px -20px';
-                } 
+                }
                 else if(score >= 80) {
                     label = this.strongLabel;
                     meterPos = '0px -30px';
@@ -127,7 +127,7 @@ export class Password implements OnDestroy,DoCheck {
             this.info.textContent = label;
         }
     }
-    
+
     testStrength(str: string) {
         let grade: number = 0;
         let val;
@@ -148,7 +148,7 @@ export class Password implements OnDestroy,DoCheck {
 
         return grade > 100 ? 100 : grade;
     }
-    
+
     normalize(x, y) {
         let diff = x - y;
 
@@ -157,11 +157,11 @@ export class Password implements OnDestroy,DoCheck {
         else
             return 1 + 0.5 * (x / (x + y/4));
     }
-    
+
     get disabled(): boolean {
         return this.el.nativeElement.disabled;
     }
-    
+
     ngOnDestroy() {
         if (this.panel) {
             document.body.removeChild(this.panel);

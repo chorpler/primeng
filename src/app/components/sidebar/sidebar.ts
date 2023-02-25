@@ -1,14 +1,14 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2} from '@angular/core';
+import { NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2 } from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
 
 @Component({
     selector: 'p-sidebar',
     template: `
-        <div #container [ngClass]="{'ui-sidebar ui-widget ui-widget-content ui-shadow':true, 'ui-sidebar-active': visible, 
+        <div #container [ngClass]="{'ui-sidebar ui-widget ui-widget-content ui-shadow':true, 'ui-sidebar-active': visible,
             'ui-sidebar-left': (position === 'left'), 'ui-sidebar-right': (position === 'right'),
-            'ui-sidebar-top': (position === 'top'), 'ui-sidebar-bottom': (position === 'bottom'), 
+            'ui-sidebar-top': (position === 'top'), 'ui-sidebar-bottom': (position === 'bottom'),
             'ui-sidebar-full': fullScreen}"
             [@panelState]="visible ? 'visible' : 'hidden'" [ngStyle]="style" [class]="styleClass">
             <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" *ngIf="showCloseIcon" href="#" role="button" (click)="close($event)">
@@ -149,7 +149,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-sidebar-mask');
-            
+
             if(this.dismissible){
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                     this.close(event);

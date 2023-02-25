@@ -1,7 +1,7 @@
-import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import { NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { trigger,state,style,transition,animate,AnimationEvent } from '@angular/animations';
 
 @Component({
     selector: 'p-overlayPanel',
@@ -41,13 +41,13 @@ export class OverlayPanel implements OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() appendTo: any;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
@@ -55,27 +55,27 @@ export class OverlayPanel implements OnDestroy {
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
-    
+
     container: HTMLDivElement;
 
     visible: boolean = false;
 
     documentClickListener: any;
-    
+
     selfClick: boolean;
-        
+
     target: any;
-    
+
     willHide: boolean;
-        
+
     targetClickEvent: boolean;
-    
+
     closeClick: boolean;
 
     documentResizeListener: any;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
-        
+
     bindDocumentClickListener() {
         if (!this.documentClickListener && this.dismissable) {
             this.zone.runOutsideAngular(() => {
@@ -85,7 +85,7 @@ export class OverlayPanel implements OnDestroy {
                             this.hide();
                         });
                     }
- 
+
                     this.selfClick = false;
                     this.targetClickEvent = false;
                     this.cd.markForCheck();
@@ -93,14 +93,14 @@ export class OverlayPanel implements OnDestroy {
             });
         }
     }
-    
+
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }
     }
-    
+
     toggle(event, target?) {
         if (event.type === 'click') {
             this.targetClickEvent = true;
@@ -126,7 +126,7 @@ export class OverlayPanel implements OnDestroy {
         if (event.type === 'click') {
             this.targetClickEvent = true;
         }
-        
+
         this.target = target||event.currentTarget||event.target;
         this.visible = true;
     }
@@ -174,7 +174,7 @@ export class OverlayPanel implements OnDestroy {
     hide() {
         this.visible = false;
     }
-    
+
     onPanelClick(event) {
         if (this.closeClick) {
             this.hide();
@@ -198,7 +198,7 @@ export class OverlayPanel implements OnDestroy {
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-    
+
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);

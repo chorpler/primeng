@@ -1,7 +1,7 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
-import {SelectItem} from '../../../components/common/api';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
+import { SelectItem } from '../../../components/common/api';
 
 @Component({
     templateUrl: './datatablerowgroupdemo.html'
@@ -9,11 +9,11 @@ import {SelectItem} from '../../../components/common/api';
 export class DataTableRowGroupDemo implements OnInit {
 
     cars1: Car[];
-    
+
     cars2: Car[];
-    
+
     cars3: Car[];
-    
+
     constructor(private carService: CarService) {}
 
     ngOnInit() {
@@ -21,10 +21,10 @@ export class DataTableRowGroupDemo implements OnInit {
         this.carService.getCarsMedium().then(cars => this.cars2 = cars);
         this.carService.getCarsMedium().then(cars => this.cars3 = cars);
     }
-    
+
     calculateGroupTotal(brand: string) {
         let total = 0;
-        
+
         if(this.cars1) {
             for(let car of this.cars1) {
                 if(car.brand === brand) {

@@ -1,6 +1,6 @@
-import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
+import { MenuItem } from '../../../components/common/api';
+import { MessageService } from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './stepsdemo.html',
@@ -9,17 +9,17 @@ import {MessageService} from '../../../components/common/messageservice';
         .ui-steps .ui-steps-item {
             width: 25%;
         }
-        
+
         .ui-steps.steps-custom {
             margin-bottom: 30px;
         }
-        
+
         .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
             height: 10px;
             padding: 0 1em;
             overflow: visible;
         }
-        
+
         .ui-steps.steps-custom .ui-steps-item .ui-steps-number {
             background-color: #0081c2;
             color: #FFFFFF;
@@ -29,7 +29,7 @@ import {MessageService} from '../../../components/common/messageservice';
             margin-top: -14px;
             margin-bottom: 10px;
         }
-        
+
         .ui-steps.steps-custom .ui-steps-item .ui-steps-title {
             color: #555555;
         }
@@ -39,9 +39,9 @@ import {MessageService} from '../../../components/common/messageservice';
 export class StepsDemo implements OnInit {
 
     items: MenuItem[];
-    
+
     activeIndex: number = 1;
-    
+
     constructor(private messageService: MessageService) {}
 
     ngOnInit() {

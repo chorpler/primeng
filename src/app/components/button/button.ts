@@ -1,6 +1,6 @@
-import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
-import {DomHandler} from '../dom/domhandler';
-import {CommonModule} from '@angular/common';
+import { NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,HostBinding,HostListener,Input } from '@angular/core';
+import { DomHandler } from '../dom/domhandler';
+import { CommonModule } from '@angular/common';
 
 @Directive({
     selector: '[pButton]',
@@ -9,17 +9,17 @@ import {CommonModule} from '@angular/common';
 export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: string = 'left';
-    
+
     @Input() cornerStyleClass: string = 'ui-corner-all';
-        
+
     public _label: string;
-    
+
     public _icon: string;
-            
+
     public initialized: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
-    
+
     ngAfterViewInit() {
         this.domHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
         if(this.icon) {
@@ -29,14 +29,14 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             iconElement.className = iconPosClass  + ' ui-clickable ' + this.icon;
             this.el.nativeElement.appendChild(iconElement);
         }
-        
+
         let labelElement = document.createElement("span");
         labelElement.className = 'ui-button-text ui-clickable';
         labelElement.appendChild(document.createTextNode(this.label||'ui-btn'));
         this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
     }
-        
+
     getStyleClass(): string {
         let styleClass = 'ui-button ui-widget ui-state-default ' + this.cornerStyleClass;
         if(this.icon) {
@@ -58,17 +58,17 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 styleClass = styleClass + ' ui-button-text-empty';
             }
         }
-        
+
         return styleClass;
     }
-    
+
     @Input() get label(): string {
         return this._label;
     }
 
     set label(val: string) {
         this._label = val;
-        
+
         if(this.initialized) {
             this.domHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
 
@@ -84,26 +84,26 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             }
         }
     }
-    
+
     @Input() get icon(): string {
         return this._icon;
     }
 
     set icon(val: string) {
         this._icon = val;
-        
+
         if(this.initialized) {
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
             this.domHandler.findSingle(this.el.nativeElement, '.ui-clickable').className =
                 iconPosClass + ' ui-clickable ' + this.icon;
         }
     }
-        
+
     ngOnDestroy() {
         while(this.el.nativeElement.hasChildNodes()) {
             this.el.nativeElement.removeChild(this.el.nativeElement.lastChild);
         }
-        
+
         this.initialized = false;
     }
 }
@@ -122,7 +122,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)">
             <ng-content></ng-content>
             <span [ngClass]="{'ui-clickable': true,
-                        'ui-button-icon-left': (iconPos === 'left'), 
+                        'ui-button-icon-left': (iconPos === 'left'),
                         'ui-button-icon-right': (iconPos === 'right')}"
                         [class]="icon" *ngIf="icon"></span>
             <span class="ui-button-text ui-clickable">{{label||'ui-btn'}}</span>

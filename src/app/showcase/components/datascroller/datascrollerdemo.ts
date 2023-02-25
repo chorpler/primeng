@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './datascrollerdemo.html',
@@ -12,7 +12,7 @@ import {CarService} from '../../service/carservice';
         .car-item .ui-md-3 {
             text-align: center;
         }
-        
+
         .car-item .ui-g-10 {
             font-weight: bold;
         }
@@ -27,9 +27,9 @@ import {CarService} from '../../service/carservice';
 export class DataScrollerDemo implements OnInit {
 
     cars: Car[];
-    
+
     selectedCar: Car;
-    
+
     displayDialog: boolean;
 
     constructor(private carService: CarService) { }
@@ -37,12 +37,12 @@ export class DataScrollerDemo implements OnInit {
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
     }
-    
+
     selectCar(car: Car) {
         this.selectedCar = car;
         this.displayDialog = true;
     }
-    
+
     onDialogHide() {
         this.selectedCar = null;
     }

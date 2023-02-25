@@ -1,6 +1,6 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {GrowlDemo} from './growldemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { GrowlDemo } from './growldemo';
 
 @NgModule({
 	imports: [

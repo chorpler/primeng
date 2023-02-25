@@ -1,9 +1,9 @@
-import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
-import {NodeService} from '../../service/nodeservice';
-import {CountryService} from '../../service/countryservice';
-import {SelectItem,MenuItem,TreeNode} from '../../../components/common/api';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
+import { NodeService } from '../../service/nodeservice';
+import { CountryService } from '../../service/countryservice';
+import { SelectItem,MenuItem,TreeNode } from '../../../components/common/api';
 
 @Component({
     templateUrl: './responsivedemo.html',
@@ -11,7 +11,7 @@ import {SelectItem,MenuItem,TreeNode} from '../../../components/common/api';
         .ui-datagrid .ui-datagrid-column {
             text-align: center;
         }
-        
+
         .radiobuttons > * {
             vertical-align: middle;
         }
@@ -53,15 +53,15 @@ export class ResponsiveDemo implements OnInit {
     text: string;
 
     filteredCountriesSingle: any[];
-    
+
     items1: MenuItem[];
-    
+
     items2: MenuItem[];
-    
+
     splitMenuItems: MenuItem[];
-    
+
     country: any;
-    
+
     showDialog() {
         this.display = true;
     }
@@ -127,7 +127,7 @@ export class ResponsiveDemo implements OnInit {
         this.carService.getCarsSmall().then(cars1 => this.cars1 = cars1);
         this.carService.getCarsSmall().then(cars3 => this.sourceCars = cars3);
         this.targetCars = [];
-        
+
         this.items1 = [{
             label: 'File',
             items: [
@@ -142,13 +142,13 @@ export class ResponsiveDemo implements OnInit {
                 {label: 'Redo', icon: 'fa fa-fw fa-repeat'}
             ]
         }];
-        
+
         this.items2 = [
             {
                 label: 'File',
                 icon: 'fa fa-fw fa-file-o',
                 items: [{
-                        label: 'New', 
+                        label: 'New',
                         icon: 'fa fa-fw fa-plus',
                         items: [
                             {label: 'Project'},
@@ -175,11 +175,11 @@ export class ResponsiveDemo implements OnInit {
                         label: 'Contents'
                     },
                     {
-                        label: 'Search', 
-                        icon: 'fa fa-fw fa-search', 
+                        label: 'Search',
+                        icon: 'fa fa-fw fa-search',
                         items: [
                             {
-                                label: 'Text', 
+                                label: 'Text',
                                 items: [
                                     {
                                         label: 'Workspace'
@@ -214,7 +214,7 @@ export class ResponsiveDemo implements OnInit {
                 ]
             }
         ];
-        
+
         this.splitMenuItems = [
             {label: 'Update', icon: 'fa fa-fw fa-refresh'},
             {label: 'Delete', icon: 'fa fa-fw fa-close'},

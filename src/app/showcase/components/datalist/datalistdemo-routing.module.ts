@@ -1,6 +1,6 @@
-import {NgModule}     from '@angular/core';
-import {RouterModule} from '@angular/router'
-import {DataListDemo} from './datalistdemo';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DataListDemo } from './datalistdemo';
 
 @NgModule({
 	imports: [

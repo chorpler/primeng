@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {InputTextModule} from '../inputtext/inputtext';
-import {DomHandler} from '../dom/domhandler';
+import { NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { InputTextModule } from '../inputtext/inputtext';
+import { DomHandler } from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SPINNER_VALUE_ACCESSOR: any = {
@@ -35,9 +35,9 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     providers: [DomHandler,SPINNER_VALUE_ACCESSOR]
 })
 export class Spinner implements OnInit,ControlValueAccessor {
-    
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
@@ -47,9 +47,9 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() min: number;
 
     @Input() max: number;
-    
+
     @Input() maxlength: number;
-    
+
     @Input() size: number;
 
     @Input() placeholder: string;
@@ -57,13 +57,13 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() inputId: string;
 
     @Input() disabled: boolean;
-    
+
     @Input() readonly: boolean;
 
     @Input() tabindex: number;
-        
+
     @Input() type: string = 'text';
-    
+
     @Input() required: boolean;
 
     @Input() name: string;
@@ -71,27 +71,27 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() inputStyle: any;
 
     @Input() inputStyleClass: string;
-    
+
     value: any;
-        
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
+
     keyPattern: RegExp = /[0-9\+\-]/;
-    
+
     public precision: number;
-    
+
     public timer: any;
-    
+
     public focus: boolean;
-    
+
     public filled: boolean;
-    
+
     public negativeSeparator = '-';
-    
+
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
 
     @Input() set decimalSeparator(value: string) {
@@ -105,13 +105,13 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() set formatInput(value: boolean) {
         console.warn("formatInput property is removed Spinner as Spinner does not format the value anymore.");
     }
-    
+
     ngOnInit() {
         if (Math.floor(this.step) === 0) {
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
     }
-    
+
     repeat(event: Event, interval: number, dir: number) {
         let i = interval||500;
 
@@ -122,7 +122,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
 
         this.spin(event, dir);
     }
-    
+
     spin(event: Event, dir: number) {
         let step = this.step * dir;
         let currentValue: number;
@@ -131,16 +131,16 @@ export class Spinner implements OnInit,ControlValueAccessor {
             currentValue = (typeof this.value === 'string') ? this.parseValue(this.value) : this.value;
         else
             currentValue = 0;
-        
+
         if (this.precision)
             this.value = parseFloat(this.toFixed(currentValue + step, this.precision));
         else
             this.value = currentValue + step;
-    
+
         if (this.maxlength !== undefined && this.value.toString().length > this.maxlength) {
             this.value = currentValue;
         }
-    
+
         if (this.min !== undefined && this.value < this.min) {
             this.value = this.min;
         }
@@ -148,16 +148,16 @@ export class Spinner implements OnInit,ControlValueAccessor {
         if (this.max !== undefined && this.value > this.max) {
             this.value = this.max;
         }
-       
+
         this.onModelChange(this.value);
         this.onChange.emit(event);
     }
-    
+
     toFixed(value: number, precision: number) {
         let power = Math.pow(10, precision||0);
         return String(Math.round(value * power) / power);
     }
-    
+
     onUpButtonMousedown(event: Event) {
         if (!this.disabled) {
             this.inputfieldViewChild.nativeElement.focus();
@@ -166,19 +166,19 @@ export class Spinner implements OnInit,ControlValueAccessor {
             event.preventDefault();
         }
     }
-    
+
     onUpButtonMouseup(event: Event) {
         if (!this.disabled) {
             this.clearTimer();
         }
     }
-    
+
     onUpButtonMouseleave(event: Event) {
         if (!this.disabled) {
             this.clearTimer();
         }
     }
-    
+
     onDownButtonMousedown(event: Event) {
         if (!this.disabled) {
             this.inputfieldViewChild.nativeElement.focus();
@@ -187,19 +187,19 @@ export class Spinner implements OnInit,ControlValueAccessor {
             event.preventDefault();
         }
     }
-    
+
     onDownButtonMouseup(event: Event) {
         if (!this.disabled) {
             this.clearTimer();
         }
     }
-    
+
     onDownButtonMouseleave(event: Event) {
         if (!this.disabled) {
             this.clearTimer();
         }
     }
-    
+
     onInputKeydown(event: KeyboardEvent) {
         if (event.which == 38) {
             this.spin(event, 1);
@@ -219,7 +219,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         this.value = (<HTMLInputElement> event.target).value;
         this.onModelChange(this.value);
     }
-        
+
     onInputBlur(event) {
         this.value = this.parseValue((<HTMLInputElement> event.target).value);
         this.onModelChange(this.value);
@@ -227,15 +227,15 @@ export class Spinner implements OnInit,ControlValueAccessor {
         this.onModelTouched();
         this.onBlur.emit(event);
     }
-    
+
     onInputFocus(event) {
         this.focus = true;
         this.onFocus.emit(event);
     }
-    
+
     parseValue(val: string): number {
         let value: number;
-                
+
         if (val.trim() === '') {
             value = this.min != null ? this.min : null;
         }
@@ -244,7 +244,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
                 value = parseFloat(val.replace(',', '.'));
             else
                 value = parseInt(val, 10);
-            
+
             if (!isNaN(value)) {
                 if (this.max !== null && value > this.max) {
                     value = this.max;
@@ -258,21 +258,21 @@ export class Spinner implements OnInit,ControlValueAccessor {
                 value = null;
             }
         }
-        
+
         return value;
     }
-            
+
     clearTimer() {
         if (this.timer) {
             clearInterval(this.timer);
         }
     }
-    
+
     writeValue(value: any) : void {
         this.value = value;
         this.updateFilledState();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -280,11 +280,11 @@ export class Spinner implements OnInit,ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
-    
+
     updateFilledState() {
         this.filled = (this.value !== undefined && this.value != null);
     }

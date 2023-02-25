@@ -1,11 +1,11 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {InputTextModule} from '../inputtext/inputtext';
-import {ButtonModule} from '../button/button';
-import {SharedModule,PrimeTemplate} from '../common/shared';
-import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/objectutils';
+import { NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { trigger,state,style,transition,animate,AnimationEvent } from '@angular/animations';
+import { InputTextModule } from '../inputtext/inputtext';
+import { ButtonModule } from '../button/button';
+import { SharedModule,PrimeTemplate } from '../common/shared';
+import { DomHandler } from '../dom/domhandler';
+import { ObjectUtils } from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
@@ -30,7 +30,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
-                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" autocomplete="off" 
+                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" autocomplete="off"
                             [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required">
                 </li>
             </ul
@@ -106,7 +106,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     @Input() type: string = 'text';
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() ariaLabel: string;
@@ -213,7 +213,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     set suggestions(val:any[]) {
         this._suggestions = val;
-        
+
         if (this.immutable) {
             this.handleSuggestionsChange();
         }
@@ -270,7 +270,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
                     this.hide();
                 }
             }
-    
+
             this.loading = false;
         }
     }
@@ -389,7 +389,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     show() {
         if (this.multiInputEL || this.inputEL) {
             let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
-            
+
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
             }

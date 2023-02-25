@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './doughnutchartdemo.html'
@@ -23,7 +23,7 @@ export class DoughnutChartDemo {
                         "#36A2EB",
                         "#FFCE56"
                     ]
-                }]    
+                }]
             };
     }
 }

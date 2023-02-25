@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {Calendar} from '../../../components/calendar/calendar';
+import { Component } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { Calendar } from '../../../components/calendar/calendar';
 
 @Component({
     templateUrl: './calendardemo.html'
@@ -8,6 +8,7 @@ import {Calendar} from '../../../components/calendar/calendar';
 export class CalendarDemo {
 
     @ViewChild('calTimeEditable') calTimeEditable:Calendar;
+    @ViewChild('cal') cal:Calendar;
     date1: Date;
 
     date2: Date;
@@ -31,12 +32,11 @@ export class CalendarDemo {
     date11: Date;
 
     date12: Date;
-
     date13: Date;
-
     date14: Date;
-
     date15: Date;
+    date16: Date;
+    date17: Date;
 
     dates: Date[];
 

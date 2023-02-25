@@ -1,9 +1,9 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ButtonModule} from '../button/button';
-import {SharedModule,PrimeTemplate} from '../common/shared';
-import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/objectutils';
+import { NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from '../button/button';
+import { SharedModule,PrimeTemplate } from '../common/shared';
+import { DomHandler } from '../dom/domhandler';
+import { ObjectUtils } from '../utils/objectutils';
 
 @Component({
     selector: 'p-pickList',
@@ -90,7 +90,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() targetHeader: string;
 
     @Input() responsive: boolean;
-    
+
     @Input() filterBy: string;
 
     @Input() trackBy: Function = (index: number, item: any) => item;
@@ -102,11 +102,11 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() showSourceFilter: boolean = true;
 
     @Input() showTargetFilter: boolean = true;
-    
+
     @Input() metaKeySelection: boolean = true;
-    
+
     @Input() dragdrop: boolean;
-    
+
     @Input() dragdropScope: string;
 
     @Input() style: any;
@@ -116,27 +116,27 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() sourceStyle: any;
 
     @Input() targetStyle: any;
-    
+
     @Input() showSourceControls: boolean = true;
-    
+
     @Input() showTargetControls: boolean = true;
-    
+
     @Input() sourceFilterPlaceholder: string;
-    
+
     @Input() targetFilterPlaceholder: string;
 
     @Input() disabled: boolean = false;
-    
+
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onMoveAllToSource: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onMoveAllToTarget: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onSourceReorder: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onTargetReorder: EventEmitter<any> = new EventEmitter();
 
     @Output() onSourceSelect: EventEmitter<any> = new EventEmitter();
@@ -144,7 +144,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Output() onTargetSelect: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('sourcelist') listViewSourceChild: ElementRef;
-    
+
     @ViewChild('targetlist') listViewTargetChild: ElementRef;
 
     @ViewChild('sourceFilter') sourceFilterViewChild: ElementRef;
@@ -152,47 +152,47 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @ViewChild('targetFilter') targetFilterViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     public itemTemplate: TemplateRef<any>;
-    
+
     public visibleOptionsSource: any[];
-    
+
     public visibleOptionsTarget: any[];
-            
+
     selectedItemsSource: any[] = [];
-    
+
     selectedItemsTarget: any[] = [];
-        
+
     reorderedListElement: any;
-    
+
     draggedItemIndexSource: number;
-    
+
     draggedItemIndexTarget: number;
-    
+
     dragOverItemIndexSource: number;
-    
+
     dragOverItemIndexTarget: number;
-    
+
     dragging: boolean;
-    
+
     movedUp: boolean;
-    
+
     movedDown: boolean;
-    
+
     itemTouched: boolean;
-    
+
     filterValueSource: string;
-    
+
     filterValueTarget: string;
-    
+
     fromListType: number;
-    
+
     toListType: number;
-    
+
     onListItemDroppoint: boolean;
-    
+
     listHighlightTarget: boolean;
-    
+
     listHighlightSource: boolean;
 
     readonly SOURCE_LIST = -1;
@@ -200,57 +200,57 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     readonly TARGET_LIST = 1;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
             }
         });
     }
-        
+
     ngAfterViewChecked() {
         if(this.movedUp||this.movedDown) {
             let listItems = this.domHandler.find(this.reorderedListElement, 'li.ui-state-highlight');
             let listItem;
-            
+
             if(this.movedUp)
                 listItem = listItems[0];
             else
                 listItem = listItems[listItems.length - 1];
-            
+
             this.domHandler.scrollInView(this.reorderedListElement, listItem);
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;
         }
     }
-    
+
     onItemClick(event, item: any, selectedItems: any[], callback: EventEmitter<any>) {
         if(this.disabled) {
             return;
         }
-        
+
         let index = this.findIndexInSelection(item,selectedItems);
         let selected = (index != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
-        
+
         if(metaSelection) {
             let metaKey = (event.metaKey||event.ctrlKey);
-            
+
             if(selected && metaKey) {
                 selectedItems.splice(index, 1);
             }
             else {
                 if(!metaKey) {
                     selectedItems.length = 0;
-                }         
+                }
                 selectedItems.push(item);
             }
         }
@@ -265,50 +265,50 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
         this.itemTouched = false;
     }
-    
+
     onSourceItemDblClick() {
         if(this.disabled) {
             return;
         }
-        
+
         this.moveRight();
     }
-    
+
     onTargetItemDblClick() {
         if(this.disabled) {
             return;
         }
-        
+
         this.moveLeft();
     }
-    
+
     onFilter(event: KeyboardEvent, data: any[], listType: number) {
         let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
-        
+
         if(listType === this.SOURCE_LIST)
             this.filterValueSource = query;
         else
             this.filterValueTarget = query;
-                
+
         this.activateFilter(data, listType);
     }
-    
+
     activateFilter(data: any[], listType: number) {
         let searchFields = this.filterBy.split(',');
-        
+
         if(listType === this.SOURCE_LIST)
             this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
         else
             this.visibleOptionsTarget = this.objectUtils.filter(data, searchFields, this.filterValueTarget);
     }
-    
+
     isItemVisible(item: any, listType: number): boolean {
         if(listType == this.SOURCE_LIST)
             return this.isVisibleInList(this.visibleOptionsSource, item, this.filterValueSource);
         else
             return this.isVisibleInList(this.visibleOptionsTarget, item, this.filterValueTarget);
     }
-    
+
     isVisibleInList(data: any[], item: any, filterValue: string): boolean {
         if(filterValue && filterValue.trim().length) {
             for(let i = 0; i < data.length; i++) {
@@ -321,12 +321,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             return true;
         }
     }
-    
+
     onItemTouchEnd(event) {
         if(this.disabled) {
             return;
         }
-        
+
         this.itemTouched = true;
     }
 
@@ -352,7 +352,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     break;
                 }
             }
-            
+
             this.movedUp = true;
             this.reorderedListElement = listElement;
             callback.emit({items: selectedItems});
@@ -374,7 +374,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     break;
                 }
             }
-            
+
             listElement.scrollTop = 0;
             callback.emit({items: selectedItems});
         }
@@ -397,7 +397,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     break;
                 }
             }
-            
+
             this.movedDown = true;
             this.reorderedListElement = listElement;
             callback.emit({items: selectedItems});
@@ -419,7 +419,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     break;
                 }
             }
-            
+
             listElement.scrollTop = listElement.scrollHeight;
             callback.emit({items: selectedItems});
         }
@@ -443,8 +443,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     moveAllRight() {
         if(this.source) {
             let movedItems = [];
-            
-            for(let i = 0; i < this.source.length; i++) {                
+
+            for(let i = 0; i < this.source.length; i++) {
                 if(this.isItemVisible(this.source[i], this.SOURCE_LIST)) {
                     let removedItem = this.source.splice(i, 1)[0];
                     this.target.push(removedItem);
@@ -452,15 +452,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     i--;
                 }
             }
-                
+
             this.onMoveToTarget.emit({
                 items: movedItems
             });
-            
+
             this.onMoveAllToTarget.emit({
                 items: movedItems
             });
-            
+
             this.selectedItemsSource = [];
         }
     }
@@ -476,7 +476,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.onMoveToSource.emit({
                 items: this.selectedItemsTarget
             });
-            
+
             this.selectedItemsTarget = [];
         }
     }
@@ -484,8 +484,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     moveAllLeft() {
         if(this.target) {
             let movedItems = [];
-            
-            for(let i = 0; i < this.target.length; i++) {                
+
+            for(let i = 0; i < this.target.length; i++) {
                 if(this.isItemVisible(this.target[i], this.TARGET_LIST)) {
                     let removedItem = this.target.splice(i, 1)[0];
                     this.source.push(removedItem);
@@ -493,15 +493,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     i--;
                 }
             }
-    
+
             this.onMoveToSource.emit({
                 items: movedItems
             });
-            
+
             this.onMoveAllToSource.emit({
                 items: movedItems
             });
-            
+
             this.selectedItemsTarget = [];
         }
     }
@@ -509,14 +509,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     isSelected(item: any, selectedItems: any[]) {
         return this.findIndexInSelection(item, selectedItems) != -1;
     }
-    
+
     findIndexInSelection(item: any, selectedItems: any[]): number {
         return this.findIndexInList(item, selectedItems);
     }
-    
+
     findIndexInList(item: any, list: any): number {
         let index: number = -1;
-        
+
         if(list) {
             for(let i = 0; i < list.length; i++) {
                 if(list[i] == item) {
@@ -525,10 +525,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 }
             }
         }
-        
+
         return index;
     }
-    
+
     onDragStart(event: DragEvent, index: number, listType: number) {
         this.dragging = true;
         this.fromListType = listType;
@@ -536,12 +536,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.draggedItemIndexSource = index;
         else
             this.draggedItemIndexTarget = index;
-                        
+
         if(this.dragdropScope) {
             event.dataTransfer.setData("text", this.dragdropScope);
         }
     }
-    
+
     onDragOver(event: DragEvent, index: number, listType: number) {
         if(listType == this.SOURCE_LIST) {
             if(this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === this.TARGET_LIST)) {
@@ -557,13 +557,13 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
         this.onListItemDroppoint = true;
     }
-    
+
     onDragLeave(event: DragEvent, listType: number) {
-        this.dragOverItemIndexSource = null; 
+        this.dragOverItemIndexSource = null;
         this.dragOverItemIndexTarget = null;
         this.onListItemDroppoint = false;
     }
-    
+
     onDrop(event: DragEvent, index: number, listType: number) {
         if(this.onListItemDroppoint) {
             if(listType === this.SOURCE_LIST) {
@@ -585,20 +585,20 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
                     this.onTargetReorder.emit({items: this.target[this.draggedItemIndexTarget]});
                 }
-                    
+
                 this.dragOverItemIndexTarget = null;
             }
-            
+
             this.listHighlightTarget = false;
             this.listHighlightSource = false;
             event.preventDefault();
         }
     }
-    
+
     onDragEnd(event: DragEvent) {
         this.dragging = false;
     }
-    
+
     onListDrop(event: DragEvent, listType:  number) {
         if(!this.onListItemDroppoint) {
             if(listType === this.SOURCE_LIST) {
@@ -611,26 +611,26 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.insert(this.draggedItemIndexSource, this.source, null, this.target, this.onMoveToTarget);
                 }
             }
-            
+
             this.listHighlightTarget = false;
             this.listHighlightSource = false;
             event.preventDefault();
         }
     }
-    
+
     insert(fromIndex, fromList, toIndex, toList, callback) {
         const elementtomove = fromList[fromIndex];
-        
+
         if(toIndex === null)
             toList.push(fromList.splice(fromIndex, 1)[0]);
         else
             toList.splice(toIndex, 0, fromList.splice(fromIndex, 1)[0]);
-            
+
         callback.emit({
             items: [elementtomove]
         });
     }
-    
+
     onListMouseMove(event: MouseEvent, listType: number) {
         if(this.dragging) {
             let moveListType = (listType == 0 ? this.listViewSourceChild : this.listViewTargetChild);
@@ -642,7 +642,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             else if(topDiff < 25 && topDiff > 0)
                 moveListType.nativeElement.scrollTop -= 15;
         }
-        
+
         if(listType === this.SOURCE_LIST) {
             if(this.fromListType === this.TARGET_LIST)
                 this.listHighlightSource = true;
@@ -653,7 +653,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
         event.preventDefault();
     }
-    
+
     onListDragLeave() {
         this.listHighlightTarget = false;
         this.listHighlightSource = false;

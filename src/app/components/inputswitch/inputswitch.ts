@@ -1,7 +1,7 @@
-import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
-import {DomHandler} from '../dom/domhandler';
+import { NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NG_VALUE_ACCESSOR,ControlValueAccessor } from '@angular/forms';
+import { DomHandler } from '../dom/domhandler';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -12,7 +12,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div [ngClass]="{'ui-inputswitch ui-widget': true, 'ui-inputswitch-checked': checked, 'ui-state-disabled': disabled, 'ui-inputswitch-focus': focused}" 
+        <div [ngClass]="{'ui-inputswitch ui-widget': true, 'ui-inputswitch-checked': checked, 'ui-state-disabled': disabled, 'ui-inputswitch-focus': focused}"
             [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)" role="checkbox" [attr.aria-checked]="checked">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked" (change)="onInputChange($event)"
@@ -36,7 +36,7 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() name: string;
 
     @Input() disabled: boolean;
-    
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     checked: boolean = false;
@@ -60,7 +60,7 @@ export class InputSwitch implements ControlValueAccessor {
     }
 
     toggle(event: Event) {
-        if (!this.disabled) {  
+        if (!this.disabled) {
             this.updateModel(event, !this.checked);
         }
     }
@@ -95,7 +95,7 @@ export class InputSwitch implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }

@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component,OnInit } from '@angular/core';
+import { Car } from '../../components/domain/car';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './datatableexportdemo.html'
@@ -8,7 +8,7 @@ import {CarService} from '../../service/carservice';
 export class DataTableExportDemo implements OnInit {
 
     cars: Car[];
-    
+
     selectedCars: Car[];
 
     constructor(private carService: CarService) { }
