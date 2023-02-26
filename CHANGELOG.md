@@ -9,6 +9,26 @@ Changelog for **PrimeNG**
 
 ---
 
+# **v6.2.6** <span style="font-size: 12px; font-style: italic">(2023-02-25)</span>
+
+**Changes:**
+
+**<u>Calendar</u>**
+
+- Add optional rounding to nearest N minutes
+- Fixed bug in "save" button code for multiple and range selection modes
+- Optional [timeInputDebounce] input added
+- Optional [debug] input added
+- Themes updated to deal with time input fields when calendar toggle button is visible
+
+**<u>Showcase</u>**
+
+- Calendar Demo updated
+
+**<u>Utils</u>**
+
+- Customized Moment.js functions added to utils folder
+
 # **v6.2.5** <span style="font-size: 12px; font-style: italic">(2023-02-25)</span>
 
 **Changes:**
