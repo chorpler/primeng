@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Calendar } from '../../../components/calendar/calendar';
+import { moment } from '../../../components/utils/moment-onsite';
 
 @Component({
     templateUrl: './calendardemo.html'
@@ -9,6 +10,9 @@ export class CalendarDemo {
 
     @ViewChild('calTimeEditable') calTimeEditable:Calendar;
     @ViewChild('cal') cal:Calendar;
+    @ViewChild('cal2') cal2:Calendar;
+    @ViewChild('cal3') cal3:Calendar;
+    @ViewChild('cal4') cal4:Calendar;
     date1: Date;
 
     date2: Date;
@@ -37,6 +41,9 @@ export class CalendarDemo {
     date15: Date;
     date16: Date;
     date17: Date;
+    date18: Date[];
+    date19: Date[];
+    date20: Date;
 
     dates: Date[];
 
@@ -52,6 +59,7 @@ export class CalendarDemo {
 
     ngOnInit() {
         window['p'] = this;
+        window['moment'] = moment;
         this.es = {
         	firstDayOfWeek: 1,
         	dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],

@@ -88,15 +88,30 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Editable Time</h3>
-            <p-calendar #calTimeEditable [(ngModel)]="date16" [showTime]="true" [timeReadOnly]="false"></p-calendar>
+            <p-calendar #calTimeEditable [(ngModel)]="date16" [showTime]="true" [timeReadOnly]="false" [showIcon]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Test Platform</h3>
-            <p-calendar #cal [(ngModel)]="date17" [showTime]="true" [timeReadOnly]="false" [showButtonBar]="true"></p-calendar>
+            <p-calendar #cal [(ngModel)]="date17" [showTime]="true" [timeReadOnly]="false" [showButtonBar]="true" [showIcon]="true"></p-calendar>
         </div>
 
-    </div>
+        <div class="ui-g-12 ui-md-4">
+            <h3>Test Platform (range)</h3>
+            <p-calendar #cal2 [(ngModel)]="date18" [selectionMode]="'range'" [showTime]="true" [timeReadOnly]="false" [showButtonBar]="true" [showIcon]="true"></p-calendar>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Test Platform (multiple)</h3>
+            <p-calendar #cal3 [(ngModel)]="date19" [selectionMode]="'multiple'" [showTime]="true" [timeReadOnly]="false" [showButtonBar]="true" [showIcon]="true"></p-calendar>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+          <h3>Test Platform (rounding)</h3>
+          <p-calendar #cal4 [(ngModel)]="date20" [showTime]="true" [timeReadOnly]="false" [showButtonBar]="true" [showIcon]="true" [roundMinutesToNearest]="15" [debug]="true"></p-calendar>
+      </div>
+
+  </div>
 
     <h3>Inline</h3>
     <p-calendar [(ngModel)]="date14" [inline]="true"></p-calendar>
