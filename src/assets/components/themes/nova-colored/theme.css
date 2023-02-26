@@ -796,7 +796,7 @@ body {
       body .ui-datepicker.ui-datepicker-multiple-month .ui-datepicker-group:last-child {
         padding-right: 0;
         border-right: 0 none; }
-  body .ui-calendar.ui-calendar-w-btn .ui-inputtext {
+  body .ui-calendar.ui-calendar-w-btn > .ui-inputtext {
     -moz-border-radius-topright: 0;
     -webkit-border-top-right-radius: 0;
     border-top-right-radius: 0;
@@ -804,7 +804,7 @@ body {
     -webkit-border-bottom-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: 0 none; }
-    body .ui-calendar.ui-calendar-w-btn .ui-inputtext:enabled:hover:not(.ui-state-error), body .ui-calendar.ui-calendar-w-btn .ui-inputtext:enabled:focus:not(.ui-state-error) {
+    body .ui-calendar.ui-calendar-w-btn > .ui-inputtext:enabled:hover:not(.ui-state-error), body .ui-calendar.ui-calendar-w-btn > .ui-inputtext:enabled:focus:not(.ui-state-error) {
       border-right: 0 none; }
   body .ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
     width: 2.357em;
@@ -814,7 +814,7 @@ body {
     -moz-border-radius-bottomleft: 0;
     -webkit-border-bottom-left-radius: 0;
     border-bottom-left-radius: 0; }
-  body .ui-fluid .ui-calendar.ui-calendar-w-btn input.ui-inputtext {
+  body .ui-fluid .ui-calendar.ui-calendar-w-btn > input.ui-inputtext {
     width: calc(100% - 2.357em); }
   body .ui-fileupload .ui-fileupload-buttonbar {
     background-color: #007ad9;
