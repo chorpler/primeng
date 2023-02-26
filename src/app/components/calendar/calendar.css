@@ -34,7 +34,7 @@
     width: auto;
 }
 
-.ui-fluid .ui-calendar.ui-calendar-w-btn .ui-inputtext {
+.ui-fluid .ui-calendar.ui-calendar-w-btn > .ui-inputtext {
     width: calc(100% - 2em);
 }
 
@@ -194,6 +194,7 @@
 
 .ui-timepicker .input-time {
     max-width: 2.5em;
+    width: 2.5em;
     font-family: "Roboto Mono";
 }
 
