@@ -10,6 +10,7 @@ import { EventEmitter         } from '@angular/core'      ;
 import { Renderer2            } from '@angular/core'      ;
 import { ViewChild            } from '@angular/core'      ;
 import { ChangeDetectorRef    } from '@angular/core'      ;
+import { ApplicationRef       } from '@angular/core'      ;
 import { TemplateRef          } from '@angular/core'      ;
 import { ContentChildren      } from '@angular/core'      ;
 import { QueryList            } from '@angular/core'      ;
@@ -30,6 +31,8 @@ import { SharedModule         } from '../common/shared'   ;
 import { PrimeTemplate        } from '../common/shared'   ;
 import { Subject              } from 'rxjs'               ;
 import { Subscription         } from 'rxjs'               ;
+import { Moment } from '../utils/moment-onsite';
+import { moment } from '../utils/moment-onsite';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -53,6 +56,9 @@ export interface LocaleSettings {
   clear: string;
   save?: string;
 }
+export type CalendarDataType = "date" | "string";
+export type CalendarSelectionType = "single" | "multiple" | "range";
+export type CalendarViewType = "date" | "month";
 
 @Component({
   selector: 'p-calendar',
@@ -125,9 +131,7 @@ export interface LocaleSettings {
           <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
         </ng-container>
         <ng-container *ngIf="!timeReadOnly">
-          <!-- <input #inputhours type="number" [min]="minHours" [max]="maxHours" [step]="stepHour" [attr.id]="inputHoursId" [(ngModel)]="currentHour" (ngModelChange)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" /> -->
-          <!-- <input #inputhours type="text" [attr.id]="inputHoursId" [(ngModel)]="inValCurrentHour" (ngModelChange)="onInputHours($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" /> -->
-          <input #inputhours type="text" [attr.id]="inputHoursId" [class.input-time]="true" [class.input-hour]="true" [value]="showCurrentHour" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" (wheel)="onInputScroll('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="1" autocomplete="off" />
+          <input #inputhours type="text" [attr.id]="inputHoursId" [value]="showCurrentHour" (focus)="onInputTimeFocus('hour', inputhours, $event)" (blur)="onInputTimeBlur('hour', inputhours, $event)" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" (wheel)="onInputScroll('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-hour'" tabindex="1" autocomplete="off" />
         </ng-container>
         <a href="#" (click)="decrementHour($event)" [tabindex]="!timeReadOnly ? -1 : 21">
           <span class="pi pi-chevron-down"></span>
@@ -150,9 +154,7 @@ export interface LocaleSettings {
           <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
         </ng-container>
         <ng-container *ngIf="!timeReadOnly">
-          <!-- <input #inputminutes type="number" [min]="0" [max]="59" [step]="stepMinute" [attr.id]="inputMinutesId" [(ngModel)]="currentMinute" (ngModelChange)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" /> -->
-          <!-- <input #inputminutes type="text" [attr.id]="inputMinutesId" [(ngModel)]="inValCurrentMinute" (ngModelChange)="onInputMinutes($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" /> -->
-          <input #inputminutes type="text" [attr.id]="inputMinutesId" [class.input-time]="true" [class.input-minute]="true" [value]="showCurrentMinute" (input)="onInputMinutes($event)" (keyup)="onKeyUp('minute', $event)" (wheel)="onInputScroll('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="2" autocomplete="off" />
+          <input #inputminutes type="text" [attr.id]="inputMinutesId" [value]="showCurrentMinute" (input)="onInputMinutes($event)" (keyup)="onKeyUp('minute', $event)" (wheel)="onInputScroll('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-minute'" tabindex="2" autocomplete="off" />
         </ng-container>
         <a href="#" (click)="decrementMinute($event)" [tabindex]="!timeReadOnly ? -1 : 23">
           <span class="pi pi-chevron-down"></span>
@@ -175,9 +177,7 @@ export interface LocaleSettings {
           <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
         </ng-container>
         <ng-container *ngIf="!timeReadOnly">
-          <!-- <input #inputseconds type="number" [min]="0" [max]="59" [step]="stepSecond" [attr.id]="inputSecondsId" [(ngModel)]="currentSecond" (ngModelChange)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" /> -->
-          <!-- <input #inputseconds type="text" [attr.id]="inputSecondsId" [(ngModel)]="inValCurrentSecond" (ngModelChange)="onInputSeconds($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" /> -->
-          <input #inputseconds type="text" [attr.id]="inputSecondsId" [class.input-time]="true" [class.input-second]="true" [value]="showCurrentSecond" (input)="onInputSeconds($event)" (keyup)="onKeyUp('second', $event)" (wheel)="onInputScroll('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" tabindex="3" autocomplete="off" />
+          <input #inputseconds type="text" [attr.id]="inputSecondsId" [value]="showCurrentSecond" (input)="onInputSeconds($event)" (keyup)="onKeyUp('second', $event)" (wheel)="onInputScroll('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-second'" tabindex="3" autocomplete="off" />
         </ng-container>
         <a href="#" (click)="decrementSecond($event)" [tabindex]="!timeReadOnly ? -1 : 25">
           <span class="pi pi-chevron-down"></span>
@@ -314,21 +314,23 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   @Input() timeOnly: boolean;
 
-  @Input() stepHour: number = 1;
+  @Input() stepHour: number;
 
-  @Input() stepMinute: number = 1;
+  @Input() stepMinute: number;
 
-  @Input() stepSecond: number = 1;
+  @Input() stepSecond: number;
 
   @Input() showSeconds: boolean = false;
+
+  @Input() roundMinutesToNearest: number;
 
   @Input() required: boolean;
 
   @Input() showOnFocus: boolean = true;
 
-  @Input() dataType: string = 'date';
+  @Input() dataType: CalendarDataType = 'date';
 
-  @Input() selectionMode: string = 'single';
+  @Input() selectionMode: CalendarSelectionType = 'single';
 
   @Input() maxDateCount: number;
 
@@ -356,11 +358,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   @Input() numberOfMonths: number = 1;
 
-  @Input() view: string = 'date';
+  @Input() view: CalendarViewType = 'date';
 
   @Input() touchUI: boolean;
 
   @Input() timeReadOnly: boolean = true;
+
+  @Input() timeInputDebounce: number = 200;
 
   @Input() showTransitionOptions: string = '225ms ease-out';
 
@@ -440,9 +444,32 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   currentSecond: number;
 
-  get showCurrentHour(): string { return this.currentHour == null ? "" : this.currentHour < 10 ? '0' + this.currentHour : String(this.currentHour); };
-  get showCurrentMinute(): string { return this.currentMinute == null ? "" : this.currentMinute < 10 ? '0' + this.currentMinute : String(this.currentMinute); };
-  get showCurrentSecond(): string { return this.currentSecond == null ? "" : this.currentSecond < 10 ? '0' + this.currentSecond : String(this.currentSecond); };
+  get showCurrentHour(): string {
+    let out = "";
+    let time = this.currentHour == null ? 0 : Number(this.currentHour);
+    time = this.fixHour(time);
+    out = time < 10 ? '0' + time : String(time);
+    out = out.length > 2 ? out.slice(-2) : out;
+    return out;
+  };
+  get showCurrentMinute(): string {
+    let out = "";
+    let time = this.currentMinute == null ? 0 : Number(this.currentMinute);
+    time = this.fixMinuteOrSecond(time);
+    out = time < 10 ? '0' + time : String(time);
+    out = out.length > 2 ? out.slice(-2) : out;
+    return out;
+  };
+  get showCurrentSecond(): string {
+    let out = "";
+    let time = this.currentSecond == null ? 0 : Number(this.currentSecond);
+    time = this.fixMinuteOrSecond(time);
+    out = time < 10 ? '0' + time : String(time);
+    out = out.length > 2 ? out.slice(-2) : out;
+    return out;
+  };
+  // get showCurrentMinute(): string { return this.currentMinute == null ? "" : this.currentMinute < 10 ? '0' + this.currentMinute : String(this.currentMinute); };
+  // get showCurrentSecond(): string { return this.currentSecond == null ? "" : this.currentSecond < 10 ? '0' + this.currentSecond : String(this.currentSecond); };
 
   pm: boolean;
 
@@ -568,8 +595,19 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   set showTime(showTime: boolean) {
     this._showTime = showTime;
 
-    if (this.currentHour === undefined) {
-      this.initTime(this.value || new Date());
+    if (this.currentHour == null) {
+      let date = this.value || new Date();
+      let mo = moment(date);
+      if(this.roundMinutesToNearest != null && this.roundMinutesToNearest > 0) {
+        let min = mo.minute();
+        min = this.roundToNearest(min, this.roundMinutesToNearest);
+        mo.minute(min);
+        mo.second(0);
+      }
+      if(!this.showSeconds) {
+        mo.second(0);
+      }
+      this.initTime(mo.toDate());
     }
     this.updateInputfield();
   }
@@ -591,10 +629,29 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
   }
 
-  constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) { }
+  constructor(
+    public el         : ElementRef        ,
+    public domHandler : DomHandler        ,
+    public renderer   : Renderer2         ,
+    public cd         : ChangeDetectorRef ,
+    public app        : ApplicationRef    ,
+  ) { }
 
   ngOnInit() {
-    const date = this.defaultDate || new Date();
+    let date = this.defaultDate || new Date();
+    let mo = moment(date);
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    let hour = date.getHours();
+    if(!this.showSeconds) {
+      second = 0;
+    }
+    date.setSeconds(second);
+    if(this.roundMinutesToNearest != null && this.roundMinutesToNearest > 0) {
+      let mo2 = moment(mo).round(this.roundMinutesToNearest, 'min');
+      date = mo2.toDate();
+      minute = date.getMinutes();
+    }
     this.currentMonth = date.getMonth();
     this.currentYear = date.getFullYear();
 
@@ -627,30 +684,50 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.minHours = 1;
         this.maxHours = 12;
       }
-      if(isNaN(this.stepHour)) {
+      if(this.stepHour == null || isNaN(this.stepHour)) {
         this.stepHour = 1;
       }
-      if(isNaN(this.stepMinute)) {
-        this.stepMinute = 1;
+      if(this.stepMinute == null || isNaN(this.stepMinute)) {
+        if(this.roundMinutesToNearest != null && this.roundMinutesToNearest > 0) {
+          this.stepMinute = this.roundMinutesToNearest;
+        } else {
+          this.stepMinute = 1;
+        }
       }
-      if(isNaN(this.stepSecond)) {
+      if(this.stepSecond == null || isNaN(this.stepSecond)) {
         this.stepSecond = 1;
       }
-      this.subInputHours = this.inputChangedHours.debounceTime(500).distinctUntilChanged().subscribe((evt) => {
+
+
+      this.subInputHours = this.inputChangedHours.debounceTime(this.timeInputDebounce).distinctUntilChanged().subscribe((evt) => {
         // let newHour = Number(evt);
-        let newHour = Number(evt.target.value);
-        newHour = this.fixHour(newHour);
+        let curVal = evt.target.value;
+        let time = Number(curVal);
         if(this.debug) {
-            console.log(`inputChangedHours: Event and value:\n`, evt, '\n', newHour);
+          console.log(`inputChangedHours: Event, input value, and numeric value:\n`, evt, '\n', curVal, '\n', time);
         }
-        if(this.validateHour(newHour)) {
+        if(isNaN(time)) {
+          time = 0;
+          this.currentHour = null;
+          if(this.debug) {
+            console.log(`inputChangedHours: non-numeric value entered:`, curVal);
+          }
+          return;
+        }
+        time = this.fixHour(time);
+        if(this.debug) {
+            console.log(`inputChangedHours: Fixed value:`, time);
+        }
+        if(this.validateHour(time)) {
           if(this.hourFormat == '24') {
-            this.currentHour = (newHour >= 24) ? (newHour - 24) : (newHour < 0) ? 0 : newHour;
+            this.currentHour = (time >= 24) ? (time - 24) : (time < 0) ? 0 : time;
           } else if(this.hourFormat == '12') {
             // Before the AM/PM break, now after
-            this.currentHour = (newHour >= 13) ? (newHour - 12) : (newHour < 0) ? 0 : newHour;
-            if(newHour >= 12) {
+            this.currentHour = (time >= 13) ? (time - 12) : (time < 0) ? 0 : time;
+            if(time >= 12) {
               this.pm = true;
+            } else {
+              this.pm = false;
             }
           }
           this.updateTime();
@@ -659,30 +736,60 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             console.log(`inputChangedHours(): New datetime is:`, this.value);
         }
       });
-      this.subInputMinutes = this.inputChangedMinutes.debounceTime(500).distinctUntilChanged().subscribe((evt) => {
+
+      this.subInputMinutes = this.inputChangedMinutes.debounceTime(this.timeInputDebounce).distinctUntilChanged().subscribe((evt) => {
         // let newMinute = Number(evt);
-        let newMinute = Number(evt.target.value);
-        newMinute = this.fixMinuteOrSecond(newMinute);
+        let curVal = evt.target.value;
+        let time = Number(curVal);
+        let minround = this.roundMinutesToNearest != null && this.roundMinutesToNearest > 0 ? this.roundMinutesToNearest : 0;
         if(this.debug) {
-            console.log(`inputChangedMinutes: Event and values:\n`, evt, '\n', newMinute);
+          console.log(`inputChangedMinutes: Event, input value, and numeric value:\n`, evt, '\n', curVal, '\n', time);
         }
-        this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
+        if(isNaN(time)) {
+          time = 0;
+          this.currentMinute = null;
+          if(this.debug) {
+            console.log(`inputChangedMinutes: non-numeric value entered:`, curVal);
+          }
+          return;
+        }
+        time = this.fixMinuteOrSecond(time);
+        if(this.debug) {
+          console.log(`inputChangedHours: Fixed value:`, time);
+        }
+        let min = (time > 59) ? time - 60 : time;
+        if(minround > 0) {
+          min = this.roundToNearest(min, minround);
+        }
+        this.currentMinute = min;
         this.updateTime();
         if(this.debug) {
             console.log(`inputChangedMinutes(): New datetime is:`, this.value);
         }
       });
-      this.subInputSeconds = this.inputChangedSeconds.debounceTime(500).distinctUntilChanged().subscribe((evt) => {
-        // let newSecond = Number(evt);
-        let newSecond = Number(evt.target.value);
-        newSecond = this.fixMinuteOrSecond(newSecond);
+
+      this.subInputSeconds = this.inputChangedSeconds.debounceTime(this.timeInputDebounce).distinctUntilChanged().subscribe((evt) => {
+        let curVal = evt.target.value;
+        let time = Number(curVal);
         if(this.debug) {
-            console.log(`inputChangedSeconds: Event and value:\n`, evt, '\n', newSecond);
+          console.log(`inputChangedSeconds: Event, input value, and numeric value:\n`, evt, '\n', curVal, '\n', time);
         }
-        this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
+        if(isNaN(time)) {
+          time = 0;
+          this.currentSecond = null;
+          if(this.debug) {
+            console.log(`inputChangedSeconds: non-numeric value entered:`, curVal);
+          }
+          return;
+        }
+        time = this.fixMinuteOrSecond(time);
+        if(this.debug) {
+          console.log(`inputChangedHours: Fixed value:`, time);
+        }
+        this.currentSecond = (time > 59) ? time - 60 : time;
         this.updateTime();
         if(this.debug) {
-            console.log(`inputChangedSeconds(): New datetime is:`, this.value);
+          console.log(`inputChangedSeconds(): New datetime is:`, this.value);
         }
       });
     }
@@ -690,8 +797,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   fixHour(newHour: number): number {
     let hour = Number(newHour);
+    if(isNaN(hour)) {
+      hour = 0;
+    }
     if(hour < 0) {
-      hour = -1 * hour;
+      hour = Math.abs(hour);
     }
     if(this.hourFormat == '12') {
       while(hour >= 13) {
@@ -707,13 +817,44 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   fixMinuteOrSecond(newMinuteOrSecond: number): number {
     let val = Number(newMinuteOrSecond);
+    if(isNaN(val)) {
+      val = 0;
+    }
     if(val < 0) {
-      val = -1 * val;
+      val = Math.abs(val);
     }
     while(val >= 60) {
       val -= 60;
     }
     return val;
+  }
+
+  roundTime(datetime?:Date|Date[]|string[]):Date|Date[]|string[] {
+    let value = datetime ? datetime : this.value ? this.value : this.defaultDate ? this.defaultDate : new Date();
+    let values = [value];
+    let minutes = this.currentMinute;
+    if(minutes != null && this.roundMinutesToNearest !== 0) {
+      let min = this.roundToNearest(minutes, this.roundMinutesToNearest);
+      this.currentMinute = min;
+    }
+    let res:any[] = values.map(date => {
+      if(date != null) {
+        let val = moment(date);
+        if(moment.isMoment(val) && moment.isValid(val) && this.roundMinutesToNearest !== 0) {
+          val = moment(val).round(this.roundMinutesToNearest, 'min', 'round');
+          return val.toDate();
+        }
+      }
+    });
+    if(this.isSingleSelection()) {
+      this.value = res[0];
+    } else if(this.isRangeSelection()) {
+      this.value = res;
+    } else if(this.isMultipleSelection()) {
+      this.value = res;
+    }
+    this.value = res;
+    return res;
   }
 
   ngAfterContentInit() {
@@ -831,10 +972,25 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   initTime(date: Date) {
     this.pm = date.getHours() > 11;
+    let minround = this.roundMinutesToNearest != null && this.roundMinutesToNearest > 0 ? this.roundMinutesToNearest : 0;
+    if(this.debug) {
+      console.log(`initTime(): called with datetime:`, date);
+      console.log(`initTime(): minute rounding set to:`, minround);
+    }
 
     if (this.showTime) {
-      this.currentMinute = date.getMinutes();
-      this.currentSecond = date.getSeconds();
+      let minute = date.getMinutes();
+      let second = date.getSeconds();
+      if(!this.showSeconds) {
+        second = 0;
+      }
+      if(minround > 0) {
+        minute = this.roundToNearest(minute, this.roundMinutesToNearest);
+        second = 0;
+      }
+
+      this.currentMinute = minute;
+      this.currentSecond = second;
 
       if (this.hourFormat == '12') {
           this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
@@ -845,6 +1001,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
       this.currentMinute = 0;
       this.currentHour = 0;
       this.currentSecond = 0;
+    }
+    if(this.debug) {
+      console.log(`initTime(): Time initialized to: ${this.showCurrentHour}:${this.showCurrentMinute}:${this.showCurrentSecond}`);
     }
   }
 
@@ -977,8 +1136,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     if (this.value) {
       if (this.isSingleSelection()) {
         formattedValue = this.formatDateTime(this.value);
-      }
-      else if (this.isMultipleSelection()) {
+      } else if (this.isMultipleSelection()) {
         for (let i = 0; i < this.value.length; i++) {
           let dateAsString = this.formatDateTime(this.value[i]);
           formattedValue += dateAsString;
@@ -986,8 +1144,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             formattedValue += ', ';
           }
         }
-      }
-      else if (this.isRangeSelection()) {
+      } else if (this.isRangeSelection()) {
         if (this.value && this.value.length) {
           let startDate = this.value[0];
           let endDate = this.value[1];
@@ -1043,6 +1200,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
       this.currentHour = date.getHours();
       this.currentMinute = date.getMinutes();
       this.currentSecond = date.getSeconds();
+      if(!this.showSeconds) {
+        this.currentSecond = 0;
+      }
     }
 
     if (this.maxDate && this.maxDate < date) {
@@ -1050,6 +1210,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
       this.currentHour = date.getHours();
       this.currentMinute = date.getMinutes();
       this.currentSecond = date.getSeconds();
+      if(!this.showSeconds) {
+        this.currentSecond = 0;
+      }
+
     }
 
     if (this.isSingleSelection()) {
@@ -1077,21 +1241,21 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.updateModel([date, null]);
       }
     }
-
+    if(this.debug) {
+      console.log(`selectDate(): Current value is:`, this.value);
+    }
     this.onSelect.emit(date);
   }
 
-  updateModel(value) {
+  updateModel(value:Date|[Date,Date]|Date[]) {
     this.value = value;
 
     if (this.dataType == 'date') {
       this.onModelChange(this.value);
-    }
-    else if (this.dataType == 'string') {
+    } else if (this.dataType == 'string') {
       if (this.isSingleSelection()) {
         this.onModelChange(this.formatDateTime(this.value));
-      }
-      else {
+      } else {
         let stringArrValue = null;
         if (this.value) {
           stringArrValue = this.value.map(date => this.formatDateTime(date));
@@ -1350,6 +1514,16 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     this.createMonths(this.currentMonth, this.currentYear);
   }
 
+  // fixInputHour(value:string):string {
+  //   let time = Number(value);
+  //   let strTime = String(value);
+  //   if(!isNaN(time)) {
+  //     time = this.fixHour(time);
+  //     strTime = time < 10 ? '0' + time : time > this.maxHours ? strTime.slice(-2) : strTime;
+  //   }
+  //   return PLORP;
+  // }
+
   incrementHour(event, noPreventDefault?:boolean) {
     let pd = typeof noPreventDefault === 'boolean' ? !noPreventDefault : true;
     const prevHour = this.currentHour;
@@ -1402,7 +1576,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     let valid: boolean = true;
     let value = this.value;
     if (this.isRangeSelection()) {
-      value = this.value[1] || this.value[0];
+      value = Array.isArray(this.value) && this.value.length === 2 ? this.value[1] || this.value[0] : null;
     }
     if (this.isMultipleSelection()) {
       value = this.value[this.value.length - 1];
@@ -1454,7 +1628,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     let valid: boolean = true;
     let value = this.value;
     if (this.isRangeSelection()) {
-      value = this.value[1] || this.value[0];
+      value = Array.isArray(this.value) && this.value.length === 2 ? this.value[1] || this.value[0] : null;
     }
     if (this.isMultipleSelection()) {
       value = this.value[this.value.length - 1];
@@ -1509,7 +1683,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     let valid: boolean = true;
     let value = this.value;
     if (this.isRangeSelection()) {
-      value = this.value[1] || this.value[0];
+      value = Array.isArray(this.value) && this.value.length === 2 ? this.value[1] || this.value[0] : null;
     }
     if (this.isMultipleSelection()) {
       value = this.value[this.value.length - 1];
@@ -1534,7 +1708,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   updateTime() {
     let value = this.value;
     if (this.isRangeSelection()) {
-      value = this.value[1] || this.value[0];
+      value = Array.isArray(this.value) && this.value.length === 2 ? this.value[1] || this.value[0] : null;
     }
     if (this.isMultipleSelection()) {
       value = this.value[this.value.length - 1];
@@ -1552,9 +1726,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     value.setMinutes(this.currentMinute);
-    value.setSeconds(this.currentSecond);
+    let second = this.currentSecond;
+    if(!this.showSeconds) {
+      second = 0;
+    }
+    value.setSeconds(second);
     if(this.isRangeSelection()) {
-      if (this.value[1]) {
+      if (Array.isArray(this.value) && this.value.length === 2 && this.value[1]) {
         value = [this.value[0], value];
       } else {
         value = [value, null];
@@ -1568,6 +1746,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     this.updateModel(value);
     this.onSelect.emit(value);
     this.updateInputfield();
+    if(this.debug) {
+      console.log(`updateTime(): Current value is:`, this.value);
+    }
   }
 
   toggleAMPM(event) {
@@ -1677,23 +1858,31 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     if (this.showTime || this.timeOnly) {
       let hours = val.getHours();
+      let mins = val.getMinutes();
+      let secs = val.getSeconds();
+      let minround = this.roundMinutesToNearest != null && this.roundMinutesToNearest > 0 ? this.roundMinutesToNearest : 0;
+      if(minround > 0) {
+        secs = 0;
+        mins = this.roundToNearest(mins, minround);
+      }
+      if(!this.showSeconds) {
+        secs = 0;
+      }
 
       if (this.hourFormat == '12') {
         this.pm = hours > 11;
 
         if (hours >= 12) {
           this.currentHour = (hours == 12) ? 12 : hours - 12;
-        }
-        else {
+        } else {
           this.currentHour = (hours == 0) ? 12 : hours;
         }
-      }
-      else {
+      } else {
         this.currentHour = val.getHours();
       }
 
-      this.currentMinute = val.getMinutes();
-      this.currentSecond = val.getSeconds();
+      this.currentMinute = mins;
+      this.currentSecond = secs;
     }
   }
 
@@ -1705,12 +1894,19 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     this.overlayVisible = true;
   }
 
+  onShowCalendar = this.onOverlayAnimationStart;
+
   onOverlayAnimationStart(event: AnimationEvent) {
+    let minround = this.roundMinutesToNearest ? this.roundMinutesToNearest : 0;
     switch (event.toState) {
       case 'visible':
       case 'visibleTouchUI':
         if(!this.defaultDate) {
-          this.defaultDate = new Date();
+          let defDate = moment();
+          if(minround) {
+            defDate = moment(defDate).round(minround, 'min');
+          }
+          this.defaultDate = defDate.toDate();
         }
         if (!this.inline) {
           this.overlay = event.element;
@@ -2154,10 +2350,18 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
   onNowButtonClick(event) {
     let date: Date = new Date();
-    let dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), hour: date.getHours(), minute: date.getMinutes(), second: date.getSeconds(), millisecond: date.getMilliseconds(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
+    let minute:number = date.getMinutes();
+    let second = date.getSeconds();
+    if(!this.showSeconds) {
+      second = 0;
+    }
+    if(this.roundMinutesToNearest != null && this.roundMinutesToNearest > 0) {
+      minute = this.roundToNearest(minute, this.roundMinutesToNearest);
+    }
+    let dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), hour: date.getHours(), minute: minute, second: second, millisecond: date.getMilliseconds(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
     this.currentHour = date.getHours();
-    this.currentMinute = date.getMinutes();
-    this.currentSecond = date.getSeconds();
+    this.currentMinute = minute;
+    this.currentSecond = second;
     this.onDateSelect(event, dateMeta);
     this.onNowClick.emit(event);
   }
@@ -2170,11 +2374,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   }
 
   onSaveButtonClick(evt) {
-    if(!(this.value && this.value instanceof Date)) {
-      if(this.defaultDate instanceof Date) {
-        this.value = this.defaultDate;
+    let defDate:Date = this.defaultDate ? this.defaultDate : new Date();
+    if(!this.value) {
+      if(this.isRangeSelection()) {
+        this.updateModel([defDate, defDate]);
+      } else if(this.isMultipleSelection()) {
+        this.updateModel([defDate]);
       } else {
-        this.value = new Date();
+        this.updateModel(defDate);
       }
     }
     this.updateInputfield();
@@ -2231,6 +2438,42 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   }
   onInputSeconds(evt: any) {
     this.inputChangedSeconds.next(evt);
+  }
+
+  onInputTimeFocus(type:string, el:HTMLInputElement, evt?:FocusEvent) {
+    if(this.debug) {
+      console.log(`onInputTimeFocus(): For ${type}, got element and event:\n`, el, '\n', evt);
+    }
+    el.setSelectionRange(0, -1, 'forward');
+  }
+  onInputTimeBlur(type:string, el:HTMLInputElement, evt?:FocusEvent) {
+    if(this.debug) {
+      console.log(`onInputTimeBlur(): For ${type}, got element and event:\n`, el, '\n', evt);
+    }
+    let time:number, val:string;
+    switch(type) {
+      case 'hour':
+        time = this.currentHour;
+        val = el.value;
+        if(Number(time) !== Number(val)) {
+          el.value = this.showCurrentHour;
+        }
+        break;
+      case 'minute':
+        time = this.currentMinute;
+        val = el.value;
+        if(Number(time) !== Number(val)) {
+          el.value = this.showCurrentMinute;
+        }
+        break;
+      case 'second':
+        time = this.currentSecond;
+        val = el.value;
+        if(Number(time) !== Number(val)) {
+          el.value = this.showCurrentSecond;
+        }
+      break;
+    }
   }
 
   onKeyUp(type:'hour'|'minute'|'second', evt:KeyboardEvent) {
@@ -2367,6 +2610,134 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         break;
     }
   }
+
+  /**
+  * Round parameter 1 to the nearest multiple of parameter 2.
+  * Works with fractional values as well as integers.
+  * Examples:
+  * (5, 15) => 0
+  * (8, 15) => 15
+  * (20, 15) => 15
+  * (25, 15) => 30
+  * (25, 100) => 0
+  * (51, 100) => 100
+  * (1.25, 0.1) => 1.3
+  *
+  * @param {number} value Number to be rounded.
+  * @param {number} roundTo Number to round to the nearest multiple of. Must be positive. Can be fractional!
+  * @returns {number} The rounded value.
+  */
+  public roundToNearest(value:number, roundTo:number):number {
+    let toRound:number = Number(value);
+    let numRoundTo = Number(roundTo);
+    let step = !isNaN(numRoundTo) ? Math.abs(numRoundTo) : 1.0;
+    if(step === 0) {
+      console.warn(`roundToNearest(): Rounding to the nearest 0 makes no sense, aborting.`);
+      return null;
+    }
+    if(!isNaN(step)) {
+      let intStep = Math.trunc(step);
+      if(intStep !== step) {
+        /* Rounding to a fractional value */
+        let inverse = 1.0 / step;
+        return Math.round(toRound * inverse) / inverse;
+      } else {
+        let result = Math.round(toRound / step) * step;
+        if(!isNaN(result)) {
+          return result;
+        }
+      }
+    }
+    console.warn(`roundToNearest(): Must supply numbers as parameters.`);
+    return null;
+  };
+
+  /**
+  * Round parameter 1 up to the next multiple of parameter 2.
+  * Examples:
+  * (5, 15) => 15
+  * (8, 15) => 15
+  * (20, 15) => 30
+  * (31, 15) => 45
+  * (25, 100) => 100
+  * (101, 100) => 200
+  * (1.25, 0.1) => 1.3
+
+  * @param {number} value Number to be rounded.
+  * @param {number} roundTo Number to round to the next higher multiple of. Must be positive. Can be fractional!
+  * @returns {number} The rounded value.
+  * @see {@link roundToNearest} for the version that rounds to the nearest instead of next higher.
+  * @see {@link roundDownToNearest} for the version that rounds to the previous multiple instead of next multiple.
+  */
+  public roundUpToNearest(value:number, roundTo:number):number {
+    let toRound:number = Number(value);
+    let numRoundTo = Number(roundTo);
+    let step = !isNaN(numRoundTo) ? Math.abs(numRoundTo) : 1.0;
+    if(step === 0) {
+      console.warn(`roundToNearest(): Rounding to the nearest 0 makes no sense, aborting.`);
+      return null;
+    }
+    if(!isNaN(toRound)) {
+      let intStep = Math.trunc(step);
+      if(intStep !== step) {
+        /* Rounding to a fractional value */
+        let inverse = 1.0 / step;
+        return Math.ceil(toRound * inverse) / inverse;
+      } else {
+        let result = Math.ceil(toRound / step) * step;
+        if(!isNaN(result)) {
+          return result;
+        }
+      }
+    }
+    console.warn(`roundUpToNext(): Must supply numbers as parameters.`);
+    return null;
+  };
+
+  /**
+  * Round parameter 1 down to the nearest multiple of parameter 2 that is <= parameter 1.
+  * Examples:
+  * roundDownToNearest(5, 15) => 0
+  * roundDownToNearest(8, 15) => 0
+  * roundDownToNearest(20, 15) => 15
+  * roundDownToNearest(31, 15) => 30
+  * roundDownToNearest(25, 100) => 0
+  * roundDownToNearest(101, 100) => 100
+  * roundDownToNearest(199, 100) => 100
+  * roundDownToNearest(1.25, 0.1) => 1.2
+
+  * @param {number} value Number to be rounded.
+  * @param {number} roundTo Number to round to the nearest multiple of that is not larger than the provided value.
+  * @returns {number} The rounded value.
+  * @see {@link roundToNearest} for the version that rounds to the nearest instead of rounding down.
+  * @see {@link roundUpToNearest} for the version that rounds to the next multiple instead of previous multiple.
+  */
+  public roundDownToNearest(value:number, roundTo:number):number {
+    let toRound:number = Number(value);
+    let numRoundTo = Number(roundTo);
+    let step = !isNaN(numRoundTo) ? Math.abs(numRoundTo) : 1.0;
+    if(step === 0) {
+      console.warn(`roundToNearest(): Rounding to the nearest 0 makes no sense, aborting.`);
+      return null;
+    }
+    if(!isNaN(toRound)) {
+      let intStep = Math.trunc(step);
+      if(intStep !== step) {
+        /* Rounding to a fractional value */
+        let inverse = 1.0 / step;
+        return Math.floor(toRound * inverse) / inverse;
+      } else {
+        let result = Math.floor(toRound / step) * step;
+        if(!isNaN(result)) {
+          return result;
+        }
+      }
+    }
+    console.warn(`roundDownToNext(): Must supply numbers as parameters.`);
+    return null;
+  };
+
+
 }
 
 @NgModule({
