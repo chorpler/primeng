@@ -629,6 +629,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
   }
 
+  public wheelListener = this.onCalendarWheelEvent.bind(this);
+
   constructor(
     public el         : ElementRef        ,
     public domHandler : DomHandler        ,
@@ -655,10 +657,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     this.currentMonth = date.getMonth();
     this.currentYear = date.getFullYear();
 
-    const wheelListener = this.onCalendarWheelEvent.bind(this);
-
-    // document.addEventListener('wheel', wheelListener, {passive:false});
-    document.addEventListener('wheel', wheelListener, {passive:true});
+    // // document.addEventListener('wheel', wheelListener, {passive:false});
+    // document.addEventListener('wheel', this.wheelListener, {passive:true});
 
     if (this.yearNavigator && this.yearRange) {
       const years = this.yearRange.split(':');
@@ -1901,6 +1901,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     switch (event.toState) {
       case 'visible':
       case 'visibleTouchUI':
+        // document.addEventListener('wheel', wheelListener, {passive:false});
+        document.addEventListener('wheel', this.wheelListener, {passive:true});
         if(!this.defaultDate) {
           let defDate = moment();
           if(minround) {
@@ -2408,6 +2410,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
       this.documentClickListener();
       this.documentClickListener = null;
     }
+    document.removeEventListener('wheel', this.wheelListener, false);
+    document.removeEventListener('wheel', this.wheelListener, true);
   }
 
   onOverlayHide() {
