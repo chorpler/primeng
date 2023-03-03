@@ -6,17 +6,16 @@ import { CalendarDemoRoutingModule } from './calendardemo-routing.module';
 import { CalendarModule } from '../../../components/calendar/calendar';
 import { TabViewModule } from '../../../components/tabview/tabview';
 import { CodeHighlighterModule } from '../../../components/codehighlighter/codehighlighter';
-import { DirectivesModule } from '../../../directives/directives.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
     FormsModule,
-    DirectivesModule,
+    // DirectivesModule,
 		CalendarDemoRoutingModule,
     CalendarModule,
     TabViewModule,
-    CodeHighlighterModule
+    CodeHighlighterModule,
 	],
 	declarations: [
 		CalendarDemo
