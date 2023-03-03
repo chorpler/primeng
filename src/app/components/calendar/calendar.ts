@@ -1,38 +1,41 @@
-import { NgModule             } from '@angular/core'          ;
-import { Component            } from '@angular/core'          ;
-import { ElementRef           } from '@angular/core'          ;
-import { OnDestroy            } from '@angular/core'          ;
-import { OnInit               } from '@angular/core'          ;
-import { Input                } from '@angular/core'          ;
-import { Output               } from '@angular/core'          ;
-import { SimpleChange         } from '@angular/core'          ;
-import { EventEmitter         } from '@angular/core'          ;
-import { Renderer2            } from '@angular/core'          ;
-import { ViewChild            } from '@angular/core'          ;
-import { ChangeDetectorRef    } from '@angular/core'          ;
-import { ApplicationRef       } from '@angular/core'          ;
-import { TemplateRef          } from '@angular/core'          ;
-import { ContentChildren      } from '@angular/core'          ;
-import { QueryList            } from '@angular/core'          ;
-import { forwardRef           } from '@angular/core'          ;
-import { CommonModule         } from '@angular/common'        ;
-import { AnimationEvent       } from '@angular/animations'    ;
-import { FormsModule          } from '@angular/forms'         ;
-import { NG_VALUE_ACCESSOR    } from '@angular/forms'         ;
-import { ControlValueAccessor } from '@angular/forms'         ;
-import { trigger              } from '@angular/animations'    ;
-import { state                } from '@angular/animations'    ;
-import { style                } from '@angular/animations'    ;
-import { transition           } from '@angular/animations'    ;
-import { animate              } from '@angular/animations'    ;
-import { ButtonModule         } from '../button/button'       ;
-import { DomHandler           } from '../dom/domhandler'      ;
-import { SharedModule         } from '../common/shared'       ;
-import { PrimeTemplate        } from '../common/shared'       ;
-import { Subject              } from 'rxjs'                   ;
-import { Subscription         } from 'rxjs'                   ;
-import { Moment               } from '../utils/moment-onsite' ;
-import { moment               } from '../utils/moment-onsite' ;
+import { NgModule               } from '@angular/core'                          ;
+import { Component              } from '@angular/core'                          ;
+import { ElementRef             } from '@angular/core'                          ;
+import { OnDestroy              } from '@angular/core'                          ;
+import { OnInit                 } from '@angular/core'                          ;
+import { Input                  } from '@angular/core'                          ;
+import { Output                 } from '@angular/core'                          ;
+import { SimpleChange           } from '@angular/core'                          ;
+import { EventEmitter           } from '@angular/core'                          ;
+import { Renderer2              } from '@angular/core'                          ;
+import { ViewChild              } from '@angular/core'                          ;
+import { ChangeDetectorRef      } from '@angular/core'                          ;
+import { ApplicationRef         } from '@angular/core'                          ;
+import { TemplateRef            } from '@angular/core'                          ;
+import { ContentChildren        } from '@angular/core'                          ;
+import { QueryList              } from '@angular/core'                          ;
+import { forwardRef             } from '@angular/core'                          ;
+import { CommonModule           } from '@angular/common'                        ;
+import { AnimationEvent         } from '@angular/animations'                    ;
+import { FormsModule            } from '@angular/forms'                         ;
+import { NG_VALUE_ACCESSOR      } from '@angular/forms'                         ;
+import { ControlValueAccessor   } from '@angular/forms'                         ;
+import { trigger                } from '@angular/animations'                    ;
+import { state                  } from '@angular/animations'                    ;
+import { style                  } from '@angular/animations'                    ;
+import { transition             } from '@angular/animations'                    ;
+import { animate                } from '@angular/animations'                    ;
+import { ButtonModule           } from '../button/button'                       ;
+import { DomHandler             } from '../dom/domhandler'                      ;
+import { SharedModule           } from '../common/shared'                       ;
+import { PrimeTemplate          } from '../common/shared'                       ;
+import { Subject                } from 'rxjs'                                   ;
+import { Subscription           } from 'rxjs'                                   ;
+import { Moment                 } from '../utils/moment-onsite'                 ;
+import { moment                 } from '../utils/moment-onsite'                 ;
+import { DebounceDirective      } from '../directives/debounce.directive'       ;
+import { MouseWheelDirective    } from '../directives/mousewheel.directive'     ;
+import { DebounceKeyupDirective } from '../directives/debounce-keyup.directive' ;
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -68,8 +71,8 @@ export type CalendarViewType = "date" | "month";
     <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick($event)" (blur)="onInputBlur($event)" [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" autocomplete="off"><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="ui-datepicker-trigger ui-calendar-button" [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1">
     </button>
   </ng-template>
-  <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
-        'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}" (click)="onDatePickerClick($event)" (wheel)="onCalendarWheelEvent($event)" [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}:
+  <!-- <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline, 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}" (click)="onDatePickerClick($event)" (wheel)="onCalendarWheelEvent($event)" [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}: -->
+  <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline, 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}" (click)="onDatePickerClick($event)" [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}:
         {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
     <ng-container *ngIf="!timeOnly">
       <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
@@ -122,7 +125,7 @@ export type CalendarViewType = "date" | "month";
         <a href="#" *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-monthpicker-month" [ngClass]="{'ui-state-active': isMonthSelected(i)}"> {{m}} </a>
       </div>
     </ng-container>
-    <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
+    <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly" mouseWheel (mouseWheelUp)="onWheelUp($event)" (mouseWheelDown)="onWheelDown($event)">
       <div class="ui-hour-picker">
         <a href="#" (click)="incrementHour($event)" [tabindex]="!timeReadOnly ? -1 : 20">
           <span class="pi pi-chevron-up"></span>
@@ -131,7 +134,9 @@ export type CalendarViewType = "date" | "month";
           <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
         </ng-container>
         <ng-container *ngIf="!timeReadOnly">
-          <input #inputhours type="text" [attr.id]="inputHoursId" [value]="showCurrentHour" (focus)="onInputTimeFocus('hour', inputhours, $event)" (blur)="onInputTimeBlur('hour', inputhours, $event)" [debounce] [delay]="timeInputDebounce" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" (wheel)="onInputScroll('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-hour'" tabindex="1" autocomplete="off" />
+          <input #inputhours type="text" [attr.id]="inputHoursId" [value]="showCurrentHour" (focus)="onInputTimeFocus('hour', inputhours, $event)" (blur)="onInputTimeBlur('hour', inputhours, $event)" debounceKeyUp [debounceTime]="timeInputDebounce" (onEvent)="onKeyUp('hour', $event)" (keyup.ArrowUp)="incrementHour($event)" (keyup.ArrowDown)="decrementHour($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-hour'" tabindex="1" autocomplete="off" />
+          <!-- <input #inputhours type="text" [attr.id]="inputHoursId" [value]="showCurrentHour" (focus)="onInputTimeFocus('hour', inputhours, $event)" (blur)="onInputTimeBlur('hour', inputhours, $event)" debounceKeyUp [debounceTime]="timeInputDebounce" (onEvent)="onKeyUp('hour', $event)" (keyup.ArrowUp)="incrementHour($event)" (keyup.ArrowDown)="decrementHour($event)" (wheel)="onInputScroll('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-hour'" tabindex="1" autocomplete="off" /> -->
+          <!-- <input #inputhours type="text" [attr.id]="inputHoursId" [value]="showCurrentHour" (focus)="onInputTimeFocus('hour', inputhours, $event)" (blur)="onInputTimeBlur('hour', inputhours, $event)" debounce [delay]="timeInputDebounce" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" (wheel)="onInputScroll('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-hour'" tabindex="1" autocomplete="off" /> -->
           <!-- <input #inputhours type="text" [attr.id]="inputHoursId" [value]="showCurrentHour" (focus)="onInputTimeFocus('hour', inputhours, $event)" (blur)="onInputTimeBlur('hour', inputhours, $event)" (input)="onInputHours($event)" (keyup)="onKeyUp('hour', $event)" (wheel)="onInputScroll('hour', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-hour'" tabindex="1" autocomplete="off" /> -->
         </ng-container>
         <a href="#" (click)="decrementHour($event)" [tabindex]="!timeReadOnly ? -1 : 21">
@@ -155,7 +160,9 @@ export type CalendarViewType = "date" | "month";
           <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
         </ng-container>
         <ng-container *ngIf="!timeReadOnly">
-          <input #inputminutes type="text" [attr.id]="inputMinutesId" [value]="showCurrentMinute" (focus)="onInputTimeFocus('minute', inputminutes, $event)" (blur)="onInputTimeBlur('minute', inputminutes, $event)" [debounce] [delay]="timeInputDebounce" (input)="onInputMinutes($event)" (keyup)="onKeyUp('minute', $event)" (wheel)="onInputScroll('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-minute'" tabindex="2" autocomplete="off" />
+          <input #inputminutes type="text" [attr.id]="inputMinutesId" [value]="showCurrentMinute" (focus)="onInputTimeFocus('minute', inputminutes, $event)" (blur)="onInputTimeBlur('minute', inputminutes, $event)" debounceKeyUp [debounceTime]="timeInputDebounce" (onEvent)="onKeyUp('minute', $event)" (keyup.ArrowUp)="incrementMinute($event)" (keyup.ArrowDown)="decrementMinute($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-minute'" tabindex="2" autocomplete="off" />
+          <!-- <input #inputminutes type="text" [attr.id]="inputMinutesId" [value]="showCurrentMinute" (focus)="onInputTimeFocus('minute', inputminutes, $event)" (blur)="onInputTimeBlur('minute', inputminutes, $event)" debounceKeyUp [debounceTime]="timeInputDebounce" (onEvent)="onKeyUp('minute', $event)" (keyup.ArrowUp)="incrementMinute($event)" (keyup.ArrowDown)="decrementMinute($event)" (wheel)="onInputScroll('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-minute'" tabindex="2" autocomplete="off" /> -->
+          <!-- <input #inputminutes type="text" [attr.id]="inputMinutesId" [value]="showCurrentMinute" (focus)="onInputTimeFocus('minute', inputminutes, $event)" (blur)="onInputTimeBlur('minute', inputminutes, $event)" debounce [delay]="timeInputDebounce" (input)="onInputMinutes($event)" (keyup)="onKeyUp('minute', $event)" (wheel)="onInputScroll('minute', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-minute'" tabindex="2" autocomplete="off" /> -->
         </ng-container>
         <a href="#" (click)="decrementMinute($event)" [tabindex]="!timeReadOnly ? -1 : 23">
           <span class="pi pi-chevron-down"></span>
@@ -178,7 +185,9 @@ export type CalendarViewType = "date" | "month";
           <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
         </ng-container>
         <ng-container *ngIf="!timeReadOnly">
-          <input #inputseconds type="text" [attr.id]="inputSecondsId" [value]="showCurrentSecond" (focus)="onInputTimeFocus('second', inputseconds, $event)" (blur)="onInputTimeBlur('second', inputseconds, $event)" [debounce] [delay]="timeInputDebounce" (input)="onInputSeconds($event)" (keyup)="onKeyUp('second', $event)" (wheel)="onInputScroll('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-second'" tabindex="3" autocomplete="off" />
+          <input #inputseconds type="text" [attr.id]="inputSecondsId" [value]="showCurrentSecond" (focus)="onInputTimeFocus('second', inputseconds, $event)" (blur)="onInputTimeBlur('second', inputseconds, $event)" debounceKeyUp [debounceTime]="timeInputDebounce" (onEvent)="onKeyUp('second', $event)" (keyup.ArrowUp)="incrementSecond($event)" (keyup.ArrowDown)="decrementSecond($event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-second'" tabindex="3" autocomplete="off" />
+          <!-- <input #inputseconds type="text" [attr.id]="inputSecondsId" [value]="showCurrentSecond" (focus)="onInputTimeFocus('second', inputseconds, $event)" (blur)="onInputTimeBlur('second', inputseconds, $event)" debounceKeyUp [debounceTime]="timeInputDebounce" (onEvent)="onKeyUp('second', $event)" (keyup.ArrowUp)="incrementSecond($event)" (keyup.ArrowDown)="decrementSecond($event)" (wheel)="onInputScroll('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-second'" tabindex="3" autocomplete="off" /> -->
+          <!-- <input #inputseconds type="text" [attr.id]="inputSecondsId" [value]="showCurrentSecond" (focus)="onInputTimeFocus('second', inputseconds, $event)" (blur)="onInputTimeBlur('second', inputseconds, $event)" debounce [delay]="timeInputDebounce" (input)="onInputSeconds($event)" (keyup)="onKeyUp('second', $event)" (wheel)="onInputScroll('second', $event)" [disabled]="timeReadOnly" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all input-time input-second'" tabindex="3" autocomplete="off" /> -->
         </ng-container>
         <a href="#" (click)="decrementSecond($event)" [tabindex]="!timeReadOnly ? -1 : 25">
           <span class="pi pi-chevron-down"></span>
@@ -265,7 +274,7 @@ export type CalendarViewType = "date" | "month";
     '[class.ui-inputwrapper-filled]': 'filled',
     '[class.ui-inputwrapper-focus]': 'focus'
   },
-  providers: [DomHandler, CALENDAR_VALUE_ACCESSOR]
+  providers: [DomHandler, CALENDAR_VALUE_ACCESSOR, DebounceKeyupDirective, MouseWheelDirective],
 })
 export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
@@ -630,8 +639,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
   }
 
-  public wheelListener = this.onCalendarWheelEvent.bind(this);
-  public _wheelEventListenerCount = 0;
+  // public wheelListener = this.onCalendarWheelEvent.bind(this);
+  // public _wheelEventListenerCount = 0;
 
   constructor(
     public el         : ElementRef        ,
@@ -732,7 +741,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
           this.updateTime();
         }
         if(this.debug) {
-            console.log(`inputChangedHours(): New datetime is:`, this.value);
+            console.log(`inputChangedHours: New datetime is:`, this.value);
         }
       });
 
@@ -754,7 +763,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
         time = this.fixMinuteOrSecond(time);
         if(this.debug) {
-          console.log(`inputChangedHours: Fixed value:`, time);
+          console.log(`inputChangedMinutes: Fixed value:`, time);
         }
         let min = (time > 59) ? time - 60 : time;
         if(minround > 0) {
@@ -763,7 +772,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.currentMinute = min;
         this.updateTime();
         if(this.debug) {
-            console.log(`inputChangedMinutes(): New datetime is:`, this.value);
+            console.log(`inputChangedMinutes: New datetime is:`, this.value);
         }
       });
 
@@ -783,12 +792,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
         time = this.fixMinuteOrSecond(time);
         if(this.debug) {
-          console.log(`inputChangedHours: Fixed value:`, time);
+          console.log(`inputChangedSeconds: Fixed value:`, time);
         }
         this.currentSecond = (time > 59) ? time - 60 : time;
         this.updateTime();
         if(this.debug) {
-          console.log(`inputChangedSeconds(): New datetime is:`, this.value);
+          console.log(`inputChangedSeconds: New datetime is:`, this.value);
         }
       });
     }
@@ -1529,7 +1538,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   //   return PLORP;
   // }
 
-  incrementHour(evt?:MouseEvent|KeyboardEvent, noPreventDefault?:boolean) {
+  incrementHour(evt?:MouseEvent|KeyboardEvent|MouseWheelEvent, noPreventDefault?:boolean) {
     let pd = typeof noPreventDefault === 'boolean' ? !noPreventDefault : true;
     const prevHour = this.currentHour;
     const newHour = this.currentHour + this.stepHour;
@@ -1559,7 +1568,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
   }
 
-  decrementHour(evt?:MouseEvent|KeyboardEvent, noPreventDefault?:boolean) {
+  decrementHour(evt?:MouseEvent|KeyboardEvent|MouseWheelEvent, noPreventDefault?:boolean) {
     let pd = typeof noPreventDefault === 'boolean' ? !noPreventDefault : true;
     const newHour = this.currentHour - this.stepHour;
     if(this.debug) {
@@ -1614,7 +1623,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     return valid;
   }
 
-  incrementMinute(evt?:MouseEvent|KeyboardEvent, noPreventDefault?:boolean) {
+  incrementMinute(evt?:MouseEvent|KeyboardEvent|MouseWheelEvent, noPreventDefault?:boolean) {
     let pd = typeof noPreventDefault === 'boolean' ? !noPreventDefault : true;
     let newMinute = this.currentMinute + this.stepMinute;
     if(this.debug) {
@@ -1633,7 +1642,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
   }
 
-  decrementMinute(evt?:MouseEvent|KeyboardEvent, noPreventDefault?:boolean) {
+  decrementMinute(evt?:MouseEvent|KeyboardEvent|MouseWheelEvent, noPreventDefault?:boolean) {
     let pd = typeof noPreventDefault === 'boolean' ? !noPreventDefault : true;
     let newMinute = this.currentMinute - this.stepMinute;
     if(this.debug) {
@@ -1681,7 +1690,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     return valid;
   }
 
-  incrementSecond(evt?:MouseEvent|KeyboardEvent, noPreventDefault?:boolean) {
+  incrementSecond(evt?:MouseEvent|KeyboardEvent|MouseWheelEvent, noPreventDefault?:boolean) {
     let pd = typeof noPreventDefault === 'boolean' ? !noPreventDefault : true;
     let newSecond = this.currentSecond + this.stepSecond;
     if(this.debug) {
@@ -1700,7 +1709,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
   }
 
-  decrementSecond(evt?:MouseEvent|KeyboardEvent, noPreventDefault?:boolean) {
+  decrementSecond(evt?:MouseEvent|KeyboardEvent|MouseWheelEvent, noPreventDefault?:boolean) {
     let pd = typeof noPreventDefault === 'boolean' ? !noPreventDefault : true;
     let newSecond = this.currentSecond - this.stepSecond;
     if(this.debug) {
@@ -1944,10 +1953,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     switch (event.toState) {
       case 'visible':
       case 'visibleTouchUI':
-        if(!this.timeReadOnly) {
-          this._wheelEventListenerCount++;
-          document.addEventListener('wheel', this.wheelListener, {passive:true});
-        }
+        // if(!this.timeReadOnly) {
+        //   this._wheelEventListenerCount++;
+        //   document.addEventListener('wheel', this.wheelListener, {passive:true});
+        // }
         if(!this.defaultDate) {
           let defDate = moment();
           if(minround) {
@@ -2455,13 +2464,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
       this.documentClickListener();
       this.documentClickListener = null;
     }
-    if(!this.timeReadOnly) {
-      while(this._wheelEventListenerCount > 0) {
-        document.removeEventListener('wheel', this.wheelListener, false);
-        document.removeEventListener('wheel', this.wheelListener, true);
-        this._wheelEventListenerCount--;
-      }
-    }
+    // if(!this.timeReadOnly) {
+    //   while(this._wheelEventListenerCount > 0) {
+    //     document.removeEventListener('wheel', this.wheelListener, false);
+    //     document.removeEventListener('wheel', this.wheelListener, true);
+    //     this._wheelEventListenerCount--;
+    //   }
+    // }
   }
 
   onOverlayHide() {
@@ -2530,36 +2539,105 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
   }
 
-  onKeyUp(type:'hour'|'minute'|'second', evt:KeyboardEvent) {
+  onKeyUp(type:'hour'|'minute'|'second', evt:any) {
     if(evt != null && evt.preventDefault != null) {
       evt.preventDefault();
     }
     switch(type) {
       case 'hour':
-        if(evt && evt.key === 'ArrowDown') {
+        if(evt && evt.key === 'ArrowUp') {
           // evt.preventDefault();
-          this.incrementHour(evt);
-        } else if(evt && evt.key === 'ArrowUp') {
+          // this.incrementHour(evt);
+        } else if(evt && evt.key === 'ArrowDown') {
           // evt.preventDefault();
-          this.decrementHour(evt);
+          // this.decrementHour(evt);
+        } else {
+          let val = evt && evt.target ? evt.target.value : null;
+          let time = Number(val);
+          time = this.fixHour(time);
+          if(this.validateHour(time)) {
+            if(this.hourFormat == '24') {
+              this.currentHour = (time >= 24) ? (time - 24) : (time < 0) ? 0 : time;
+            } else if(this.hourFormat == '12') {
+              // Before the AM/PM break, now after
+              this.currentHour = (time >= 13) ? (time - 12) : (time < 0) ? 0 : time;
+              if(time >= 12) {
+                this.pm = true;
+              } else {
+                this.pm = false;
+              }
+            }
+            this.updateTime();
+          }
         }
         break;
       case 'minute':
-        if(evt && evt.key === 'ArrowDown') {
+        if(evt && evt.key === 'ArrowUp') {
           // evt.preventDefault();
-          this.incrementMinute(evt);
-        } else if(evt && evt.key === 'ArrowUp') {
+          // this.incrementMinute(evt);
+        } else if(evt && evt.key === 'ArrowDown') {
           // evt.preventDefault();
-          this.decrementMinute(evt);
+          // this.decrementMinute(evt);
+        } else {
+          let val = evt && evt.target ? evt.target.value : null;
+          let time = Number(val);
+          let minround = this.roundMinutesToNearest != null && this.roundMinutesToNearest > 0 ? this.roundMinutesToNearest : 0;
+          if(this.debug) {
+            console.log(`onKeyUp(minute): Event, input value, and numeric value:\n`, evt, '\n', val, '\n', time);
+          }
+          if(isNaN(time)) {
+            time = 0;
+            this.currentMinute = null;
+            if(this.debug) {
+              console.log(`onKeyUp(minute): non-numeric value entered:`, val);
+            }
+            return;
+          }
+          time = this.fixMinuteOrSecond(time);
+          if(this.debug) {
+            console.log(`onKeyUp(minute): Fixed value:`, time);
+          }
+          let min = (time > 59) ? time - 60 : time;
+          if(minround > 0) {
+            min = this.roundToNearest(min, minround);
+          }
+          this.currentMinute = min;
+          this.updateTime();
+          if(this.debug) {
+              console.log(`onKeyUp(minute): New datetime is:`, this.value);
+          }
         }
         break;
       case 'second':
-        if(evt && evt.key === 'ArrowDown') {
+        if(evt && evt.key === 'ArrowUp') {
           // evt.preventDefault();
-          this.incrementSecond(evt);
-        } else if(evt && evt.key === 'ArrowUp') {
+          // this.incrementSecond(evt);
+        } else if(evt && evt.key === 'ArrowDown') {
           // evt.preventDefault();
-          this.decrementSecond(evt);
+          // this.decrementSecond(evt);
+        } else {
+          let val = evt && evt.target ? evt.target.value : null;
+          let time = Number(val);
+          if(this.debug) {
+            console.log(`onKeyUp(second): Event, input value, and numeric value:\n`, evt, '\n', val, '\n', time);
+          }
+          if(isNaN(time)) {
+            time = 0;
+            this.currentSecond = null;
+            if(this.debug) {
+              console.log(`onKeyUp(second): non-numeric value entered:`, val);
+            }
+            return;
+          }
+          time = this.fixMinuteOrSecond(time);
+          if(this.debug) {
+            console.log(`onKeyUp(second): Fixed value:`, time);
+          }
+          this.currentSecond = (time > 59) ? time - 60 : time;
+          this.updateTime();
+          if(this.debug) {
+            console.log(`onKeyUp(second): New datetime is:`, this.value);
+          }
         }
         break;
       default:
@@ -2602,6 +2680,93 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
           evt.preventDefault();
           this.decrementSecond(evt, true);
         }
+        break;
+      default:
+        break;
+    }
+  }
+
+  onWheelUp(evt:WheelEvent) {
+    let type:"hour"|"minute"|"second";
+    let tgt:HTMLInputElement;
+    let dir = -1;
+    let varTgt;
+    let elAct = document.activeElement;
+    let elHrs = this.inputhours != null ? this.inputhours.nativeElement : null;
+    let elMin = this.inputminutes != null ? this.inputminutes.nativeElement : null;
+    let elSec = this.inputseconds != null ? this.inputseconds.nativeElement : null;
+    if(elHrs != null && elAct === elHrs) {
+      type = 'hour';
+      tgt = elHrs;
+    }
+    if(elMin != null && elAct === elMin) {
+      type = 'minute';
+      tgt = elMin;
+    }
+    if(elSec != null && elAct === elSec) {
+      type = 'second';
+      tgt = elSec;
+    }
+
+    switch(type) {
+      case 'hour':
+        evt.preventDefault();
+        this.incrementHour(evt);
+        // if(dir < 0) {
+        // //   evt.preventDefault();
+        //   this.incrementHour(evt, true);
+        // } else if(dir > 0) {
+        // //   evt.preventDefault();
+        //   this.decrementHour(evt, true);
+        // }
+        break;
+      case 'minute':
+        evt.preventDefault();
+        this.incrementMinute(evt);
+        break;
+      case 'second':
+        evt.preventDefault();
+        this.incrementSecond(evt);
+        break;
+      default:
+        break;
+    }
+  }
+
+  onWheelDown(evt:WheelEvent) {
+    let type:"hour"|"minute"|"second";
+    let tgt:HTMLInputElement;
+    let dir = -1;
+    let varTgt;
+    let elAct = document.activeElement;
+    let elHrs = this.inputhours != null ? this.inputhours.nativeElement : null;
+    let elMin = this.inputminutes != null ? this.inputminutes.nativeElement : null;
+    let elSec = this.inputseconds != null ? this.inputseconds.nativeElement : null;
+    if(elHrs != null && elAct === elHrs) {
+      type = 'hour';
+      tgt = elHrs;
+    }
+    if(elMin != null && elAct === elMin) {
+      type = 'minute';
+      tgt = elMin;
+    }
+    if(elSec != null && elAct === elSec) {
+      type = 'second';
+      tgt = elSec;
+    }
+
+    switch(type) {
+      case 'hour':
+        evt.preventDefault();
+        this.decrementHour(evt);
+        break;
+      case 'minute':
+        evt.preventDefault();
+        this.decrementMinute(evt);
+        break;
+      case 'second':
+        evt.preventDefault();
+        this.decrementSecond(evt);
         break;
       default:
         break;
@@ -2796,7 +2961,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
 @NgModule({
   imports: [CommonModule, ButtonModule, SharedModule, FormsModule],
-  exports: [Calendar, ButtonModule, SharedModule, FormsModule],
-  declarations: [Calendar]
+  exports: [Calendar, DebounceKeyupDirective, MouseWheelDirective, ButtonModule, SharedModule, FormsModule],
+  declarations: [Calendar,DebounceKeyupDirective,MouseWheelDirective]
 })
 export class CalendarModule { }
